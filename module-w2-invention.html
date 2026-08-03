@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Week 2 · Finding Your Material</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; --due:#7a3b1f; --duesoft:#f6ebe1; --reflect:#5a3b86; --reflectsoft:#efe9f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; --due:#e0a878; --duesoft:#2c2013; --reflect:#b3a4de; --reflectsoft:#1f1b2c; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #mod{max-width:760px; margin:0 auto; padding:28px 20px 90px}
+  #mod h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.9rem; margin:0; line-height:1.15}
+  #mod .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #mod .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:18px}
+  #mod .sub{color:var(--muted); margin:8px 0 0; font-size:1.05rem}
+  #mod .meta{color:var(--muted); font-size:.86rem; margin-top:8px}
+  #mod .part{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:30px 0 4px; padding-top:6px; border-top:1px solid var(--line)}
+  #mod h2{font-family:Georgia,"Iowan Old Style",serif; font-size:1.35rem; margin:2px 0 10px}
+  #mod p{margin:.6rem 0}
+  #mod .box{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:12px 0}
+  #mod .box.accent{border-left:5px solid var(--accent)}
+  #mod .ground{background:var(--reflectsoft); border:1px solid var(--line); border-left:5px solid var(--reflect); border-radius:12px; padding:14px 16px; margin:14px 0}
+  #mod .ground .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--reflect); display:block; margin-bottom:3px}
+  #mod .sci{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:13px 16px; margin:12px 0; font-size:.96rem}
+  #mod .sci .lab{font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  #mod ul{margin:.5rem 0; padding-left:1.2rem} #mod li{margin:.45rem 0}
+  #mod ol.steps{margin:.5rem 0; padding-left:1.3rem} #mod ol.steps li{margin:.6rem 0}
+  #mod a{color:var(--accent)}
+  #mod .read{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px}
+  #mod .read .r{border-top:1px solid var(--line); padding:11px 0} #mod .read .r:first-child{border-top:0}
+  #mod .read .r .t{font-weight:700} #mod .read .r .c{color:var(--muted); font-size:.88rem}
+  #mod .read .req{display:inline-block; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:0 8px; margin-left:6px; vertical-align:1px}
+  #mod .qc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px 4px; margin:10px 0}
+  #mod .qcitem{border-top:1px solid var(--line); padding:11px 0} #mod .qcitem:first-of-type{border-top:0}
+  #mod .qcitem .s{font-weight:600; margin:0 0 8px}
+  #mod .qcitem .opts{display:flex; gap:8px}
+  #mod .qcitem .opt{flex:1; font:inherit; font-weight:700; font-size:.9rem; cursor:pointer; border-radius:8px; padding:8px; border:1.5px solid var(--line); background:var(--field); color:var(--ink)}
+  #mod .qcitem .opt.pick{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #mod .qcitem.right .opt.pick{border-color:var(--good); background:var(--goodsoft); color:var(--good)}
+  #mod .qcitem.wrong .opt.pick{border-color:var(--no); background:var(--nosoft); color:var(--no)}
+  #mod .qcitem .fb{margin-top:8px; font-size:.9rem; color:var(--muted)} #mod .qcitem .fb[hidden]{display:none}
+  #mod .qcbtn{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:9px 15px; border:1px solid var(--accent); background:var(--accent); color:#fff; margin:8px 0}
+  #mod .qcres{font-weight:700; color:var(--accent); margin-left:10px}
+  #mod a.btn{display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font-weight:700; border-radius:9px; padding:12px 20px; margin:8px 0}
+  #mod .write{margin:10px 0}
+  #mod .write label{display:block; font-weight:600; margin-bottom:5px}
+  #mod textarea{width:100%; min-height:120px; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6; resize:vertical}
+  #mod textarea:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mod .priv{font-size:.82rem; color:var(--muted); margin-top:4px}
+  #mod .saved{color:var(--good); font-size:.85rem; font-weight:700; opacity:0; transition:opacity .2s} #mod .saved.show{opacity:1}
+  #mod .duebox{background:var(--duesoft); border:1px solid var(--line); border-left:5px solid var(--due); border-radius:12px; padding:14px 16px; margin:16px 0}
+  #mod .duebox .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--due); display:block; margin-bottom:3px}
+  #mod .close{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-top:22px}
+  #mod .note{color:var(--muted); font-size:.9rem}
+  #mod .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="mod">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Week 2 · Module</p>
+    <h1>Finding Your Material</h1>
+    <p class="sub">Your first essay is a personal one. But you don't start with a topic, you start by generating honest, specific material and seeing what has life in it. This week you write to find out what you have to say.</p>
+    <p class="meta">Mostly writing this week. Give yourself two or three unhurried sittings.</p>
+  </header>
+
+  <div class="ground">
+    <span class="lab">You're in charge here</span>
+    <p>This week you'll write about your own life. You choose what to explore and how far to go, nothing you write below is graded or seen by anyone unless you decide to share it. Write toward what has energy for you, and if something feels like too much right now, pick something else. There's no wrong choice.</p>
+  </div>
+
+  <p class="part">Part 1 · Learn</p>
+  <h2>Invention: generating before you know the shape</h2>
+  <p>Every essay starts as a pile of raw material, long before it has a point or an order. Writers call the messy generating stage <button type="button" class="term" data-pop="invention">invention</button>, and the oldest, most reliable way to do it is <button type="button" class="term" data-pop="freewrite">freewriting</button>: write fast, don't stop, don't judge. Peter Elbow and Ken Macrorie showed that keeping your hand moving shuts off your inner critic long enough for the honest, surprising stuff to come out.</p>
+  <div class="box accent">
+    <p>Two moves make freewriting even more productive:</p>
+    <ul>
+      <li><b><button type="button" class="term" data-pop="loop">Looping.</button></b> Freewrite, find the one line with the most <button type="button" class="term" data-pop="heat">heat</button>, then freewrite again starting from that line. Repeat. Each loop digs closer to what you actually mean.</li>
+      <li><b><button type="button" class="term" data-pop="affect">Naming the feeling.</button></b> When a memory has a charge, name the emotion in a word or two. Putting a feeling into words (researchers call it <i>affect labeling</i>) makes it clearer and easier to write about, not more overwhelming.</li>
+    </ul>
+  </div>
+  <div class="sci">
+    <span class="lab">Why "just get it down" works</span>
+    <p>Your goal this week is quantity and honesty, not quality. That's not laziness, it's how the brain works: trying to generate <i>and</i> judge at the same time jams both. Get the mess onto the page first (this also clears mental space, the same effect that helped students who <button type="button" class="term" data-pop="worry">wrote out their worries</button> think better under pressure). You'll shape it later. Right now, dig.</p>
+  </div>
+
+  <p class="part">Part 2 · Read (required)</p>
+  <div class="read">
+    <div class="r"><span class="t">Language Varieties</span> <span class="req">Required</span><div class="c">Voices for Change, p. 5. Your own voice is an asset, not something to scrub out.</div></div>
+    <div class="r"><span class="t"><a href="https://brevitymag.com/nonfiction/wishbone/" target="_blank" rel="noopener">"Wishbone"</a></span> <span class="req" style="background:var(--accent);color:#fff;border-color:var(--accent)">Model essay</span><div class="c">Marilyn Abildskov. A montage of tiny, exact childhood details from family road trips. Read it for how concrete, sensory <b>material</b> (not summary) turns into an essay. Free full text · Brevity.</div></div>
+  </div>
+
+  <p class="part">Part 3 · Practice</p>
+  <h2>What counts as usable material?</h2>
+  <p>Not all raw material is equal. The lines worth building on are <b>specific</b>, a real moment, a real detail, not a summary. Decide which of these you could actually build an essay on. Pick for each, then <b>Check</b>.</p>
+  <div class="qc" id="qc">
+    <div class="qcitem" data-answer="vague">
+      <p class="s">"My grandma was really nice and we had a good time."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="specific">Specific, keep it</button><button type="button" class="opt" data-pick="vague">Too vague, push further</button></div>
+      <div class="fb" hidden>Too vague. "Nice" and "a good time" are summaries. What did she actually <i>do</i>? The essay is in the specific thing.</div>
+    </div>
+    <div class="qcitem" data-answer="specific">
+      <p class="s">"She kept the hardest crossword of the week so we could do it together on the porch."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="specific">Specific, keep it</button><button type="button" class="opt" data-pick="vague">Too vague, push further</button></div>
+      <div class="fb" hidden>Specific, keep it. One concrete habit tells us more about her, and about you, than a paragraph of "she was nice."</div>
+    </div>
+    <div class="qcitem" data-answer="vague">
+      <p class="s">"It was a really hard year for my family and we went through a lot."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="specific">Specific, keep it</button><button type="button" class="opt" data-pick="vague">Too vague, push further</button></div>
+      <div class="fb" hidden>Too vague, for now. There may be a real essay in that year, but "went through a lot" hides it. Freewrite toward one moment from that year.</div>
+    </div>
+    <div class="qcitem" data-answer="specific">
+      <p class="s">"The morning we packed up his room, my dad folded every shirt like it still mattered."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="specific">Specific, keep it</button><button type="button" class="opt" data-pick="vague">Too vague, push further</button></div>
+      <div class="fb" hidden>Specific, keep it. One image (folding the shirts "like it still mattered") carries real feeling without announcing it. That's material.</div>
+    </div>
+    <button type="button" class="qcbtn" id="qcbtn">Check</button><span class="qcres" id="qcres"></span>
+  </div>
+
+  <p class="part">Part 4 · Do</p>
+  <h2>Generate your material</h2>
+  <p>Now dig. These writes are private and save on your own computer. Set a timer and keep your hand moving.</p>
+
+  <div class="write">
+    <label for="w_free1">Freewrite 1 (about 10 minutes): a memory or experience that still tugs at you, one you're willing to explore. Don't stop, don't fix.</label>
+    <textarea id="w_free1" data-save placeholder="Start anywhere. If you get stuck, write 'I'm stuck' and keep going until something comes."></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_free1">Saved ✓</span></div>
+  </div>
+
+  <div class="box">
+    <p><b>Now loop it.</b> Read what you just wrote. Underline (in your head or on the page) the <i>one line with the most heat</i>, the moment that surprised you, embarrassed you, or won't let go. Then freewrite again below, starting from that line.</p>
+    <div class="write">
+      <label for="w_free2">Freewrite 2 (about 10 minutes): start from your hottest line and keep digging.</label>
+      <textarea id="w_free2" data-save placeholder="The line that had the most heat was… and what I didn't say about it is…"></textarea>
+      <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_free2">Saved ✓</span></div>
+    </div>
+  </div>
+
+  <p>You now have raw material, more than you'll use, which is exactly right. Next week you'll find the one thing this essay is really about.</p>
+
+  <div class="close">
+    <p><b>Nice digging.</b> Generating honest material is the hardest, bravest part, and you did it. Step away for a bit. Next week we turn this pile into a focus.</p>
+  </div>
+
+  <div class="duebox">
+    <span class="lab">This week</span>
+    <p>Your job is to <b>generate material</b> in your Writer's Notebook (the writes above). It stays private and counts toward your notebook completion grade, the notebook is collected at <b>midterm and the end of term</b>. Nothing formal is submitted this week. If you'd like early eyes on a possible direction, message me.</p>
+  </div>
+
+  <dialog class="pop" id="pop-invention"><h3>Invention</h3><p>The classical name for the generating stage of writing, coming up with material and ideas before you worry about order or polish. It's a real, separate job. Most blank-page panic comes from trying to invent, organize, and edit all at once. Do them one at a time, and invention comes first.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-freewrite"><h3>Freewriting</h3><p>Writing fast and continuously without stopping to judge, from Peter Elbow and Ken Macrorie. Keeping your hand moving keeps your inner editor from interrupting, so you generate more, and more honest, material. The rule is simple: don't stop. If you're stuck, write "I'm stuck" until something else comes.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-heat"><h3>The "heat"</h3><p>The heat is the spot with the most life, the line that surprised you, embarrassed you, or won't let go. It's where your real subject usually hides. When a sentence gives you a small jolt as you write or reread it, that's heat. Follow it; that's where the essay is.</p><p style="background:var(--nosoft);border-radius:8px;padding:8px 11px"><b>No heat:</b> <i>"My grandmother's house was a special place where I always felt loved."</i><br>Pleasant, but flat. Nothing pulls on you.</p><p style="background:var(--goodsoft);border-radius:8px;padding:8px 11px"><b>Heat:</b> <i>"At my grandmother's house I was allowed to be the kid I couldn't be at home."</i><br>Feel the jolt? There's a tension there, a whole story pressing up behind one sentence.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-loop"><h3>Looping</h3><p>A freewriting technique: after a freewrite, find the single line with the most energy and freewrite again <i>from</i> that line. Each "loop" moves you from the obvious surface toward what you actually mean.</p><p><b>Watch one work:</b></p><p style="border-left:3px solid var(--line);padding-left:12px"><b>Loop 1.</b> I freewrite about my nervous first day at a new school. The hottest line turns out to be: <i>I ate lunch in the bathroom so no one would see me sitting alone.</i></p><p style="border-left:3px solid var(--line);padding-left:12px"><b>Loop 2.</b> I start over <i>from</i> that line and land on: <i>It wasn't being alone that scared me. It was being seen being alone.</i></p><p style="border-left:3px solid var(--accent);padding-left:12px"><b>Loop 3.</b> Starting from that, I reach what the essay is really about: <i>I still hide rather than let anyone watch me not belong.</i></p><p style="color:var(--muted);font-size:.9rem">Three loops moved me from "a nervous first day" to my actual subject. That's the point.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-affect"><h3>Naming the feeling (affect labeling)</h3><p>Research (Torre &amp; Lieberman) finds that putting an emotion into words, "this makes me angry," "I feel ashamed here", actually settles the feeling and makes it easier to think about, not worse. For a writer, naming the charge on a memory is how you get a handle on it so you can write it well.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-worry"><h3>Getting it out of your head</h3><p>Ramirez &amp; Beilock (2011) found students who wrote out their worries before a high-pressure test did better on it, because offloading the mental clutter freed up working memory. Same principle here: getting the mess onto the page clears room to think and to write well.</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  var PREFIX="rc1000w2:";
+  document.querySelectorAll('#mod [data-save]').forEach(function(el){
+    try{ var v=localStorage.getItem(PREFIX+el.id); if(v!==null) el.value=v; }catch(e){}
+    var flag=document.querySelector('.saved[data-for="'+el.id+'"]');
+    el.addEventListener('input', function(){ try{ localStorage.setItem(PREFIX+el.id, el.value); }catch(e){} if(flag){ flag.classList.add('show'); clearTimeout(flag._t); flag._t=setTimeout(function(){flag.classList.remove('show');},1100);} });
+  });
+  var items = Array.prototype.slice.call(document.querySelectorAll('#qc .qcitem'));
+  items.forEach(function(it){
+    var opts=it.querySelectorAll('.opt');
+    opts.forEach(function(o){ o.addEventListener('click', function(){ opts.forEach(function(x){x.classList.remove('pick');}); o.classList.add('pick'); it.dataset.pick=o.getAttribute('data-pick'); it.classList.remove('right','wrong'); it.querySelector('.fb').hidden=true; document.getElementById('qcres').textContent=''; }); });
+  });
+  document.getElementById('qcbtn').addEventListener('click', function(){
+    var correct=0, all=true;
+    items.forEach(function(it){
+      it.classList.remove('right','wrong');
+      if(!it.dataset.pick){ all=false; return; }
+      var right = it.dataset.pick===it.getAttribute('data-answer');
+      it.classList.add(right?'right':'wrong'); it.querySelector('.fb').hidden=false; if(right) correct++;
+    });
+    document.getElementById('qcres').textContent = all ? ('You got '+correct+' of 4.') : 'Answer all four first.';
+  });
+  document.querySelectorAll('[data-pop]').forEach(function(b){ b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); }); });
+  document.querySelectorAll('dialog.pop').forEach(function(d){ d.addEventListener('click', function(e){ if(e.target===d) d.close(); }); });
+})();
+</script>
+</body>
+</html>

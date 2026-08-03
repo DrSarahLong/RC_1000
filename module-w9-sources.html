@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Week 9 · Sources: Think Like a Researcher</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; --due:#7a3b1f; --duesoft:#f6ebe1; --reflect:#5a3b86; --reflectsoft:#efe9f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; --due:#e0a878; --duesoft:#2c2013; --reflect:#b3a4de; --reflectsoft:#1f1b2c; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #mod{max-width:760px; margin:0 auto; padding:28px 20px 90px}
+  #mod h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.9rem; margin:0; line-height:1.15}
+  #mod .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #mod .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:18px}
+  #mod .sub{color:var(--muted); margin:8px 0 0; font-size:1.05rem}
+  #mod .meta{color:var(--muted); font-size:.86rem; margin-top:8px}
+  #mod .part{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:30px 0 4px; padding-top:6px; border-top:1px solid var(--line)}
+  #mod h2{font-family:Georgia,"Iowan Old Style",serif; font-size:1.35rem; margin:2px 0 10px}
+  #mod p{margin:.6rem 0}
+  #mod .box{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:12px 0}
+  #mod .box.accent{border-left:5px solid var(--accent)}
+  #mod .mdl{margin:8px 0}
+  #mod .mdl .row{border-radius:10px; padding:10px 13px; margin:6px 0; font-size:.97rem; border:1px solid var(--line)}
+  #mod .mdl .row.b{background:var(--nosoft)} #mod .mdl .row.a{background:var(--goodsoft)}
+  #mod .mdl .lab{display:block; font-size:.64rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; margin-bottom:3px}
+  #mod .mdl .row.b .lab{color:var(--no)} #mod .mdl .row.a .lab{color:var(--good)}
+  #mod .sift .r{border-top:1px solid var(--line); padding:9px 0} #mod .sift .r:first-child{border-top:0}
+  #mod .sift .k{font-weight:800; color:var(--accent)}
+  #mod .ground{background:var(--reflectsoft); border:1px solid var(--line); border-left:5px solid var(--reflect); border-radius:12px; padding:14px 16px; margin:14px 0}
+  #mod .ground .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--reflect); display:block; margin-bottom:3px}
+  #mod .sci{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:13px 16px; margin:12px 0; font-size:.96rem}
+  #mod .sci .lab{font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  #mod ul{margin:.5rem 0; padding-left:1.2rem} #mod li{margin:.45rem 0}
+  #mod ol.steps{margin:.5rem 0; padding-left:1.3rem} #mod ol.steps li{margin:.6rem 0}
+  #mod a{color:var(--accent)}
+  #mod .read{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px}
+  #mod .read .r{border-top:1px solid var(--line); padding:11px 0} #mod .read .r:first-child{border-top:0}
+  #mod .read .r .t{font-weight:700} #mod .read .r .c{color:var(--muted); font-size:.88rem}
+  #mod .read .req{display:inline-block; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:0 8px; margin-left:6px; vertical-align:1px}
+  #mod .qc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px 4px; margin:10px 0}
+  #mod .qcitem{border-top:1px solid var(--line); padding:11px 0} #mod .qcitem:first-of-type{border-top:0}
+  #mod .qcitem .s{font-weight:600; margin:0 0 8px; font-style:italic}
+  #mod .qcitem .opts{display:flex; gap:8px; flex-wrap:wrap}
+  #mod .qcitem .opt{flex:1 1 30%; font:inherit; font-weight:700; font-size:.84rem; cursor:pointer; border-radius:8px; padding:8px 6px; border:1.5px solid var(--line); background:var(--field); color:var(--ink)}
+  #mod .qcitem .opt.pick{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #mod .qcitem.right .opt.pick{border-color:var(--good); background:var(--goodsoft); color:var(--good)}
+  #mod .qcitem.wrong .opt.pick{border-color:var(--no); background:var(--nosoft); color:var(--no)}
+  #mod .qcitem .fb{margin-top:8px; font-size:.9rem; color:var(--muted)} #mod .qcitem .fb[hidden]{display:none}
+  #mod .qcbtn{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:9px 15px; border:1px solid var(--accent); background:var(--accent); color:#fff; margin:8px 0}
+  #mod .qcres{font-weight:700; color:var(--accent); margin-left:10px}
+  #mod .write{margin:10px 0}
+  #mod .write label{display:block; font-weight:600; margin-bottom:5px}
+  #mod textarea{width:100%; min-height:100px; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6; resize:vertical}
+  #mod textarea:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mod .priv{font-size:.82rem; color:var(--muted); margin-top:4px}
+  #mod .saved{color:var(--good); font-size:.85rem; font-weight:700; opacity:0; transition:opacity .2s} #mod .saved.show{opacity:1}
+  #mod .duebox{background:var(--duesoft); border:1px solid var(--line); border-left:5px solid var(--due); border-radius:12px; padding:14px 16px; margin:16px 0}
+  #mod .duebox .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--due); display:block; margin-bottom:3px}
+  #mod .close{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-top:22px}
+  #mod .note{color:var(--muted); font-size:.9rem}
+  #mod .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="mod">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Week 9 · Module</p>
+    <h1>Sources: Think Like a Researcher</h1>
+    <p class="sub">Your experience is real evidence, but it's one data point. This week you widen the case: you go find credible outside sources, learn to tell the trustworthy ones from the junk, and take notes you can actually cite later.</p>
+    <p class="meta">Back from break. This week you build a small, solid set of sources for your argument.</p>
+  </header>
+
+  <div class="ground">
+    <span class="lab">Before you start</span>
+    <p>"Research" can sound like a wall to climb. It isn't. You already evaluate sources every day (you know a sketchy website when you see one). This week just makes that instinct deliberate. You don't need to be an expert; you need to be a careful reader.</p>
+  </div>
+
+  <p class="part">Part 1 · Learn</p>
+  <h2>Why bother with sources?</h2>
+  <p>Remember last week's warning about <button type="button" class="term" data-pop="hasty">hasty generalization</button>? Sources are the cure. Good outside evidence does three things for an argument grounded in the personal: it <b>widens</b> the case beyond your single story, it <b>backs up</b> what your experience suggests, and it lends you <button type="button" class="term" data-pop="credibility">credibility</button>, the reader trusts a writer who did the homework. Your job isn't to bury your voice under quotes. It's to bring in a few strong sources that stand behind you.</p>
+
+  <h2>Telling strong sources from weak ones: SIFT</h2>
+  <p>The fastest, most reliable way to check a source is a four-move habit called <button type="button" class="term" data-pop="sift">SIFT</button>, from researcher Mike Caulfield. You don't do all four every time; often the second one settles it.</p>
+  <div class="box accent sift">
+    <div class="r"><span class="k">S: Stop.</span> Before you share or cite, pause. Do you even know what this source is?</div>
+    <div class="r"><span class="k">I: Investigate the source.</span> Who's behind it, and why should you trust them? Look them up <button type="button" class="term" data-pop="lateral">somewhere else</button>, not on their own "About" page.</div>
+    <div class="r"><span class="k">F: Find better coverage.</span> Is this claim reported by more established, reliable sources? If only one sketchy site says it, be suspicious.</div>
+    <div class="r"><span class="k">T: Trace claims to the original.</span> Follow a statistic or quote back to where it actually came from. Reporting <i>about</i> a study can distort it.</div>
+  </div>
+  <div class="sci">
+    <span class="lab">The research behind "investigate the source"</span>
+    <p>Stanford researchers Wineburg and McGrew (2017) compared how students, historians, and professional fact-checkers judged websites. The fact-checkers were fastest and most accurate, because they <button type="button" class="term" data-pop="lateral">read laterally</button>: they left the page immediately to see what the rest of the web said about the source, instead of staying put and trusting how polished it looked. Slick design fools "reading vertically." Leaving to check doesn't.</p>
+  </div>
+
+  <h2>Where to look (and where to be careful)</h2>
+  <p>Start where the credible material already lives: your <button type="button" class="term" data-pop="library">Belk Library databases</button> and Google Scholar surface <button type="button" class="term" data-pop="peerreviewed">peer-reviewed</button> articles, books, and reputable reporting, all free to you as a student. The open web has good sources too (government agencies, established news, expert organizations), but it also has anonymous listicles and content farms, so you SIFT harder there. When in doubt, a Belk librarian will help you find and vet sources; that's their whole job.</p>
+
+  <h2>Take notes you can actually use</h2>
+  <p>The moment you find something useful, record where it came from, exact source, author, page or link. Skip this and you'll hit next week's citation step unable to remember whose words are whose, which is how <button type="button" class="term" data-pop="plagiarism">accidental plagiarism</button> happens.</p>
+  <div class="mdl">
+    <div class="row b"><span class="lab">A note that will burn you later</span>later start times help teens sleep and do better in school</div>
+    <div class="row a"><span class="lab">A note you can cite</span>Am. Academy of Pediatrics policy statement (2014), p. 3: recommends middle/high schools start at 8:30 a.m. or later because adolescents' body clocks shift later at puberty. [my paraphrase] Source: Pediatrics journal, via Belk Library database.</div>
+  </div>
+  <p class="note">The second note marks it as <i>your</i> paraphrase, keeps the key fact, and records exactly where to find it again. Ten seconds now saves an hour (and a plagiarism scare) later.</p>
+
+  <p class="part">Part 2 · Read (required)</p>
+  <div class="read">
+    <div class="r"><span class="t">Thinking Like a Researcher</span> <span class="req">Required</span><div class="c">Voices for Change, p. 324. Research as curiosity, not a chore.</div></div>
+    <div class="r"><span class="t">Managing Information and Taking Notes</span> <span class="req">Required</span><div class="c">Voices for Change, p. 334. A system so your sources don't turn into a mess.</div></div>
+    <div class="r"><span class="t">Evaluating Sources</span> <span class="req">Required</span><div class="c">Voices for Change, p. 340. What "credible" actually means, in practice.</div></div>
+  </div>
+
+  <p class="part">Part 3 · Practice</p>
+  <h2>Source triage</h2>
+  <p>You're building an argument that <i>high schools should start later</i>. Here are five things you found. For each, decide: <b>Strong</b> (cite it), <b>Verify first</b> (promising, but check it), or <b>Skip</b> (not solid evidence). Commit, then <b>Check</b>.</p>
+  <div class="qc" id="qc">
+    <div class="qcitem" data-answer="strong">
+      <p class="s">A peer-reviewed study in a sleep-medicine journal, found through the Belk Library database, measuring test scores before and after a district moved start times later.</p>
+      <div class="opts"><button type="button" class="opt" data-pick="strong">Strong</button><button type="button" class="opt" data-pick="verify">Verify first</button><button type="button" class="opt" data-pick="skip">Skip</button></div>
+      <div class="fb" hidden>Strong. Peer-reviewed, on-topic, and it measures the exact thing you're claiming. This is the backbone of a case.</div>
+    </div>
+    <div class="qcitem" data-answer="skip">
+      <p class="s">A blog post titled "10 Reasons School Should Start Later!!" with no named author, no sources, and ads covering half the screen.</p>
+      <div class="opts"><button type="button" class="opt" data-pick="strong">Strong</button><button type="button" class="opt" data-pick="verify">Verify first</button><button type="button" class="opt" data-pick="skip">Skip</button></div>
+      <div class="fb" hidden>Skip. No author, no evidence, built for clicks. Even if it agrees with you, citing it weakens your credibility instead of building it.</div>
+    </div>
+    <div class="qcitem" data-answer="strong">
+      <p class="s">A policy statement from the American Academy of Pediatrics recommending later start times, with citations to the studies behind it.</p>
+      <div class="opts"><button type="button" class="opt" data-pick="strong">Strong</button><button type="button" class="opt" data-pick="verify">Verify first</button><button type="button" class="opt" data-pick="skip">Skip</button></div>
+      <div class="fb" hidden>Strong. A recognized medical body, stating a clear position and showing its evidence. Authoritative and easy to trace.</div>
+    </div>
+    <div class="qcitem" data-answer="verify">
+      <p class="s">A news article in a major paper summarizing "a new study" on start times, written by a named reporter but not linking the study directly.</p>
+      <div class="opts"><button type="button" class="opt" data-pick="strong">Strong</button><button type="button" class="opt" data-pick="verify">Verify first</button><button type="button" class="opt" data-pick="skip">Skip</button></div>
+      <div class="fb" hidden>Verify first. Reputable, but it's reporting <i>about</i> research. Trace it to the original study (SIFT's T) and, ideally, cite that.</div>
+    </div>
+    <div class="qcitem" data-answer="skip">
+      <p class="s">A Reddit thread where dozens of students complain about waking up at 6 a.m. for first period.</p>
+      <div class="opts"><button type="button" class="opt" data-pick="strong">Strong</button><button type="button" class="opt" data-pick="verify">Verify first</button><button type="button" class="opt" data-pick="skip">Skip</button></div>
+      <div class="fb" hidden>Skip, as evidence. It's real feeling but anonymous anecdote, exactly the "lots of people I know" trap. It can't prove your claim, though it might remind you of a scene to write.</div>
+    </div>
+    <button type="button" class="qcbtn" id="qcbtn">Check</button><span class="qcres" id="qcres"></span>
+  </div>
+
+  <p class="part">Part 4 · Do</p>
+  <h2>Build your working source set</h2>
+
+  <p><b>Step 1: what do you need to find?</b> Look at your claim and reasons. List two or three things you're currently asserting that would be stronger with outside evidence (a statistic, an expert, a study, a real-world example beyond you).</p>
+  <div class="write">
+    <label for="w_need">What my argument needs outside backing for:</label>
+    <textarea id="w_need" data-save placeholder="I claim ___, but right now the only evidence is my own experience. I could look for…"></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_need">Saved ✓</span></div>
+  </div>
+
+  <p><b>Step 2: find and vet two or three sources.</b> Search the Belk Library databases or Google Scholar. Run each promising source through SIFT (especially "investigate the source"). Keep the ones that hold up.</p>
+
+  <p><b>Step 3: record them as citable notes.</b> For each source you're keeping, write a note like the good model above: the key point (in your own words), plus the full source info so you can cite it next week.</p>
+  <div class="write">
+    <label for="w_sources">My working source set (2 to 3 vetted sources, each with a note + full source info):</label>
+    <textarea id="w_sources" data-save placeholder="1) Source: (author, title, where I found it). What it shows: (my paraphrase). Why it's credible: …&#10;&#10;2) …"></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_sources">Saved ✓</span></div>
+  </div>
+
+  <div class="close">
+    <p><b>You're standing on more than your own story now.</b> A few strong sources turn a personal opinion into an argument a stranger has to take seriously. Next week we bring those sources into your writing, quoting, paraphrasing, and citing them in MLA without losing your voice.</p>
+  </div>
+
+  <div class="duebox">
+    <span class="lab">Due this week (Sunday)</span>
+    <p>Your <b>working source set</b>, two to three vetted sources with a note and full source info for each, submitted as a Google Doc so I can check them before you start writing with them. (Your other notebook writing stays private, collected at midterm and end of term.)</p>
+  </div>
+
+  <dialog class="pop" id="pop-hasty"><h3>Hasty generalization (recap)</h3><p>Drawing a big conclusion from too little evidence, like arguing about all students based only on yourself. Example: "My online class flopped, so online learning doesn't work." Outside sources are the fix: they let you claim something broader because you're standing on more than one experience.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-credibility"><h3>Credibility (ethos)</h3><p>How much a reader trusts you and your case. You build it by being fair, being accurate, and using sources a reasonable person would respect. Example: an essay that cites a pediatric medical association reads as more credible than one that cites an anonymous blog, even if both make the same point. Weak sources don't just fail to help; they actively lower a reader's trust in you.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-sift"><h3>SIFT (the four moves)</h3><p>A quick source-checking method from Mike Caulfield: <b>S</b>top, <b>I</b>nvestigate the source, <b>F</b>ind better coverage, <b>T</b>race claims to the original. It replaces long checklists with fast habits. Example: you see a shocking stat on a site you've never heard of, you Stop, Investigate (search the site's name), and often discover in ten seconds that it's an advocacy group, not a neutral study. Two moves, done.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-lateral"><h3>Lateral reading</h3><p>Judging a source by leaving it, opening new tabs to see what other sites say about it, instead of staying on the page and reading its own claims about itself ("vertical reading"). Example: rather than trusting a group called the "Institute for Family Wellness" because its site looks professional, you search its name and find out who funds it and what its agenda is. It's how professional fact-checkers work.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-peerreviewed"><h3>Peer-reviewed</h3><p>An article that other independent experts in the field reviewed and vetted before a journal published it. It isn't a guarantee of truth, but it's a strong signal of quality, real scrutiny happened. Example: a study in the journal <i>Sleep</i> went through peer review; a post on a wellness website did not. Library databases let you filter for peer-reviewed sources on purpose.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-library"><h3>Belk Library databases</h3><p>App State's library pays for access to research databases (academic articles, newspapers, e-books) that are hidden behind paywalls on the open web but free to you as a student. Example: searching a database like Academic Search Complete gives you vetted, citable articles instead of the random mix a plain web search returns. Start there for credible sources, and ask a librarian when you're stuck; helping you is literally their job.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-plagiarism"><h3>Accidental plagiarism</h3><p>Presenting someone else's words or ideas as your own without meaning to, usually because sloppy notes blurred whose words were whose. Example: you paste a source's sentence into your notes, forget it wasn't yours, and it lands in your draft uncited. The fix is boring and total: mark every note as quote, paraphrase, or your own thought, and record the source the instant you take it.</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  var PREFIX="rc1000w9:";
+  document.querySelectorAll('#mod [data-save]').forEach(function(el){
+    try{ var v=localStorage.getItem(PREFIX+el.id); if(v!==null) el.value=v; }catch(e){}
+    var flag=document.querySelector('.saved[data-for="'+el.id+'"]');
+    el.addEventListener('input', function(){ try{ localStorage.setItem(PREFIX+el.id, el.value); }catch(e){} if(flag){ flag.classList.add('show'); clearTimeout(flag._t); flag._t=setTimeout(function(){flag.classList.remove('show');},1100);} });
+  });
+  var items=Array.prototype.slice.call(document.querySelectorAll('#qc .qcitem'));
+  items.forEach(function(it){
+    var opts=it.querySelectorAll('.opt');
+    opts.forEach(function(o){ o.addEventListener('click', function(){ opts.forEach(function(x){x.classList.remove('pick');}); o.classList.add('pick'); it.dataset.pick=o.getAttribute('data-pick'); it.classList.remove('right','wrong'); it.querySelector('.fb').hidden=true; document.getElementById('qcres').textContent=''; }); });
+  });
+  document.getElementById('qcbtn').addEventListener('click', function(){
+    var correct=0, all=true;
+    items.forEach(function(it){
+      it.classList.remove('right','wrong');
+      if(!it.dataset.pick){ all=false; return; }
+      var right = it.dataset.pick===it.getAttribute('data-answer');
+      it.classList.add(right?'right':'wrong'); it.querySelector('.fb').hidden=false; if(right) correct++;
+    });
+    document.getElementById('qcres').textContent = all ? ('You got '+correct+' of '+items.length+'.') : 'Answer all '+items.length+' first.';
+  });
+  document.querySelectorAll('[data-pop]').forEach(function(b){ b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); }); });
+  document.querySelectorAll('dialog.pop').forEach(function(d){ d.addEventListener('click', function(e){ if(e.target===d) d.close(); }); });
+})();
+</script>
+</body>
+</html>

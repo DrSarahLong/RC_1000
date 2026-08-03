@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Week 3 · Finding the Heat</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; --due:#7a3b1f; --duesoft:#f6ebe1; --reflect:#5a3b86; --reflectsoft:#efe9f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; --due:#e0a878; --duesoft:#2c2013; --reflect:#b3a4de; --reflectsoft:#1f1b2c; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #mod{max-width:760px; margin:0 auto; padding:28px 20px 90px}
+  #mod h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.9rem; margin:0; line-height:1.15}
+  #mod .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #mod .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:18px}
+  #mod .sub{color:var(--muted); margin:8px 0 0; font-size:1.05rem}
+  #mod .meta{color:var(--muted); font-size:.86rem; margin-top:8px}
+  #mod .part{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:30px 0 4px; padding-top:6px; border-top:1px solid var(--line)}
+  #mod h2{font-family:Georgia,"Iowan Old Style",serif; font-size:1.35rem; margin:2px 0 10px}
+  #mod p{margin:.6rem 0}
+  #mod .box{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:12px 0}
+  #mod .box.accent{border-left:5px solid var(--accent)}
+  #mod .ground{background:var(--reflectsoft); border:1px solid var(--line); border-left:5px solid var(--reflect); border-radius:12px; padding:14px 16px; margin:14px 0}
+  #mod .ground .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--reflect); display:block; margin-bottom:3px}
+  #mod .sci{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:13px 16px; margin:12px 0; font-size:.96rem}
+  #mod .sci .lab{font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  #mod ul{margin:.5rem 0; padding-left:1.2rem} #mod li{margin:.45rem 0}
+  #mod ol.steps{margin:.5rem 0; padding-left:1.3rem} #mod ol.steps li{margin:.6rem 0}
+  #mod a{color:var(--accent)}
+  #mod .read{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px}
+  #mod .read .r{border-top:1px solid var(--line); padding:11px 0} #mod .read .r:first-child{border-top:0}
+  #mod .read .r .t{font-weight:700} #mod .read .r .c{color:var(--muted); font-size:.88rem}
+  #mod .read .req{display:inline-block; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:0 8px; margin-left:6px; vertical-align:1px}
+  #mod .qc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px 4px; margin:10px 0}
+  #mod .qcitem{border-top:1px solid var(--line); padding:11px 0} #mod .qcitem:first-of-type{border-top:0}
+  #mod .qcitem .s{font-weight:600; margin:0 0 8px; font-style:italic}
+  #mod .qcitem .opts{display:flex; gap:8px}
+  #mod .qcitem .opt{flex:1; font:inherit; font-weight:700; font-size:.9rem; cursor:pointer; border-radius:8px; padding:8px; border:1.5px solid var(--line); background:var(--field); color:var(--ink)}
+  #mod .qcitem .opt.pick{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #mod .qcitem.right .opt.pick{border-color:var(--good); background:var(--goodsoft); color:var(--good)}
+  #mod .qcitem.wrong .opt.pick{border-color:var(--no); background:var(--nosoft); color:var(--no)}
+  #mod .qcitem .fb{margin-top:8px; font-size:.9rem; color:var(--muted)} #mod .qcitem .fb[hidden]{display:none}
+  #mod .qcbtn{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:9px 15px; border:1px solid var(--accent); background:var(--accent); color:#fff; margin:8px 0}
+  #mod .qcres{font-weight:700; color:var(--accent); margin-left:10px}
+  #mod .write{margin:10px 0}
+  #mod .write label{display:block; font-weight:600; margin-bottom:5px}
+  #mod textarea, #mod input.thesis{width:100%; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6}
+  #mod textarea{min-height:120px; resize:vertical}
+  #mod textarea:focus, #mod input.thesis:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mod .priv{font-size:.82rem; color:var(--muted); margin-top:4px}
+  #mod .saved{color:var(--good); font-size:.85rem; font-weight:700; opacity:0; transition:opacity .2s} #mod .saved.show{opacity:1}
+  #mod .duebox{background:var(--duesoft); border:1px solid var(--line); border-left:5px solid var(--due); border-radius:12px; padding:14px 16px; margin:16px 0}
+  #mod .duebox .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--due); display:block; margin-bottom:3px}
+  #mod .close{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-top:22px}
+  #mod .note{color:var(--muted); font-size:.9rem}
+  #mod .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="mod">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Week 3 · Module</p>
+    <h1>Finding the Heat</h1>
+    <p class="sub">You have pages of raw material. Now the real move: find the one thing this essay is actually about. Not the topic, the point, the thing you discovered while writing.</p>
+    <p class="meta">A shorter week. One good sitting to reread, find your focus, and name it.</p>
+  </header>
+
+  <div class="ground">
+    <span class="lab">Before you start</span>
+    <p>Go back to last week's freewrites when you're ready and steady. You'll be rereading your own honest material, take it gently, and remember you decide what to carry forward and what to leave.</p>
+  </div>
+
+  <p class="part">Part 1 · Learn</p>
+  <h2>A topic isn't a point</h2>
+  <p>"My summer at my grandma's" is a <button type="button" class="term" data-pop="topic">topic</button>, a subject area. It isn't an essay yet, because it doesn't say anything. What turns a topic into an essay is a <button type="button" class="term" data-pop="controlling">controlling idea</button>: the one thing you came to understand, feel, or reckon with. "My grandma's quiet routines taught me that love is mostly small, repeated acts", now <i>there's</i> an essay.</p>
+  <div class="sci">
+    <span class="lab">How you find it: the felt sense</span>
+    <p>You usually can't <i>decide</i> your point by logic. You find it by feel. The composition researcher Sondra Perl called this the <button type="button" class="term" data-pop="feltsense">felt sense</button>: that bodily "that's it, that's the part that matters" you get when you hit the real thing. In your material, it shows up as <b>heat</b>, the line that surprised you, embarrassed you, or won't let go. Your job this week is to find the heat and name what it means.</p>
+  </div>
+  <p>The sentence that names it is your <button type="button" class="term" data-pop="workingthesis">working thesis</button>. "Working" means it can change, it's a compass, not a contract. But having one keeps your draft from wandering.</p>
+
+  <div class="box accent">
+    <p><b>One thing about the word "thesis."</b> You were probably taught the five-paragraph kind: a stiff sentence that announces "I will argue three reasons." A personal-essay thesis is a quieter animal. The word <button type="button" class="term" data-pop="essayword">essay</button> comes from the French <i>essayer</i>, to try, to attempt, to wrestle with an idea. <button type="button" class="term" data-pop="montaigne">Montaigne</button>, who invented the form in 1580, wasn't proving a fixed point; he was thinking on the page. Your thesis is a <b>"so what?" anchor</b> that ties your specific story to a larger, human truth. It is:</p>
+    <ul>
+      <li><b>Reflective</b>, it shows how an experience changed your perspective or revealed a value.</li>
+      <li><b>Subtle and fluid</b>, it often blends into the narrative instead of standing out as a stiff declaration.</li>
+      <li><b>Built on tension</b>, a realization, a complication, or a shift in how you see the world.</li>
+    </ul>
+    <p>Three moves it can make (each ties a small story to a bigger truth):</p>
+    <ul>
+      <li><b>The realization shift.</b> <i>"I used to think safety meant staying silent, but learning to fix motorcycles taught me that true security comes from making some noise."</i></li>
+      <li><b>The micro-to-macro insight.</b> <i>"Cleaning up my grandmother's crowded kitchen after she passed didn't just clear out old spices; it forced me to stop holding onto versions of myself I had outgrown."</i></li>
+      <li><b>The question-driven anchor.</b> <i>"Trying to teach my stubborn dog to sit didn't show me how to control an animal; it revealed my own deep fear of losing control."</i></li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <p><b>Where does the thesis go?</b> In an argument, it's almost always up front, stated by the end of the introduction. A personal essay is looser: your controlling idea might open the essay, surface halfway through as a realization, or arrive only at the end, after the scenes have earned it. Sometimes you never state it outright at all. What matters is that <i>you</i> know it from the first draft, so every scene points somewhere.</p>
+  </div>
+
+  <p class="part">Part 2 · Read (required)</p>
+  <div class="read">
+    <div class="r"><span class="t">Planning: Draft and Revise a Working Thesis</span> <span class="req">Required</span><div class="c">Voices for Change, p. 16. How to shape and keep testing a working thesis.</div></div>
+    <div class="r"><span class="t"><a href="https://theamericanscholar.org/joyas-volardores/" target="_blank" rel="noopener">"Joyas Voladoras"</a></span> <span class="req" style="background:var(--accent);color:#fff;border-color:var(--accent)">Model essay</span><div class="c">Brian Doyle. Starts with a hummingbird's heart, moves to the blue whale's, and lands on our own. Read it for a <b>controlling idea</b> built entirely out of physical specifics. Free full text · The American Scholar.</div></div>
+  </div>
+
+  <p class="part">Part 3 · Practice</p>
+  <h2>Topic, or controlling idea?</h2>
+  <p>This is subtler than it looks, plenty of things that <i>sound</i> like a point are still just a topic in disguise. For each, decide: is it a <b>topic</b> (a subject, or a vague claim that says nothing only you could say), or a real <b>controlling idea</b> (specific, with a point or tension a reader can follow)? Commit, then <b>Check</b>.</p>
+  <div class="qc" id="qc">
+    <div class="qcitem" data-answer="topic">
+      <p class="s">"My grandmother was one of the most important people in my life."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="topic">Topic / too vague</button><button type="button" class="opt" data-pick="idea">A controlling idea</button></div>
+      <div class="fb" hidden>Topic. It <i>sounds</i> like a claim, but "one of the most important people" is generic, almost anyone could write it about someone. It states importance without saying the specific thing only you could say.</div>
+    </div>
+    <div class="qcitem" data-answer="topic">
+      <p class="s">"Taking care of my grandmother taught me a lot about patience and family."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="topic">Topic / too vague</button><button type="button" class="opt" data-pick="idea">A controlling idea</button></div>
+      <div class="fb" hidden>Topic in disguise, the classic trap. It has thesis <i>shape</i> ("taught me a lot about…"), but "a lot about patience and family" is vague. What, exactly, did it teach you that you didn't already believe?</div>
+    </div>
+    <div class="qcitem" data-answer="idea">
+      <p class="s">"Caring for my grandmother as she forgot my name turned me into the adult in our relationship, and part of me resented her for it."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="topic">Topic / too vague</button><button type="button" class="opt" data-pick="idea">A controlling idea</button></div>
+      <div class="fb" hidden>A controlling idea. It's specific (she forgot your name; you became "the adult") and it carries real <i>tension</i>, the resentment you're not proud of. That honest complication is what a reader will follow.</div>
+    </div>
+    <div class="qcitem" data-answer="idea">
+      <p class="s">"Everyone called my grandmother difficult, but her stubbornness was the exact thing that carried our family through its worst year."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="topic">Topic / too vague</button><button type="button" class="opt" data-pick="idea">A controlling idea</button></div>
+      <div class="fb" hidden>A controlling idea. The "everyone said X, but actually Y" turn takes a real position, it reframes something specific (her stubbornness) into a claim a reader could even push back on.</div>
+    </div>
+    <button type="button" class="qcbtn" id="qcbtn">Check</button><span class="qcres" id="qcres"></span>
+  </div>
+
+  <p class="part">Part 4 · Do</p>
+  <h2>Find your heat, then name it</h2>
+
+  <p><b>Step 1: find the heat.</b> Reread last week's freewrites. Look for the one or two lines with the most life, the moment you'd be a little nervous to read aloud. Copy those lines below.</p>
+  <div class="write">
+    <label for="w_heat">The hottest lines from my material:</label>
+    <textarea id="w_heat" data-save placeholder="The line I keep coming back to is…"></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_heat">Saved ✓</span></div>
+  </div>
+
+  <p><b>Step 2: dig past the obvious.</b> Freewrite from that heat, finishing this over and over until you surprise yourself: "What I'm <i>really</i> trying to say is…" Don't stop at the first answer; the third or fourth is usually the true one.</p>
+  <div class="write">
+    <label for="w_dig">What I'm really trying to say is…</label>
+    <textarea id="w_dig" data-save placeholder="What I'm really trying to say is… (and under that, what I'm really trying to say is…)"></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_dig">Saved ✓</span></div>
+  </div>
+
+  <p><b>Step 3: name it in one sentence.</b> Write a <button type="button" class="term" data-pop="workingthesis">working thesis</button>, one sentence saying what your essay is really about (the discovery, not the topic). It's allowed to change. It just has to point somewhere true.</p>
+  <div class="write">
+    <label for="w_thesis">My working thesis (one sentence):</label>
+    <input type="text" class="thesis" id="w_thesis" data-save placeholder="This essay is really about…">
+    <div class="priv">Saves on your own computer. <span class="saved" data-for="w_thesis">Saved ✓</span></div>
+  </div>
+  <p>Want help shaping it? Open the <a href="thesis-creator.html" target="_blank" rel="noopener">Thesis Creator</a>, pick "Personal Essay," and it walks you through what this kind of thesis needs, shows you models, and gives you a frame to build your own. (It has Argument and Op-Ed modes waiting for later in the term, too.)</p>
+
+  <div class="close">
+    <p><b>That's the turn from a pile of writing into an essay.</b> Finding your point is genuinely hard, and you did it. Next week you draft, and here's the good news: you get to write it badly first.</p>
+  </div>
+
+  <div class="duebox">
+    <span class="lab">Due this week (Sunday)</span>
+    <p>Your <b>working thesis</b> plus a short paragraph on the moment it came from, submitted as a Google Doc so I can react before you draft. (Your freewrites stay private in your notebook, collected at midterm and end of term.)</p>
+  </div>
+
+  <dialog class="pop" id="pop-topic"><h3>Topic vs. essay</h3><p>A topic is a subject area ("my grandmother," "soccer," "moving"). It's where you start, not where you land. A topic becomes an essay only when you find something to <i>say</i> about it, a point, a discovery, a tension. Don't confuse having a topic with having an essay.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-controlling"><h3>Controlling idea</h3><p>The single main point that governs the whole essay, the thing everything else serves. In a personal essay it's usually something you came to understand, not a thesis you argue in five paragraphs. If a paragraph doesn't connect to your controlling idea, that's a sign it (or the idea) needs to change.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-feltsense"><h3>Felt sense</h3><p>Sondra Perl's term for the bodily, not-yet-worded sense of what you're trying to say, the "that's it" you feel before you can explain it. Good writers learn to trust it: when a line gives you a small jolt, that's the felt sense telling you you've hit something real. Follow the jolt.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-workingthesis"><h3>Working thesis</h3><p>A one-sentence statement of what your essay is about, written early and held loosely. "Working" is the key word: it guides your draft but is expected to change as you discover more. Having one keeps a personal essay from wandering; being willing to revise it keeps the essay honest.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-essayword"><h3>Where "essay" comes from</h3><p>From the French <i>essayer</i>: to try, to attempt, to test. Montaigne meant it literally. An essay is an <i>attempt</i> to work something out, not a finished proof. That is why a personal essay can wander, question itself, and change its mind. You are trying an idea on, wrestling with it, rather than defending a verdict.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-montaigne"><h3>Michel de Montaigne</h3><p>The French writer (1533&ndash;1592) who invented the personal essay. He retreated to his tower library and wrote hundreds of pieces trying to work out what he actually thought, about friendship, fear, his own habits, everything. He called them <i>Essais</i>. The exploring, first-person, changing-its-mind-on-the-page voice you use in a personal essay comes straight from him.</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  var PREFIX="rc1000w3:";
+  document.querySelectorAll('#mod [data-save]').forEach(function(el){
+    try{ var v=localStorage.getItem(PREFIX+el.id); if(v!==null) el.value=v; }catch(e){}
+    var flag=document.querySelector('.saved[data-for="'+el.id+'"]');
+    el.addEventListener('input', function(){ try{ localStorage.setItem(PREFIX+el.id, el.value); }catch(e){} if(flag){ flag.classList.add('show'); clearTimeout(flag._t); flag._t=setTimeout(function(){flag.classList.remove('show');},1100);} });
+  });
+  var items=Array.prototype.slice.call(document.querySelectorAll('#qc .qcitem'));
+  items.forEach(function(it){
+    var opts=it.querySelectorAll('.opt');
+    opts.forEach(function(o){ o.addEventListener('click', function(){ opts.forEach(function(x){x.classList.remove('pick');}); o.classList.add('pick'); it.dataset.pick=o.getAttribute('data-pick'); it.classList.remove('right','wrong'); it.querySelector('.fb').hidden=true; document.getElementById('qcres').textContent=''; }); });
+  });
+  document.getElementById('qcbtn').addEventListener('click', function(){
+    var correct=0, all=true;
+    items.forEach(function(it){
+      it.classList.remove('right','wrong');
+      if(!it.dataset.pick){ all=false; return; }
+      var ans = it.getAttribute('data-answer')==='idea' ? 'idea' : 'topic';
+      var right = it.dataset.pick===ans;
+      it.classList.add(right?'right':'wrong'); it.querySelector('.fb').hidden=false; if(right) correct++;
+    });
+    document.getElementById('qcres').textContent = all ? ('You got '+correct+' of 4.') : 'Answer all four first.';
+  });
+  document.querySelectorAll('[data-pop]').forEach(function(b){ b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); }); });
+  document.querySelectorAll('dialog.pop').forEach(function(d){ d.addEventListener('click', function(e){ if(e.target===d) d.close(); }); });
+})();
+</script>
+</body>
+</html>

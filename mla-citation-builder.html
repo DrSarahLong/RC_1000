@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · MLA Citation Builder</title>
+<style>
+  :root{ --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a; --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe; --good:#2f7d54; --goodsoft:#e4f1e8; }
+  @media (prefers-color-scheme: dark){ :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; } }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #mla{max-width:720px; margin:0 auto; padding:28px 20px 90px}
+  #mla h1{font-family:Georgia,serif; font-size:1.8rem; margin:0}
+  #mla .kicker{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #mla .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:16px}
+  #mla .sub{color:var(--muted); margin:8px 0 0}
+  #mla .honest{background:var(--accent-soft); border:1px solid var(--line); border-radius:10px; padding:11px 14px; font-size:.92rem; margin:14px 0}
+  #mla .honest b{color:var(--accent)}
+  #mla .types{display:flex; gap:8px; flex-wrap:wrap; margin:14px 0}
+  #mla .types button{flex:1 1 auto; font:inherit; font-weight:700; font-size:.9rem; cursor:pointer; border-radius:9px; padding:10px 12px; border:1.5px solid var(--line); background:var(--card); color:var(--ink)}
+  #mla .types button.sel{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #mla label.fld{display:block; font-weight:600; margin:12px 0 4px; font-size:.93rem}
+  #mla label.fld .opt{color:var(--muted); font-weight:400; font-size:.85rem}
+  #mla input{width:100%; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:8px; padding:9px 11px; font:inherit}
+  #mla input:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mla .outwrap{margin-top:20px}
+  #mla .outlab{font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; color:var(--accent); margin:14px 0 4px}
+  #mla .out{background:var(--card); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:10px; padding:13px 15px; font-size:1rem; word-break:break-word}
+  #mla .out.wc{padding-left:15px; text-indent:-22px; margin-left:22px}
+  #mla .row{display:flex; gap:10px; align-items:center; margin-top:8px; flex-wrap:wrap}
+  #mla button.act{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:9px 15px; border:1px solid var(--accent); background:var(--accent); color:#fff}
+  #mla button.ghost{background:transparent; color:var(--accent)}
+  #mla .copied{color:var(--good); font-weight:700; font-size:.85rem; opacity:0; transition:opacity .2s} #mla .copied.show{opacity:1}
+  #mla .note{color:var(--muted); font-size:.9rem; margin-top:6px}
+  #mla a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div id="mla">
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Writing Tool</p>
+    <h1>MLA Citation Builder</h1>
+    <p class="sub">Pick your source type, fill in what you know, and this assembles the Works Cited entry and the in-text citation in MLA 9 style. It runs on your computer.</p>
+  </header>
+
+  <div class="honest">
+    <b>What this does, and doesn't.</b> It arranges your details into MLA 9 formatting. It can't check whether your details are right or complete, that's on you, so cross-check against the MLA guidance in this week's reading. Leave a field blank and it's left out. Nothing you type is saved anywhere but your own browser.
+  </div>
+
+  <div class="types" id="types"></div>
+  <div id="fields"></div>
+
+  <div class="outwrap">
+    <div class="outlab">Works Cited entry</div>
+    <div class="out wc" id="wc"></div>
+    <div class="row"><button type="button" class="ghost act" id="copyWc">Copy entry</button><span class="copied" id="copiedWc">Copied ✓</span></div>
+    <div class="outlab">In-text citation</div>
+    <div class="out" id="intext"></div>
+    <div class="row"><button type="button" class="ghost act" id="copyIn">Copy in-text</button><span class="copied" id="copiedIn">Copied ✓</span></div>
+    <p class="note">On your Works Cited page: alphabetize entries by the first word, double-space, and give each a "hanging indent" (first line flush left, the rest indented), just like the entry shown above.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var K="mlaBuilder:";
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  var TYPES={
+    book:{name:'Book', fields:[
+      {k:'alast',l:'Author last name',ph:'Kolbert'},
+      {k:'afirst',l:'Author first name',ph:'Elizabeth'},
+      {k:'title',l:'Book title',ph:'The Sixth Extinction'},
+      {k:'pub',l:'Publisher',ph:'Henry Holt'},
+      {k:'year',l:'Year published',ph:'2014'}
+    ]},
+    journal:{name:'Journal article', fields:[
+      {k:'alast',l:'Author last name',ph:'Wahlstrom'},
+      {k:'afirst',l:'Author first name',ph:'Kyla'},
+      {k:'title',l:'Article title',ph:'School Start Time and Sleepy Teens'},
+      {k:'journal',l:'Journal name',ph:'Archives of Pediatrics'},
+      {k:'vol',l:'Volume',ph:'164',opt:1},
+      {k:'issue',l:'Issue number',ph:'7',opt:1},
+      {k:'year',l:'Year',ph:'2010'},
+      {k:'pages',l:'Page range',ph:'676-681',opt:1},
+      {k:'database',l:'Database name',ph:'JSTOR',opt:1},
+      {k:'doi',l:'DOI or URL',ph:'https://doi.org/...',opt:1}
+    ]},
+    website:{name:'Website / online article', fields:[
+      {k:'alast',l:'Author last name',ph:'Caulfield',opt:1},
+      {k:'afirst',l:'Author first name',ph:'Mike',opt:1},
+      {k:'title',l:'Title of the page or article',ph:'SIFT: The Four Moves'},
+      {k:'site',l:'Website name',ph:'Hapgood'},
+      {k:'pub',l:'Publisher or sponsor',ph:'',opt:1},
+      {k:'date',l:'Date published (Day Month Year)',ph:'24 June 2019',opt:1},
+      {k:'url',l:'URL',ph:'https://...'}
+    ]},
+    news:{name:'Newspaper article', fields:[
+      {k:'alast',l:'Author last name',ph:'Hartocollis'},
+      {k:'afirst',l:'Author first name',ph:'Anemona'},
+      {k:'title',l:'Article title',ph:'Sleepless Teenagers'},
+      {k:'paper',l:'Newspaper name',ph:'The New York Times'},
+      {k:'date',l:'Date (Day Month Year)',ph:'12 Sept. 2018'},
+      {k:'url',l:'URL',ph:'https://...'}
+    ]}
+  };
+  // shared trailing field for the in-text page
+  var CITEPAGE={k:'citepage',l:'Page number you are citing',opt:1,ph:'12',hint:'used only for the in-text citation'};
+
+  var current='book';
+  var typesEl=document.getElementById('types'), fieldsEl=document.getElementById('fields');
+
+  Object.keys(TYPES).forEach(function(t){
+    var b=document.createElement('button'); b.type='button'; b.textContent=TYPES[t].name; b.setAttribute('data-t',t);
+    b.addEventListener('click', function(){ setType(t); }); typesEl.appendChild(b);
+  });
+
+  function setType(t){
+    current=t; try{ localStorage.setItem(K+'type',t); }catch(e){}
+    typesEl.querySelectorAll('button').forEach(function(b){ b.classList.toggle('sel', b.getAttribute('data-t')===t); });
+    renderFields(); update();
+  }
+
+  function renderFields(){
+    var fs=TYPES[current].fields.concat([CITEPAGE]);
+    var h='';
+    fs.forEach(function(f){
+      h+='<label class="fld" for="f_'+f.k+'">'+esc(f.l)+(f.opt?' <span class="opt">(optional'+(f.hint?', '+esc(f.hint):'')+')</span>':'')+'</label>';
+      h+='<input type="text" id="f_'+f.k+'" data-k="'+f.k+'" placeholder="'+esc(f.ph||'')+'">';
+    });
+    fieldsEl.innerHTML=h;
+    fieldsEl.querySelectorAll('input[data-k]').forEach(function(inp){
+      var key=K+current+'_'+inp.getAttribute('data-k');
+      try{ var v=localStorage.getItem(key); if(v!==null) inp.value=v; }catch(e){}
+      inp.addEventListener('input', function(){ try{ localStorage.setItem(key, inp.value); }catch(e){} update(); });
+    });
+  }
+
+  function vals(){ var o={}; fieldsEl.querySelectorAll('input[data-k]').forEach(function(i){ o[i.getAttribute('data-k')]=i.value.trim(); }); return o; }
+  function auth(v){ if(v.alast&&v.afirst) return esc(v.alast)+', '+esc(v.afirst); if(v.alast) return esc(v.alast); return ''; }
+  function container2(v){ var c=[]; if(v.database) c.push('<i>'+esc(v.database)+'</i>'); if(v.doi) c.push(esc(v.doi)); return c.length? ' '+c.join(', ')+'.' : ''; }
+
+  function entry(v){
+    var a=auth(v), s='';
+    if(a) s+=a+'. ';
+    if(current==='book'){
+      s+='<i>'+esc(v.title||'Title')+'</i>. ';
+      var py=[]; if(v.pub) py.push(esc(v.pub)); if(v.year) py.push(esc(v.year));
+      s+=py.join(', ')+'.';
+    } else if(current==='journal'){
+      s+='"'+esc(v.title||'Title')+'." <i>'+esc(v.journal||'Journal')+'</i>';
+      var b=[]; if(v.vol) b.push('vol. '+esc(v.vol)); if(v.issue) b.push('no. '+esc(v.issue)); if(v.year) b.push(esc(v.year)); if(v.pages) b.push('pp. '+esc(v.pages));
+      if(b.length) s+=', '+b.join(', '); s+='.'; s+=container2(v);
+    } else if(current==='website'){
+      s+='"'+esc(v.title||'Title')+'." <i>'+esc(v.site||'Website')+'</i>';
+      var w=[]; if(v.pub) w.push(esc(v.pub)); if(v.date) w.push(esc(v.date)); if(v.url) w.push(esc(v.url));
+      if(w.length) s+=', '+w.join(', '); s+='.';
+    } else if(current==='news'){
+      s+='"'+esc(v.title||'Title')+'." <i>'+esc(v.paper||'Newspaper')+'</i>';
+      var n=[]; if(v.date) n.push(esc(v.date)); if(v.url) n.push(esc(v.url));
+      if(n.length) s+=', '+n.join(', '); s+='.';
+    }
+    return s;
+  }
+  function intext(v){
+    var name;
+    if(v.alast) name=esc(v.alast);
+    else { var short=(v.title||'Title').split(/\s+/).slice(0,3).join(' '); name='"'+esc(short)+'"'; }
+    return '('+name+(v.citepage?' '+esc(v.citepage):'')+')';
+  }
+
+  function update(){
+    var v=vals();
+    document.getElementById('wc').innerHTML=entry(v);
+    document.getElementById('intext').textContent=intext(v);
+  }
+
+  function copyFrom(el, flag){
+    var txt=el.textContent;
+    function done(){ flag.classList.add('show'); setTimeout(function(){flag.classList.remove('show');},1200); }
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done, function(){ fallback(txt); done(); }); }
+    else { fallback(txt); done(); }
+  }
+  function fallback(txt){ var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} ta.remove(); }
+  document.getElementById('copyWc').addEventListener('click', function(){ copyFrom(document.getElementById('wc'), document.getElementById('copiedWc')); });
+  document.getElementById('copyIn').addEventListener('click', function(){ copyFrom(document.getElementById('intext'), document.getElementById('copiedIn')); });
+
+  var saved='book'; try{ var t=localStorage.getItem(K+'type'); if(t&&TYPES[t]) saved=t; }catch(e){}
+  setType(saved);
+})();
+</script>
+</body>
+</html>

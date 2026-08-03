@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Week 11 · Revise the Argument</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; --due:#7a3b1f; --duesoft:#f6ebe1; --reflect:#5a3b86; --reflectsoft:#efe9f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; --due:#e0a878; --duesoft:#2c2013; --reflect:#b3a4de; --reflectsoft:#1f1b2c; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #mod{max-width:760px; margin:0 auto; padding:28px 20px 90px}
+  #mod h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.9rem; margin:0; line-height:1.15}
+  #mod .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #mod .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:18px}
+  #mod .sub{color:var(--muted); margin:8px 0 0; font-size:1.05rem}
+  #mod .meta{color:var(--muted); font-size:.86rem; margin-top:8px}
+  #mod .part{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:30px 0 4px; padding-top:6px; border-top:1px solid var(--line)}
+  #mod h2{font-family:Georgia,"Iowan Old Style",serif; font-size:1.35rem; margin:2px 0 10px}
+  #mod p{margin:.6rem 0}
+  #mod .box{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:12px 0}
+  #mod .box.accent{border-left:5px solid var(--accent)}
+  #mod .mdl{margin:8px 0}
+  #mod .mdl .row{border-radius:10px; padding:10px 13px; margin:6px 0; font-size:.97rem; border:1px solid var(--line)}
+  #mod .mdl .row.b{background:var(--nosoft)} #mod .mdl .row.a{background:var(--goodsoft)}
+  #mod .mdl .lab{display:block; font-size:.64rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; margin-bottom:3px}
+  #mod .mdl .row.b .lab{color:var(--no)} #mod .mdl .row.a .lab{color:var(--good)}
+  #mod .ground{background:var(--reflectsoft); border:1px solid var(--line); border-left:5px solid var(--reflect); border-radius:12px; padding:14px 16px; margin:14px 0}
+  #mod .ground .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--reflect); display:block; margin-bottom:3px}
+  #mod ul{margin:.5rem 0; padding-left:1.2rem} #mod li{margin:.45rem 0}
+  #mod a{color:var(--accent)}
+  #mod .read{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px}
+  #mod .read .r{border-top:1px solid var(--line); padding:11px 0} #mod .read .r:first-child{border-top:0}
+  #mod .read .r .t{font-weight:700} #mod .read .r .c{color:var(--muted); font-size:.88rem}
+  #mod .read .req{display:inline-block; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:0 8px; margin-left:6px; vertical-align:1px}
+  #mod .qc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px 4px; margin:10px 0}
+  #mod .qcitem{border-top:1px solid var(--line); padding:11px 0} #mod .qcitem:first-of-type{border-top:0}
+  #mod .qcitem .s{font-weight:600; margin:0 0 8px; font-style:italic}
+  #mod .qcitem .opts{display:flex; gap:8px; flex-wrap:wrap}
+  #mod .qcitem .opt{flex:1 1 30%; font:inherit; font-weight:700; font-size:.84rem; cursor:pointer; border-radius:8px; padding:8px 6px; border:1.5px solid var(--line); background:var(--field); color:var(--ink)}
+  #mod .qcitem .opt.pick{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #mod .qcitem.right .opt.pick{border-color:var(--good); background:var(--goodsoft); color:var(--good)}
+  #mod .qcitem.wrong .opt.pick{border-color:var(--no); background:var(--nosoft); color:var(--no)}
+  #mod .qcitem .fb{margin-top:8px; font-size:.9rem; color:var(--muted)} #mod .qcitem .fb[hidden]{display:none}
+  #mod .qcbtn{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:9px 15px; border:1px solid var(--accent); background:var(--accent); color:#fff; margin:8px 0}
+  #mod .qcres{font-weight:700; color:var(--accent); margin-left:10px}
+  #mod a.btn{display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font-weight:700; border-radius:9px; padding:12px 20px; margin:8px 6px 8px 0}
+  #mod a.btn.ghost{background:transparent; color:var(--accent); border:1.5px solid var(--accent)}
+  #mod .checks{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px; margin:12px 0}
+  #mod .checks .c{border-top:1px solid var(--line); padding:11px 0; display:flex; gap:11px; align-items:flex-start} #mod .checks .c:first-child{border-top:0}
+  #mod .checks input{width:19px; height:19px; margin-top:2px; accent-color:var(--accent); flex:none}
+  #mod .checks .q{font-weight:600}
+  #mod .checks .q .h{display:block; color:var(--muted); font-weight:400; font-size:.89rem; margin-top:2px}
+  #mod .write{margin:10px 0}
+  #mod .write label{display:block; font-weight:600; margin-bottom:5px}
+  #mod textarea{width:100%; min-height:90px; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6; resize:vertical}
+  #mod textarea:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mod .priv{font-size:.82rem; color:var(--muted); margin-top:4px}
+  #mod .saved{color:var(--good); font-size:.85rem; font-weight:700; opacity:0; transition:opacity .2s} #mod .saved.show{opacity:1}
+  #mod .duebox{background:var(--duesoft); border:1px solid var(--line); border-left:5px solid var(--due); border-radius:12px; padding:14px 16px; margin:16px 0}
+  #mod .duebox .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--due); display:block; margin-bottom:3px}
+  #mod .close{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-top:22px}
+  #mod .note{color:var(--muted); font-size:.9rem}
+  #mod .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="mod">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Week 11 · Module</p>
+    <h1>Revise the Argument</h1>
+    <p class="sub">You have a full draft with sources. This week you make the case tighter and fairer, check that every source earns its place, and make sure you still sound like you. Then you turn it in.</p>
+    <p class="meta">Final week of the argument project. Revise this week; submit Sunday.</p>
+  </header>
+
+  <div class="ground">
+    <span class="lab">Before you start</span>
+    <p>Revising an argument you believe in can feel like poking holes in your own side. That's the job, and it's a strength. The version that has survived your own toughest questions is the one a reader will trust.</p>
+  </div>
+
+  <p class="part">Part 1 · Learn</p>
+  <h2>Revising an argument is its own kind of re-seeing</h2>
+  <p>In Project 1 you revised for scene and story. An argument asks different questions. You still cut what doesn't serve the whole, but now "the whole" is your <button type="button" class="term" data-pop="claim">claim</button>, and everything gets measured against it: does this paragraph advance the case? Does this reason have evidence? Have I been fair to the other side? Six things to check:</p>
+  <div class="box accent">
+    <ul>
+      <li><b>The claim holds and is <button type="button" class="term" data-pop="qualified">qualified</button>.</b> Still defensible, still sized to your evidence, no sneaky overclaiming.</li>
+      <li><b>Structure builds.</b> Each paragraph moves the argument forward. A <button type="button" class="term" data-pop="reverse">reverse outline</button> makes a weak order obvious.</li>
+      <li><b>Evidence backs every reason.</b> No claim left hanging with only your say-so where a source should be.</li>
+      <li><b>Sources are <button type="button" class="term" data-pop="sandwich">sandwiched</button>, not dumped.</b> Every quote framed and explained, in your voice.</li>
+      <li><b>The <button type="button" class="term" data-pop="counter">counterargument</button> is answered.</b> You name the strongest objection and respond to it.</li>
+      <li><b>You still sound like you.</b> The craft, voice, a real person, hasn't been buried under citations.</li>
+    </ul>
+  </div>
+
+  <p>Here's the same paragraph before and after that kind of revision:</p>
+  <div class="mdl">
+    <div class="row b"><span class="lab">Before (overclaimed, quote dumped, one-sided)</span>Phones have completely destroyed everyone's focus. "Task-switching lowers retention" (Lee 4). Schools should ban them, period.</div>
+    <div class="row a"><span class="lab">After (qualified, sandwiched, answers the objection)</span>I know the worry: for a lot of parents, a phone is an emergency lifeline, and that fear is real. But for students like me who kept one on the desk "just in case," the cost was quieter and constant. As Lee found, "even brief task-switching measurably lowers retention" (4). That was every class of mine, present, but never quite there.</div>
+  </div>
+  <p class="note">Same claim, far stronger: it qualifies ("students like me"), frames its source, and answers the other side before moving on, all without losing the voice.</p>
+
+  <p class="part">Part 2 · Read (required)</p>
+  <div class="read">
+    <div class="r"><span class="t">Exercises to Revise Your Position Paper</span> <span class="req">Required</span><div class="c">Voices for Change, p. 49. Concrete moves for tightening an argument.</div></div>
+  </div>
+
+  <p class="part">Part 3 · Practice</p>
+  <h2>Diagnose the weak argument</h2>
+  <p>For each excerpt, pick what most needs fixing. Commit, then <b>Check</b>, the feedback names the move and the fix.</p>
+  <div class="qc" id="qc">
+    <div class="qcitem" data-answer="dump">
+      <p class="s">"My town should fund the youth center. "Programs like these cut juvenile arrests by a third" (Reyes 2). It would really help."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="dump">Quote dumped, needs a sandwich</button><button type="button" class="opt" data-pick="over">Overclaimed</button><button type="button" class="opt" data-pick="off">Off topic</button></div>
+      <div class="fb" hidden>Quote dumped. The statistic is strong but sits naked between two vague sentences. Frame it (who is Reyes?) and explain what it means for your town.</div>
+    </div>
+    <div class="qcitem" data-answer="over">
+      <p class="s">"Everyone knows online classes are a total failure that ruins every student's education, no exceptions."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="dump">Quote dumped</button><button type="button" class="opt" data-pick="over">Overclaimed</button><button type="button" class="opt" data-pick="counter">Missing counterargument</button></div>
+      <div class="fb" hidden>Overclaimed. "Everyone," "total failure," "every student," "no exceptions", one counterexample sinks it. Qualify it to what you can actually defend.</div>
+    </div>
+    <div class="qcitem" data-answer="counter">
+      <p class="s">"Later start times are obviously right and there's no good reason anyone could have against them. Moving on."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="off">Off topic</button><button type="button" class="opt" data-pick="counter">Ignores the counterargument</button><button type="button" class="opt" data-pick="dump">Quote dumped</button></div>
+      <div class="fb" hidden>Ignores the counterargument. There <i>are</i> real objections (bus routes, jobs, childcare). Naming and answering them makes you more convincing, not less.</div>
+    </div>
+    <div class="qcitem" data-answer="off">
+      <p class="s">"Schools should offer free breakfast. Anyway, my little brother is a really picky eater and once cried over scrambled eggs for an hour."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="off">Off topic, cut it</button><button type="button" class="opt" data-pick="over">Overclaimed</button><button type="button" class="opt" data-pick="counter">Missing counterargument</button></div>
+      <div class="fb" hidden>Off topic. The eggs story is charming but doesn't advance the claim about free breakfast. In an argument, cut what doesn't serve the case, even the fun bits.</div>
+    </div>
+    <button type="button" class="qcbtn" id="qcbtn">Check</button><span class="qcres" id="qcres"></span>
+  </div>
+
+  <p class="part">Part 4 · Do</p>
+  <h2>Revise, then submit</h2>
+  <p>This isn't a checklist you tick. Two tools make you actually revise by marking up your own draft, so you see what's really there instead of assuming it. Both run on your computer, and both let you download what you find into your notebook.</p>
+
+  <div class="box accent">
+    <p><b>1. Structure.</b> Open the <a href="reverse-outline.html" target="_blank" rel="noopener">Reverse-Outline X-Ray</a>: paste your draft and label each paragraph's job. A weak order, a repeat, or a paragraph that doesn't advance the claim will jump out.</p>
+    <p><b>2. The case itself.</b> Open the <a href="revision-xray.html" target="_blank" rel="noopener">Revision X-Ray</a>: highlight your claim, your evidence, and your counterargument in different colors. If you can't find one of them in your own draft, that is exactly what to fix. Then check that every source is actually cited, and hear the whole thing read back.</p>
+    <p><a class="btn" href="reverse-outline.html" target="_blank" rel="noopener">Reverse-Outline X-Ray &rarr;</a> <a class="btn ghost" href="revision-xray.html" target="_blank" rel="noopener">Revision X-Ray &rarr;</a></p>
+  </div>
+
+  <p>Then two quick passes by hand: make sure every source is <button type="button" class="term" data-pop="sandwich">sandwiched</button> (lead-in, cited, explained) rather than dumped, re-check for the Week 8 fallacies (straw man, false dilemma, hasty generalization), and tidy your citations with the <a href="mla-citation-builder.html" target="_blank" rel="noopener">MLA Citation Builder</a>.</p>
+
+  <div class="close">
+    <p><b>That's a real argument, built and defended.</b> A claim grounded in your own life, widened with evidence, made fair, and written in your voice. That's a genuinely hard thing to do well, and you did it. Next week we turn to your third and shortest piece: the op-ed, an argument for a real public audience.</p>
+  </div>
+
+  <div class="duebox">
+    <span class="lab">Due this week (Sunday)</span>
+    <p>Your <b>final Argument essay</b>, revised, with sources integrated and cited in MLA and a complete Works Cited page. Submit as a Google Doc. This one is graded on the project rubric. (Notebook writing stays private, collected at midterm and end of term.)</p>
+  </div>
+
+  <dialog class="pop" id="pop-claim"><h3>Claim (recap)</h3><p>The position your whole argument defends. In revision, the test is whether every paragraph serves it. Example: if a paragraph is interesting but doesn't help prove your claim, it either needs to connect back or get cut. The claim is the ruler you measure everything else against.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-qualified"><h3>Qualified (recap)</h3><p>A claim limited to what your evidence can support, using words like "for students like me," "often," "in cases like this." Example: "phones ruin focus" is overclaimed; "for students who keep a phone on the desk, the constant checking costs focus" is qualified, and much harder to knock down. In revision, hunt for absolute words (all, every, never, completely) and pull them back.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-reverse"><h3>Reverse outline</h3><p>An outline you make after drafting: go paragraph by paragraph and write, in one line, the job each does. Example: "1: hooks with my story. 2: states claim. 3: same point as 2 (cut?). 4: evidence." Laid out together, a repeated or out-of-order paragraph jumps out. The Reverse-Outline X-Ray tool does this with your pasted draft.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-sandwich"><h3>Quote sandwich (recap)</h3><p>The three-layer way to bring in a source: a lead-in, the cited quote or paraphrase, then your explanation. Example: "As Reyes reports (lead-in), 'programs like these cut juvenile arrests by a third' (2) (filling). For a town our size, that's dozens of kids a year (explanation)." In revision, find any quote sitting alone and build the two slices around it.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-counter"><h3>Counterargument</h3><p>The strongest objection to your claim, raised and answered inside your own essay. Addressing it makes you more persuasive, because it shows you've thought it through and aren't hiding the hard part. Example: arguing for later start times, you admit the real problem of bus schedules, then explain why the trade is still worth it. Ignoring the objection just leaves the reader thinking it.</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  var PREFIX="rc1000w11:";
+  document.querySelectorAll('#mod [data-save]').forEach(function(el){
+    try{ var v=localStorage.getItem(PREFIX+el.id); if(v!==null) el.value=v; }catch(e){}
+    var flag=document.querySelector('.saved[data-for="'+el.id+'"]');
+    el.addEventListener('input', function(){ try{ localStorage.setItem(PREFIX+el.id, el.value); }catch(e){} if(flag){ flag.classList.add('show'); clearTimeout(flag._t); flag._t=setTimeout(function(){flag.classList.remove('show');},1100);} });
+  });
+  document.querySelectorAll('#checks input[data-c]').forEach(function(cb){
+    var key=PREFIX+'chk_'+cb.getAttribute('data-c');
+    try{ cb.checked = localStorage.getItem(key)==='1'; }catch(e){}
+    cb.addEventListener('change', function(){ try{ localStorage.setItem(key, cb.checked?'1':'0'); }catch(e){} });
+  });
+  var items=Array.prototype.slice.call(document.querySelectorAll('#qc .qcitem'));
+  items.forEach(function(it){
+    var opts=it.querySelectorAll('.opt');
+    opts.forEach(function(o){ o.addEventListener('click', function(){ opts.forEach(function(x){x.classList.remove('pick');}); o.classList.add('pick'); it.dataset.pick=o.getAttribute('data-pick'); it.classList.remove('right','wrong'); it.querySelector('.fb').hidden=true; document.getElementById('qcres').textContent=''; }); });
+  });
+  document.getElementById('qcbtn').addEventListener('click', function(){
+    var correct=0, all=true;
+    items.forEach(function(it){
+      it.classList.remove('right','wrong');
+      if(!it.dataset.pick){ all=false; return; }
+      var right = it.dataset.pick===it.getAttribute('data-answer');
+      it.classList.add(right?'right':'wrong'); it.querySelector('.fb').hidden=false; if(right) correct++;
+    });
+    document.getElementById('qcres').textContent = all ? ('You got '+correct+' of '+items.length+'.') : 'Answer all '+items.length+' first.';
+  });
+  document.querySelectorAll('[data-pop]').forEach(function(b){ b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); }); });
+  document.querySelectorAll('dialog.pop').forEach(function(d){ d.addEventListener('click', function(e){ if(e.target===d) d.close(); }); });
+})();
+</script>
+</body>
+</html>

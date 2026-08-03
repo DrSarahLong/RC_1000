@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Week 1 · Welcome</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --due:#7a3b1f; --duesoft:#f6ebe1; --reflect:#5a3b86; --reflectsoft:#efe9f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --due:#e0a878; --duesoft:#2c2013; --reflect:#b3a4de; --reflectsoft:#1f1b2c; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #mod{max-width:760px; margin:0 auto; padding:28px 20px 90px}
+  #mod h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.9rem; margin:0; line-height:1.15}
+  #mod .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #mod .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:18px}
+  #mod .sub{color:var(--muted); margin:8px 0 0; font-size:1.05rem}
+  #mod .meta{color:var(--muted); font-size:.86rem; margin-top:8px}
+  #mod .part{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:30px 0 4px; padding-top:6px; border-top:1px solid var(--line)}
+  #mod h2{font-family:Georgia,"Iowan Old Style",serif; font-size:1.35rem; margin:2px 0 10px}
+  #mod p{margin:.6rem 0}
+  #mod .box{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:12px 0}
+  #mod .box.accent{border-left:5px solid var(--accent)}
+  #mod .ground{background:var(--reflectsoft); border:1px solid var(--line); border-left:5px solid var(--reflect); border-radius:12px; padding:14px 16px; margin:14px 0}
+  #mod .ground .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--reflect); display:block; margin-bottom:3px}
+  #mod .sci{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:13px 16px; margin:12px 0; font-size:.96rem}
+  #mod .sci .lab{font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  #mod ul{margin:.5rem 0; padding-left:1.2rem} #mod li{margin:.45rem 0}
+  #mod a{color:var(--accent)}
+  #mod .read{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px}
+  #mod .read .r{border-top:1px solid var(--line); padding:11px 0} #mod .read .r:first-child{border-top:0}
+  #mod .read .r .t{font-weight:700} #mod .read .r .c{color:var(--muted); font-size:.88rem}
+  #mod .read .req{display:inline-block; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:0 8px; margin-left:6px; vertical-align:1px}
+  #mod a.btn{display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font-weight:700; border-radius:9px; padding:12px 20px; margin:8px 0}
+  #mod a.btn:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+  #mod .write{margin:10px 0}
+  #mod .write label{display:block; font-weight:600; margin-bottom:5px}
+  #mod textarea{width:100%; min-height:120px; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6; resize:vertical}
+  #mod textarea:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mod .priv{font-size:.82rem; color:var(--muted); margin-top:4px}
+  #mod .saved{color:var(--good); font-size:.85rem; font-weight:700; opacity:0; transition:opacity .2s}
+  #mod .saved.show{opacity:1}
+  #mod .duebox{background:var(--duesoft); border:1px solid var(--line); border-left:5px solid var(--due); border-radius:12px; padding:14px 16px; margin:16px 0}
+  #mod .duebox .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--due); display:block; margin-bottom:3px}
+  #mod .close{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-top:22px}
+  #mod .note{color:var(--muted); font-size:.9rem}
+  #mod .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  #mod .term:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="mod">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Week 1 · Module</p>
+    <h1>Welcome: Writing to Discover</h1>
+    <p class="sub">You've written your whole life, texts, captions, essays you didn't love. This class is about writing that's actually <i>yours</i>, and getting real at it. First, let's get set up and clear out some myths.</p>
+    <p class="meta">Weeks 1 and 2 lay the foundation. Take your time; a couple of sittings is plenty.</p>
+  </header>
+
+  <div class="ground">
+    <span class="lab">A note before we start</span>
+    <p>This is an online class, but it isn't a lonely one, I'm here, and I read everything you turn in and give you real feedback. You don't have to be a "good writer" to do well here. You have to be willing to write, mess up, and revise. If you can do that, you're exactly where you belong.</p>
+  </div>
+
+  <p class="part">Part 1 · Learn</p>
+  <h2>What this class believes about writing</h2>
+  <p>Most people carry around a few ideas about writing that quietly hold them back, that good writers get it right the first time, that you're either born with it or not, that you should know what you'll say before you start. All false. This course runs on the opposite:</p>
+  <div class="box accent">
+    <ul>
+      <li><b>Writing is <button type="button" class="term" data-pop="discovery">discovery</button>.</b> You write to find out what you think, not to type up something you already finished in your head.</li>
+      <li><b>Writing is <button type="button" class="term" data-pop="learnable">learnable</button>.</b> It's a skill, like an instrument. It answers to practice and feedback, both of which you'll get here.</li>
+      <li><b>Writing is <button type="button" class="term" data-pop="social">for a reader</button>.</b> Even personal writing makes choices for someone else. It's a social, rhetorical act, not just venting.</li>
+    </ul>
+  </div>
+  <div class="sci">
+    <span class="lab">And here's a bonus the research keeps confirming</span>
+    <p>The act of writing doesn't just <i>show</i> your thinking, it <i>improves</i> it. Studies find that getting worries and half-formed thoughts out of your head and onto the page frees up mental space and sharpens how you think (Ramirez &amp; Beilock even found students who <button type="button" class="term" data-pop="worry">wrote about their worries</button> before a test did better on it). We'll use writing as a thinking tool all semester.</p>
+  </div>
+
+  <p class="part">Part 2 · Practice</p>
+  <h2>Bust the myths (you diagnose them)</h2>
+  <p>Before we go further, test those beliefs yourself. Open <b>Writing Myths</b>: decide whether each statement is true or a myth, commit to your answer, then check.</p>
+  <p><a class="btn" href="writing-myths.html" target="_blank" rel="noopener">Open Writing Myths &rarr;</a></p>
+
+  <p class="part">Part 3 · Read (required)</p>
+  <div class="read">
+    <div class="r"><span class="t">Language and Identity</span> <span class="req">Required</span><div class="c">Voices for Change, p. 2. How your language and who you are connect.</div></div>
+    <div class="r"><span class="t">Writing to the World</span> <span class="req">Required</span><div class="c">Voices for Change, p. 11.</div></div>
+    <div class="r"><span class="t">Writing Is a Social and Rhetorical Activity</span> <span class="req">Required</span><div class="c">Voices for Change, p. 629. The idea behind Part 1, short.</div></div>
+    <div class="r"><span class="t">Writing Processes</span> <span class="req">Required</span><div class="c">Voices for Change, p. 624.</div></div>
+    <div class="r"><span class="t"><a href="https://thisibelieve.org/essay/23/" target="_blank" rel="noopener">"Be Cool to the Pizza Dude"</a></span> <span class="req" style="background:var(--accent);color:#fff;border-color:var(--accent)">Model essay</span><div class="c">Sarah Adams. A short personal philosophy built around tipping the pizza guy. Read it for <b>voice</b>, how a real, funny personal presence carries a clear idea. Free full text · This I Believe.</div></div>
+  </div>
+
+  <p class="part">Part 4 · Do</p>
+  <h2>Start writing</h2>
+
+  <p><b>Your Writer's Notebook.</b> All semester you'll keep a running notebook of low-stakes writing, freewrites, notes, reactions. It's where ideas start. It saves on your own computer as you type, and it's private unless you choose to share a piece. You turn the whole notebook in just <b>twice all semester</b>, once at midterm and once at the end, as a completion check: it isn't graded on quality, the point is simply that you did the thinking. The two writes below begin it.</p>
+
+  <div class="box">
+    <p><b>1. What matters to you (about 10 minutes).</b> Pick one thing you genuinely value, family, a faith, creativity, fairness, your friends, a place, being the first in your family at college, anything real. Write about <i>why</i> it matters to you and a specific time it mattered. Don't argue; just tell the truth.</p>
+    <p class="note">This isn't a warm-up for its own sake. Researchers (Cohen &amp; Sherman) find that <button type="button" class="term" data-pop="affirm">starting a hard class by writing about what you value</button> measurably helps students feel they belong and perform better, especially students who worry they don't fit. Take it seriously; it's for you.</p>
+    <div class="write">
+      <label for="w_values">What I value, and a time it mattered:</label>
+      <textarea id="w_values" data-save placeholder="One thing I really care about is…"></textarea>
+      <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_values">Saved ✓</span></div>
+    </div>
+  </div>
+
+  <div class="box">
+    <p><b>2. Your first freewrite (about 10 minutes).</b> <button type="button" class="term" data-pop="freewrite">Freewriting</button> means writing without stopping and without judging, keep your fingers moving even if you write "I don't know what to say." No one grades this; no one even reads it unless you want them to. Write about your history with writing: a time it went well, a time it went badly, how you feel picking it up now.</p>
+    <div class="write">
+      <label for="w_free">Freewrite (don't stop, don't fix):</label>
+      <textarea id="w_free" data-save placeholder="Writing and me…"></textarea>
+      <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_free">Saved ✓</span></div>
+    </div>
+  </div>
+
+  <p><b>3. First-Day Writing (this one you turn in).</b> Take the two writes above and shape a short reflection (a page or so) on your past experiences with writing and how you feel about it now, where you're confident, where you're not, what you hope to get better at. This is how I get to know you as a writer, and it's not graded on polish. Turn it in as a Google Doc.</p>
+
+  <div class="close">
+    <p><b>That's Week 1.</b> You cleared out some myths and put real words on the page, both. Next week we start finding the material for your first essay. Glad you're here.</p>
+  </div>
+
+  <div class="duebox">
+    <span class="lab">Due this week (Sunday)</span>
+    <p>Your <b>First-Day Writing</b> (the reflection on your history and feelings about writing), submitted as a Google Doc. Your notebook writes above stay private on your computer for now, you'll turn the whole notebook in at midterm and again at the end of term as a completion check.</p>
+  </div>
+
+  <dialog class="pop" id="pop-discovery"><h3>Writing is discovery</h3><p>Donald Murray and Peter Elbow taught that you write to find out what you think, the draft is the thinking itself, not a report of thinking you already did. That's why "just start" beats "plan it all first." Your ideas take their real shape on the page, not before it.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-learnable"><h3>Writing is learnable</h3><p>The "born writer" myth quietly hands people permission to give up. What teachers and researchers keep finding: writing improves with deliberate practice and feedback, the two things this course is built to give you. Where you start is not where you'll finish.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-social"><h3>Writing is social and rhetorical</h3><p>A core idea in the field (Adler-Kassner &amp; Wardle): writing always happens for an audience, in a situation, to do something. Even a diary makes choices about words. So "express yourself" and "reach a reader" work together, good writing does both at once.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-worry"><h3>Writing to clear your head</h3><p>Ramirez &amp; Beilock (2011) found students who spent a few minutes writing about their worries before a high-pressure test <i>performed better</i>, because offloading worry onto the page frees up working memory for the task at hand. Getting the mess out of your head and onto paper is a genuine cognitive tool.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-affirm"><h3>Why write about your values?</h3><p>It's called a values affirmation, and it's one of the better-studied brief writing exercises there is (Cohen, Garcia &amp; Sherman). A few minutes writing about something you genuinely value, near the start of a demanding course, has been shown to improve performance and a sense of belonging, with the biggest benefit for students who worry they don't fit. Short, real, and for you.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-freewrite"><h3>Freewriting</h3><p>Writing fast and without stopping to judge whether it's "good", a technique from Peter Elbow and Ken Macrorie. Keeping your hand moving keeps your inner critic from interrupting, so you find what you actually think and say truer things. It's the engine of invention: you can't shape material you haven't generated yet.</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  var PREFIX = "rc1000w1:";
+  var fields = Array.prototype.slice.call(document.querySelectorAll('#mod [data-save]'));
+  fields.forEach(function(el){
+    try{ var v = localStorage.getItem(PREFIX+el.id); if(v!==null) el.value = v; }catch(e){}
+    var flag = document.querySelector('.saved[data-for="'+el.id+'"]');
+    el.addEventListener('input', function(){
+      try{ localStorage.setItem(PREFIX+el.id, el.value); }catch(e){}
+      if(flag){ flag.classList.add('show'); clearTimeout(flag._t); flag._t=setTimeout(function(){ flag.classList.remove('show'); },1100); }
+    });
+  });
+  document.querySelectorAll('[data-pop]').forEach(function(b){
+    b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); });
+  });
+  document.querySelectorAll('dialog.pop').forEach(function(d){
+    d.addEventListener('click', function(e){ if(e.target===d) d.close(); });
+  });
+})();
+</script>
+</body>
+</html>

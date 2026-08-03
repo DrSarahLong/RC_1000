@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Week 6 · Sentences, Polish &amp; Turning It In</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; --due:#7a3b1f; --duesoft:#f6ebe1; --reflect:#5a3b86; --reflectsoft:#efe9f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; --due:#e0a878; --duesoft:#2c2013; --reflect:#b3a4de; --reflectsoft:#1f1b2c; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #mod{max-width:760px; margin:0 auto; padding:28px 20px 90px}
+  #mod h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.9rem; margin:0; line-height:1.15}
+  #mod .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #mod .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:18px}
+  #mod .sub{color:var(--muted); margin:8px 0 0; font-size:1.05rem}
+  #mod .meta{color:var(--muted); font-size:.86rem; margin-top:8px}
+  #mod .part{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:30px 0 4px; padding-top:6px; border-top:1px solid var(--line)}
+  #mod h2{font-family:Georgia,"Iowan Old Style",serif; font-size:1.35rem; margin:2px 0 10px}
+  #mod p{margin:.6rem 0}
+  #mod .box{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:12px 0}
+  #mod .box.accent{border-left:5px solid var(--accent)}
+  #mod .mdl{margin:8px 0}
+  #mod .mdl .row{border-radius:10px; padding:10px 13px; margin:6px 0; font-size:.97rem; border:1px solid var(--line)}
+  #mod .mdl .row.b{background:var(--nosoft)} #mod .mdl .row.a{background:var(--goodsoft)}
+  #mod .mdl .lab{display:block; font-size:.64rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; margin-bottom:3px}
+  #mod .mdl .row.b .lab{color:var(--no)} #mod .mdl .row.a .lab{color:var(--good)}
+  #mod .ground{background:var(--reflectsoft); border:1px solid var(--line); border-left:5px solid var(--reflect); border-radius:12px; padding:14px 16px; margin:14px 0}
+  #mod .ground .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--reflect); display:block; margin-bottom:3px}
+  #mod .sci{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:13px 16px; margin:12px 0; font-size:.96rem}
+  #mod .sci .lab{font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  #mod ul{margin:.5rem 0; padding-left:1.2rem} #mod li{margin:.45rem 0}
+  #mod ol.steps{margin:.5rem 0; padding-left:1.3rem} #mod ol.steps li{margin:.6rem 0}
+  #mod a{color:var(--accent)}
+  #mod .read{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px}
+  #mod .read .r{border-top:1px solid var(--line); padding:11px 0} #mod .read .r:first-child{border-top:0}
+  #mod .read .r .t{font-weight:700} #mod .read .r .c{color:var(--muted); font-size:.88rem}
+  #mod .read .req{display:inline-block; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:0 8px; margin-left:6px; vertical-align:1px}
+  #mod .qc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px 4px; margin:10px 0}
+  #mod .qcitem{border-top:1px solid var(--line); padding:11px 0} #mod .qcitem:first-of-type{border-top:0}
+  #mod .qcitem .s{font-weight:600; margin:0 0 8px}
+  #mod .qcitem .opts{display:flex; gap:8px; flex-wrap:wrap}
+  #mod .qcitem .opt{flex:1 1 100%; text-align:left; font:inherit; font-weight:600; font-size:.92rem; cursor:pointer; border-radius:8px; padding:9px 11px; border:1.5px solid var(--line); background:var(--field); color:var(--ink)}
+  #mod .qcitem .opt .k{font-weight:800; color:var(--muted); margin-right:6px}
+  #mod .qcitem .opt.pick{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #mod .qcitem.right .opt.pick{border-color:var(--good); background:var(--goodsoft); color:var(--good)}
+  #mod .qcitem.wrong .opt.pick{border-color:var(--no); background:var(--nosoft); color:var(--no)}
+  #mod .qcitem .fb{margin-top:8px; font-size:.9rem; color:var(--muted)} #mod .qcitem .fb[hidden]{display:none}
+  #mod .qcbtn{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:9px 15px; border:1px solid var(--accent); background:var(--accent); color:#fff; margin:8px 0}
+  #mod .qcres{font-weight:700; color:var(--accent); margin-left:10px}
+  #mod a.btn{display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font-weight:700; border-radius:9px; padding:12px 20px; margin:8px 0}
+  #mod .write{margin:10px 0}
+  #mod .write label{display:block; font-weight:600; margin-bottom:5px}
+  #mod textarea{width:100%; min-height:90px; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6; resize:vertical}
+  #mod textarea:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mod .priv{font-size:.82rem; color:var(--muted); margin-top:4px}
+  #mod .saved{color:var(--good); font-size:.85rem; font-weight:700; opacity:0; transition:opacity .2s} #mod .saved.show{opacity:1}
+  #mod .mla{font-family:"Times New Roman",Georgia,serif; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:10px 0; line-height:2; font-size:.95rem}
+  #mod .mla .ctr{text-align:center}
+  #mod .duebox{background:var(--duesoft); border:1px solid var(--line); border-left:5px solid var(--due); border-radius:12px; padding:14px 16px; margin:16px 0}
+  #mod .duebox .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--due); display:block; margin-bottom:3px}
+  #mod .close{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-top:22px}
+  #mod .note{color:var(--muted); font-size:.9rem}
+  #mod .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="mod">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Week 6 · Module</p>
+    <h1>Sentences, Polish &amp; Turning It In</h1>
+    <p class="sub">The big re-seeing is done. Now the satisfying part: sharpening the actual sentences so the writing feels as clear as the thinking behind it. Then you format it and hand it in.</p>
+    <p class="meta">This is the final week of your first essay. A read-aloud, a tightening pass, and a format check, then it's finished.</p>
+  </header>
+
+  <div class="ground">
+    <span class="lab">A word before you polish</span>
+    <p>You did the hard work last week: cutting, reordering, finding what the essay is really about. This week is lighter and more fun. You're not tearing anything down, you're buffing what's already there until it shines. Go at your own pace.</p>
+  </div>
+
+  <p class="part">Part 1 · Learn</p>
+  <h2>Edit the sentences, then proofread</h2>
+  <p>Three jobs, biggest to smallest: <b>revise</b> the whole (done), <b>edit</b> the sentences (this week), <b>proofread</b> the typos (last, right before you submit). Doing them in that order means you never polish a sentence you were about to cut. Here's the sentence-level work.</p>
+
+  <div class="box accent">
+    <p>Four moves that sharpen almost any draft:</p>
+    <ul>
+      <li><b><button type="button" class="term" data-pop="darlings">Kill your darlings.</button></b> When two or three sentences make the same point, keep the best one and cut the rest, even a line you love.</li>
+      <li><b><button type="button" class="term" data-pop="concision">Tighten.</button></b> Cut the padding ("due to the fact that" &rarr; "because"). Fewer words, more force.</li>
+      <li><b>Vary the rhythm.</b> If every sentence is the same length, the writing drones. Let some run long, then land one short and hard.</li>
+      <li><b>Fix the two that make writing look amateur:</b> <button type="button" class="term" data-pop="splice">comma splices</button> and <button type="button" class="term" data-pop="dialogue">dialogue punctuation</button>.</li>
+    </ul>
+  </div>
+
+  <p>Two quick models. Read the "before," picture your fix, then check the "after."</p>
+  <p style="font-weight:700; margin-bottom:2px">Kill your darlings (cut the repetition):</p>
+  <div class="mdl">
+    <div class="row b"><span class="lab">Before</span>The room went silent. The quiet pressed down on all of us. Nobody said a word for a long moment.</div>
+    <div class="row a"><span class="lab">After</span>The room went silent. Nobody said a word.</div>
+  </div>
+  <p style="font-weight:700; margin:12px 0 2px">Tighten (same meaning, half the words):</p>
+  <div class="mdl">
+    <div class="row b"><span class="lab">Before</span>Due to the fact that it was getting late, I made the decision to finally stop writing for the night.</div>
+    <div class="row a"><span class="lab">After</span>It was getting late, so I stopped writing.</div>
+  </div>
+  <p class="note">Want more? Your <a href="craft-toolkit.html" target="_blank" rel="noopener">Craft Toolkit</a> has before/after models for all of these, including a "kill your darlings" and a "punctuate dialogue" card.</p>
+
+  <div class="sci">
+    <span class="lab">Why tighter sentences actually read better</span>
+    <p>Readers understand a sentence fastest when it opens with something familiar and puts the new information at the end, what linguists Haviland and Clark (1974) called the <button type="button" class="term" data-pop="knownnew">given-new contract</button>. Padding and repetition bury the new part and make the reader work harder than they should. And one low-tech trick catches more errors than any other: <button type="button" class="term" data-pop="aloud">read it out loud.</button> Your ears catch what your eyes skip.</p>
+  </div>
+
+  <p class="part">Part 2 · Read (required)</p>
+  <div class="read">
+    <div class="r"><span class="t">The Known-New Contract</span> <span class="req">Required</span><div class="c">Voices for Change, p. 56. How to make sentences flow into each other.</div></div>
+    <div class="r"><span class="t">Wordy Sentences</span> <span class="req">Required</span><div class="c">Voices for Change, p. 59. A short, practical guide to cutting the padding.</div></div>
+    <div class="r"><span class="t"><a href="https://brevitymag.com/nonfiction/pieces-dad-mails-me-before-he-moves-away-a-list/" target="_blank" rel="noopener">"Pieces Dad Mails Me Before He Moves Away: A List"</a></span> <span class="req" style="background:var(--accent);color:#fff;border-color:var(--accent)">Model essay</span><div class="c">Annalise Mabe. A father mails his daughter childhood objects before he moves, told as a numbered list. Read it for <b>form as a choice</b>, the essay-as-list does the emotional work. Free full text · Brevity.</div></div>
+  </div>
+
+  <p class="part">Part 3 · Practice</p>
+  <h2>Pick the stronger version</h2>
+  <p>Each pair says the same thing two ways. Choose the sharper one. Commit, then <b>Check</b>, the feedback names the move.</p>
+  <div class="qc" id="qc">
+    <div class="qcitem" data-answer="b">
+      <p class="s">Tighten it:</p>
+      <div class="opts">
+        <button type="button" class="opt" data-pick="a"><span class="k">A</span>Due to the fact that I was exhausted, I went to bed early.</button>
+        <button type="button" class="opt" data-pick="b"><span class="k">B</span>Because I was exhausted, I went to bed early.</button>
+      </div>
+      <div class="fb" hidden>B. "Due to the fact that" is five words doing one word's job. "Because" is cleaner every time.</div>
+    </div>
+    <div class="qcitem" data-answer="b">
+      <p class="s">Fix the punctuation:</p>
+      <div class="opts">
+        <button type="button" class="opt" data-pick="a"><span class="k">A</span>It was almost midnight, I kept writing anyway.</button>
+        <button type="button" class="opt" data-pick="b"><span class="k">B</span>It was almost midnight, but I kept writing anyway.</button>
+      </div>
+      <div class="fb" hidden>B. A is a comma splice: two full sentences glued with only a comma. Add a joining word (but), or use a period or semicolon.</div>
+    </div>
+    <div class="qcitem" data-answer="a">
+      <p class="s">Punctuate the dialogue:</p>
+      <div class="opts">
+        <button type="button" class="opt" data-pick="a"><span class="k">A</span>"We should go," she said, already reaching for her keys.</button>
+        <button type="button" class="opt" data-pick="b"><span class="k">B</span>"We should go" she said, already reaching for her keys.</button>
+      </div>
+      <div class="fb" hidden>A. The comma goes inside the quotes before the tag ("she said"). B leaves the quote bumping straight into the attribution.</div>
+    </div>
+    <div class="qcitem" data-answer="b">
+      <p class="s">Kill the darling (cut the repetition):</p>
+      <div class="opts">
+        <button type="button" class="opt" data-pick="a"><span class="k">A</span>I was terrified. Fear ran through me. My whole body was scared.</button>
+        <button type="button" class="opt" data-pick="b"><span class="k">B</span>I was terrified. My hands wouldn't hold the cup still.</button>
+      </div>
+      <div class="fb" hidden>B. A says "scared" three times and shows nothing. B says it once, then shows it. Cut the repeats and add one real detail.</div>
+    </div>
+    <button type="button" class="qcbtn" id="qcbtn">Check</button><span class="qcres" id="qcres"></span>
+  </div>
+
+  <p class="part">Part 4 · Do (finish your essay)</p>
+  <h2>Your final pass, in order</h2>
+  <ol class="steps">
+    <li><b>Read it out loud.</b> Every place you stumble is a place your reader will too. Mark them.</li>
+    <li><b>Run the <a href="editors-passes.html" target="_blank" rel="noopener">Editor's Passes</a>.</b> It walks you through your opening, your ending, your peak moment, the arc, and one darling to cut, one pass at a time, on your own draft. You make every call. Everything stays on your computer.</li>
+    <li><b>Kill one darling.</b> Find one spot where you make the same point twice. Cut the weaker one.</li>
+    <li><b>Format it in MLA</b> (below), then submit as your Google Doc.</li>
+  </ol>
+
+  <div class="write">
+    <label for="w_darling">Quick rep: paste the darling you cut here (the repeated line you let go). Cutting your own good writing is a skill, name it once.</label>
+    <textarea id="w_darling" data-save placeholder="The line I loved but cut was…"></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_darling">Saved ✓</span></div>
+  </div>
+
+  <h2>MLA format, in 20 seconds</h2>
+  <p>Your personal essay may not cite any sources, but it still uses <button type="button" class="term" data-pop="mla">MLA document format</button>: double-spaced, readable 12-point font, one-inch margins, and this header in the top-left of page one.</p>
+  <div class="mla">
+    Your Name<br>
+    Dr. Long<br>
+    RC 1000<br>
+    7 September 2026<br>
+    <span class="ctr">The Title of Your Essay</span>
+    The first paragraph of your essay begins here, indented, double-spaced, and dropping the reader straight into a scene&hellip;
+  </div>
+  <p class="note">Add a header with your last name and page number in the top-right corner (your Google Doc can do this under Insert &rarr; Page numbers). That's it, that's MLA for this essay.</p>
+
+  <div class="close">
+    <p><b>You finished your first essay.</b> You found honest material, drafted it badly on purpose, re-saw it, and sharpened it into something a reader can move through. That's the whole cycle, and you'll run it again on the next two projects, faster each time. Take a breath. You earned it.</p>
+  </div>
+
+  <div class="duebox">
+    <span class="lab">Due this week (Sunday)</span>
+    <p>Your <b>final Personal Essay</b>, revised, edited, and MLA-formatted, submitted as a Google Doc. This one is graded on the project rubric. (Your Writer's Notebook stays private and is collected at midterm and the end of term.)</p>
+  </div>
+
+  <dialog class="pop" id="pop-darlings"><h3>Kill your darlings</h3><p>A famous piece of writing advice (often traced to Arthur Quiller-Couch): cut the lines you're most in love with when they don't serve the piece, especially when two or three sentences repeat the same idea. Keep the strongest one, cut the rest, even the pretty one. Save it in a scrap file if it hurts too much; it might have a home somewhere else.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-concision"><h3>Concision</h3><p>Saying it in the fewest words that keep the meaning and the music. Common padding to cut: "due to the fact that" (&rarr; because), "in order to" (&rarr; to), "the reason is because" (&rarr; because), "at this point in time" (&rarr; now). Tightening isn't about being short for its own sake; it's about removing what the reader has to wade through to reach your point.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-splice"><h3>Comma splice</h3><p>Joining two complete sentences with only a comma: <i>"It was late, I kept writing."</i> Both halves could stand alone, so a comma is too weak to hold them. Three fixes: a period (<i>late. I kept</i>), a semicolon (<i>late; I kept</i>), or a joining word (<i>late, but I kept</i>). Once you can hear it, you'll catch it everywhere.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-dialogue"><h3>Punctuating dialogue</h3><p>When a tag like "she said" follows the quote, the comma (or ? or !) goes <i>inside</i> the quotation marks: <i>"We should go," she said.</i> Never let the closing quote bump straight into the tag (<i>"We should go" she said</i>). New speaker, new paragraph. These small rules are how a reader can tell you've read a lot of dialogue.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-knownnew"><h3>The given-new contract</h3><p>Haviland &amp; Clark (1974) showed readers process a sentence fastest when it starts with something already familiar (the "given") and puts the new information at the end. Practically: link each sentence to the one before it, and land the fresh idea last. It's why "flow" isn't magic, it's a pattern you can build on purpose.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-aloud"><h3>Read it out loud</h3><p>The single most effective proofreading move. Your eyes autocorrect what you meant to write; your ears don't. Reading aloud (or letting your device read it to you) surfaces run-ons, missing words, clunky rhythm, and repetition. Every spot you trip over is a spot your reader will trip too. Do this last, right before you submit.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-mla"><h3>MLA document format</h3><p>A standard way to format an academic paper (Modern Language Association style). The basics: double-spaced throughout, a readable 12-point font, one-inch margins, a four-line header (your name, instructor, course, date) in the top-left of page one, a centered title, indented paragraphs, and your last name plus page number in the top-right of every page. If your essay quotes sources, MLA also governs the in-text citations and Works Cited, you'll use that fully in the next project.</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  var PREFIX="rc1000w6:";
+  document.querySelectorAll('#mod [data-save]').forEach(function(el){
+    try{ var v=localStorage.getItem(PREFIX+el.id); if(v!==null) el.value=v; }catch(e){}
+    var flag=document.querySelector('.saved[data-for="'+el.id+'"]');
+    el.addEventListener('input', function(){ try{ localStorage.setItem(PREFIX+el.id, el.value); }catch(e){} if(flag){ flag.classList.add('show'); clearTimeout(flag._t); flag._t=setTimeout(function(){flag.classList.remove('show');},1100);} });
+  });
+  var items=Array.prototype.slice.call(document.querySelectorAll('#qc .qcitem'));
+  items.forEach(function(it){
+    var opts=it.querySelectorAll('.opt');
+    opts.forEach(function(o){ o.addEventListener('click', function(){ opts.forEach(function(x){x.classList.remove('pick');}); o.classList.add('pick'); it.dataset.pick=o.getAttribute('data-pick'); it.classList.remove('right','wrong'); it.querySelector('.fb').hidden=true; document.getElementById('qcres').textContent=''; }); });
+  });
+  document.getElementById('qcbtn').addEventListener('click', function(){
+    var correct=0, all=true;
+    items.forEach(function(it){
+      it.classList.remove('right','wrong');
+      if(!it.dataset.pick){ all=false; return; }
+      var right = it.dataset.pick===it.getAttribute('data-answer');
+      it.classList.add(right?'right':'wrong'); it.querySelector('.fb').hidden=false; if(right) correct++;
+    });
+    document.getElementById('qcres').textContent = all ? ('You got '+correct+' of 4.') : 'Answer all four first.';
+  });
+  document.querySelectorAll('[data-pop]').forEach(function(b){ b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); }); });
+  document.querySelectorAll('dialog.pop').forEach(function(d){ d.addEventListener('click', function(e){ if(e.target===d) d.close(); }); });
+})();
+</script>
+</body>
+</html>

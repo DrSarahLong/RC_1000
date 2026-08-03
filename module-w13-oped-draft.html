@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Week 13 · Draft &amp; Revise the Op-Ed</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; --due:#7a3b1f; --duesoft:#f6ebe1; --reflect:#5a3b86; --reflectsoft:#efe9f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; --due:#e0a878; --duesoft:#2c2013; --reflect:#b3a4de; --reflectsoft:#1f1b2c; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #mod{max-width:760px; margin:0 auto; padding:28px 20px 90px}
+  #mod h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.9rem; margin:0; line-height:1.15}
+  #mod .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #mod .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:18px}
+  #mod .sub{color:var(--muted); margin:8px 0 0; font-size:1.05rem}
+  #mod .meta{color:var(--muted); font-size:.86rem; margin-top:8px}
+  #mod .part{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:30px 0 4px; padding-top:6px; border-top:1px solid var(--line)}
+  #mod h2{font-family:Georgia,"Iowan Old Style",serif; font-size:1.35rem; margin:2px 0 10px}
+  #mod p{margin:.6rem 0}
+  #mod .box{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:12px 0}
+  #mod .box.accent{border-left:5px solid var(--accent)}
+  #mod .mdl{margin:8px 0}
+  #mod .mdl .row{border-radius:10px; padding:10px 13px; margin:6px 0; font-size:.97rem; border:1px solid var(--line)}
+  #mod .mdl .row.b{background:var(--nosoft)} #mod .mdl .row.a{background:var(--goodsoft)}
+  #mod .mdl .lab{display:block; font-size:.64rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; margin-bottom:3px}
+  #mod .mdl .row.b .lab{color:var(--no)} #mod .mdl .row.a .lab{color:var(--good)}
+  #mod .ground{background:var(--reflectsoft); border:1px solid var(--line); border-left:5px solid var(--reflect); border-radius:12px; padding:14px 16px; margin:14px 0}
+  #mod .ground .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--reflect); display:block; margin-bottom:3px}
+  #mod ul{margin:.5rem 0; padding-left:1.2rem} #mod li{margin:.45rem 0}
+  #mod ol.steps{margin:.5rem 0; padding-left:1.3rem} #mod ol.steps li{margin:.6rem 0}
+  #mod a{color:var(--accent)}
+  #mod .read{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px}
+  #mod .read .r{border-top:1px solid var(--line); padding:11px 0} #mod .read .r:first-child{border-top:0}
+  #mod .read .r .t{font-weight:700} #mod .read .r .c{color:var(--muted); font-size:.88rem}
+  #mod .read .req{display:inline-block; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:0 8px; margin-left:6px; vertical-align:1px}
+  #mod .qc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px 4px; margin:10px 0}
+  #mod .qcitem{border-top:1px solid var(--line); padding:11px 0} #mod .qcitem:first-of-type{border-top:0}
+  #mod .qcitem .s{font-weight:600; margin:0 0 8px}
+  #mod .qcitem .opts{display:flex; flex-direction:column; gap:7px}
+  #mod .qcitem .opt{text-align:left; font:inherit; font-weight:600; font-size:.92rem; cursor:pointer; border-radius:8px; padding:9px 11px; border:1.5px solid var(--line); background:var(--field); color:var(--ink)}
+  #mod .qcitem .opt .k{font-weight:800; color:var(--muted); margin-right:6px}
+  #mod .qcitem .opt.pick{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #mod .qcitem.right .opt.pick{border-color:var(--good); background:var(--goodsoft); color:var(--good)}
+  #mod .qcitem.wrong .opt.pick{border-color:var(--no); background:var(--nosoft); color:var(--no)}
+  #mod .qcitem .fb{margin-top:8px; font-size:.9rem; color:var(--muted)} #mod .qcitem .fb[hidden]{display:none}
+  #mod .qcbtn{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:9px 15px; border:1px solid var(--accent); background:var(--accent); color:#fff; margin:8px 0}
+  #mod .qcres{font-weight:700; color:var(--accent); margin-left:10px}
+  #mod .wcbox{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:10px 0}
+  #mod .wcbox textarea{width:100%; min-height:120px; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6; resize:vertical}
+  #mod .wcbox textarea:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mod .wcstat{margin-top:10px; font-weight:700; display:flex; align-items:baseline; gap:8px; flex-wrap:wrap}
+  #mod .wcstat .num{font-size:1.5rem; font-family:Georgia,serif}
+  #mod .wcstat .msg{font-weight:600; font-size:.92rem}
+  #mod .wcstat.low .num{color:var(--muted)} #mod .wcstat.good .num{color:var(--good)} #mod .wcstat.over .num{color:var(--no)}
+  #mod a.btn{display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font-weight:700; border-radius:9px; padding:12px 20px; margin:8px 6px 8px 0}
+  #mod a.btn.ghost{background:transparent; color:var(--accent); border:1.5px solid var(--accent)}
+  #mod .write{margin:10px 0}
+  #mod .write label{display:block; font-weight:600; margin-bottom:5px}
+  #mod textarea.big{width:100%; min-height:100px; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6; resize:vertical}
+  #mod textarea.big:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mod .priv{font-size:.82rem; color:var(--muted); margin-top:4px}
+  #mod .saved{color:var(--good); font-size:.85rem; font-weight:700; opacity:0; transition:opacity .2s} #mod .saved.show{opacity:1}
+  #mod .duebox{background:var(--duesoft); border:1px solid var(--line); border-left:5px solid var(--due); border-radius:12px; padding:14px 16px; margin:16px 0}
+  #mod .duebox .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--due); display:block; margin-bottom:3px}
+  #mod .close{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-top:22px}
+  #mod .note{color:var(--muted); font-size:.9rem}
+  #mod .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="mod">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Week 13 · Module</p>
+    <h1>Draft &amp; Revise the Op-Ed</h1>
+    <p class="sub">You have a pitch and a skeleton. Now write the thing, about 700 tight words, then cut and sharpen until every line earns its place. This is your last writing project. One project still follows it: the digital portfolio.</p>
+    <p class="meta">Draft this week, revise, and submit Sunday. Short piece, high polish.</p>
+  </header>
+
+  <div class="ground">
+    <span class="lab">Before you start</span>
+    <p>A short piece feels easy until you try to make every word count. That pressure is the whole point of the op-ed. Draft loosely first, then tighten; nobody writes 700 sharp words on the first pass. You've done the thinking already, this week is craft.</p>
+  </div>
+
+  <p class="part">Part 1 · Learn</p>
+  <h2>Short is hard. Punch is harder.</h2>
+  <p>An op-ed runs about 600 to 800 words, which is not much room. So the two skills that matter most this week are <button type="button" class="term" data-pop="concision">concision</button> (say it in the fewest words that keep the meaning) and <button type="button" class="term" data-pop="voice">public voice</button> (sound like a sharp person talking, not a report). Here's a draft sentence and its rescue:</p>
+  <div class="mdl">
+    <div class="row b"><span class="lab">Flabby (and faceless)</span>It is important to note that, in my own personal opinion, there are a number of different reasons why the city council should perhaps consider the possibility of adding more bus routes.</div>
+    <div class="row a"><span class="lab">Tight (and human)</span>The city needs more buses. I've missed three job interviews waiting for one that never came.</div>
+  </div>
+  <p class="note">Twenty-nine words become fourteen, the hedging vanishes, and a real person appears. Op-ed readers reward that trade every time. When in doubt, cut the wind-up and lead with the concrete.</p>
+
+  <div class="box accent">
+    <p><b>A short checklist of op-ed moves</b> (you'll <i>do</i> these in the Revision X-Ray below, this is just the what):</p>
+    <ul>
+      <li><b>Cut the throat-clearing.</b> "It is important to note that," "in today's society," "I personally believe", delete on sight.</li>
+      <li><b>Vary the rhythm.</b> After a couple of longer sentences, drop a short one. It lands.</li>
+      <li><b>Strong verbs, few adverbs.</b> "Slashed," not "reduced by a lot."</li>
+      <li><b>Link, don't cite.</b> Your evidence gets a <button type="button" class="term" data-pop="hyperlink">hyperlink</button>, not an MLA parenthesis. No Works Cited page on an op-ed.</li>
+      <li><b>Land the <button type="button" class="term" data-pop="kicker">kicker</button>.</b> Your last line is the one they'll remember. Make it snap, ideally circling back to your opening image.</li>
+    </ul>
+  </div>
+
+  <p class="part">Part 2 · Read (required)</p>
+  <div class="read">
+    <div class="r"><span class="t">Hyperlinking Sources</span> <span class="req">Required</span><div class="c">Voices for Change, p. 200. How to cite by linking, the web's version of a citation.</div></div>
+    <div class="r"><span class="t">Wordy Sentences (revisit)</span> <span class="req">Required</span><div class="c">Voices for Change, p. 59. Your concision toolkit from Project 1, put it to work here.</div></div>
+  </div>
+
+  <p class="part">Part 3 · Practice</p>
+  <h2>Pick the op-ed sentence</h2>
+  <p>Each pair says the same thing. Choose the one a busy public reader would keep reading. Commit, then <b>Check</b>.</p>
+  <div class="qc" id="qc">
+    <div class="qcitem" data-answer="b">
+      <p class="s">Tighten it:</p>
+      <div class="opts">
+        <button type="button" class="opt" data-pick="a"><span class="k">A</span>Due to the fact that the library closes early, students are not able to study there at night.</button>
+        <button type="button" class="opt" data-pick="b"><span class="k">B</span>The library closes before students can study.</button>
+      </div>
+      <div class="fb" hidden>B. Sixteen words down to eight, same meaning, more force. "Due to the fact that" is always cuttable.</div>
+    </div>
+    <div class="qcitem" data-answer="b">
+      <p class="s">Cut the hedging:</p>
+      <div class="opts">
+        <button type="button" class="opt" data-pick="a"><span class="k">A</span>I kind of think that maybe schools should possibly consider starting a bit later.</button>
+        <button type="button" class="opt" data-pick="b"><span class="k">B</span>Schools should start later.</button>
+      </div>
+      <div class="fb" hidden>B. An op-ed takes a position. "Kind of," "maybe," "possibly," "a bit", each one shrinks your authority. Say it plainly.</div>
+    </div>
+    <div class="qcitem" data-answer="b">
+      <p class="s">Trade abstract for concrete:</p>
+      <div class="opts">
+        <button type="button" class="opt" data-pick="a"><span class="k">A</span>The program provides significant benefits to numerous individuals in the community.</button>
+        <button type="button" class="opt" data-pick="b"><span class="k">B</span>The program kept forty families fed last winter.</button>
+      </div>
+      <div class="fb" hidden>B. "Significant benefits to numerous individuals" is fog. Forty families, last winter, fed, that a reader can see and feel.</div>
+    </div>
+    <div class="qcitem" data-answer="b">
+      <p class="s">Land the ending:</p>
+      <div class="opts">
+        <button type="button" class="opt" data-pick="a"><span class="k">A</span>In conclusion, as you can see, the youth center is a good thing that really helps a lot of people.</button>
+        <button type="button" class="opt" data-pick="b"><span class="k">B</span>Cut the youth center, and we'll pay for it later, in courtrooms instead of classrooms.</button>
+      </div>
+      <div class="fb" hidden>B. A is a flat summary. B is a kicker: short, pointed, and it leaves the argument ringing. End on the snap.</div>
+    </div>
+    <button type="button" class="qcbtn" id="qcbtn">Check</button><span class="qcres" id="qcres"></span>
+  </div>
+
+  <p class="part">Part 4 · Do</p>
+  <h2>Draft, tighten, submit</h2>
+  <ol class="steps">
+    <li><b>Draft the whole thing</b> in your Google Doc, following your Week 12 outline: hook, nut graf, two or three quick points with linked evidence, a one-line counter, a kicker. Don't polish yet, just fill the skeleton.</li>
+    <li><b>Check the length</b> below, then trim toward 600 to 800 words. If you're over, that's normal; cutting is where op-eds get good.</li>
+    <li><b>Run the <a href="revision-xray.html" target="_blank" rel="noopener">Revision X-Ray</a>:</b> highlight your claim, evidence, and counter; confirm every borrowed fact is <i>linked</i> (not left uncited); and hear it read back, does it sound like a person? Does the kicker land?</li>
+    <li><b>Polish the headline and the last line.</b> These do the most work per word in the whole piece.</li>
+  </ol>
+
+  <div class="wcbox">
+    <label for="wc_text" style="font-weight:600; display:block; margin-bottom:6px">Paste your op-ed here to check the length (private, on your computer):</label>
+    <textarea id="wc_text" data-save placeholder="Paste your draft to see the word count…"></textarea>
+    <div class="wcstat low" id="wc_stat"><span class="num" id="wc_num">0</span><span class="msg" id="wc_msg">words · aim for 600 to 800.</span></div>
+  </div>
+
+  <p><a class="btn" href="revision-xray.html" target="_blank" rel="noopener">Open the Revision X-Ray &rarr;</a></p>
+
+  <div class="close">
+    <p><b>Three genres, done.</b> A personal essay, an argument, and now an op-ed you could actually send to a paper. That's a real range, and you built it in one semester. You're not finished, though: one project remains. In the <b>digital portfolio</b> (starting next week) you'll gather these pieces, revise your strongest one further, and present yourself as the writer you've become. The writing is done; now you make it shine and show it off.</p>
+  </div>
+
+  <div class="duebox">
+    <span class="lab">Due this week (Sunday)</span>
+    <p>Your <b>final op-ed</b>, roughly 600 to 800 words, with evidence hyperlinked (no Works Cited page), submitted as a Google Doc. This is the last of your three graded writing projects. (Notebook writing stays private, collected at midterm and end of term.)</p>
+  </div>
+
+  <dialog class="pop" id="pop-concision"><h3>Concision</h3><p>Saying it in the fewest words that keep the meaning and the music, not being short for its own sake, but cutting what the reader has to wade through. Example: "at this point in time" becomes "now"; "she made the decision to leave" becomes "she left." In a 700-word op-ed, every cut word buys room for one that matters.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-voice"><h3>Public voice</h3><p>Writing that sounds like a sharp, warm person talking to you, not an institution issuing a statement. Contractions are fine. Short sentences are welcome. Personality is the point. Example, institutional: "It is recommended that residents utilize public transit." Public voice: "Take the bus. I do, and here's what it taught me." Same content, a human behind it.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-hyperlink"><h3>Hyperlinked citation (recap)</h3><p>In public writing you cite by linking, not by MLA. When you state a fact from a source, make the key words a link to it. Example: "arrests <a href="#" onclick="return false">dropped by a third</a> after the program opened," where the underlined words link to the report. Clean prose, and a curious reader can check you in one click. No parentheses, no Works Cited page.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-kicker"><h3>Kicker (recap)</h3><p>The closing line, the snap the reader carries out the door. Short, pointed, and often it echoes your opening image. Example, an op-ed that opened on a late school bus ends: "So cut it from the scoreboard, not the ladder." A weak op-ed trails off with "in conclusion"; a strong one lands its last sentence like a door closing.</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  var PREFIX="rc1000w13:";
+  document.querySelectorAll('#mod [data-save]').forEach(function(el){
+    try{ var v=localStorage.getItem(PREFIX+el.id); if(v!==null) el.value=v; }catch(e){}
+    var flag=document.querySelector('.saved[data-for="'+el.id+'"]');
+    el.addEventListener('input', function(){ try{ localStorage.setItem(PREFIX+el.id, el.value); }catch(e){} if(flag){ flag.classList.add('show'); clearTimeout(flag._t); flag._t=setTimeout(function(){flag.classList.remove('show');},1100);} });
+  });
+  // word counter
+  var wt=document.getElementById('wc_text'), wn=document.getElementById('wc_num'), wm=document.getElementById('wc_msg'), ws=document.getElementById('wc_stat');
+  function words(s){ return (s.match(/[A-Za-z0-9'’-]+/g)||[]).length; }
+  function upd(){
+    var n=words(wt.value); wn.textContent=n; ws.classList.remove('low','good','over');
+    var m, cls;
+    if(n===0){ m='words · aim for 600 to 800.'; cls='low'; }
+    else if(n<450){ m='words · keep going, you have room.'; cls='low'; }
+    else if(n<600){ m='words · almost in range, aim for 600 to 800.'; cls='low'; }
+    else if(n<=800){ m='words · right in the op-ed sweet spot.'; cls='good'; }
+    else if(n<=950){ m='words · a bit long. Trim toward 800.'; cls='over'; }
+    else { m='words · well over. An op-ed is about 700; cut hard.'; cls='over'; }
+    wm.textContent=m; ws.classList.add(cls);
+  }
+  wt.addEventListener('input', upd); upd();
+  // quickcheck
+  var items=Array.prototype.slice.call(document.querySelectorAll('#qc .qcitem'));
+  items.forEach(function(it){
+    var opts=it.querySelectorAll('.opt');
+    opts.forEach(function(o){ o.addEventListener('click', function(){ opts.forEach(function(x){x.classList.remove('pick');}); o.classList.add('pick'); it.dataset.pick=o.getAttribute('data-pick'); it.classList.remove('right','wrong'); it.querySelector('.fb').hidden=true; document.getElementById('qcres').textContent=''; }); });
+  });
+  document.getElementById('qcbtn').addEventListener('click', function(){
+    var correct=0, all=true;
+    items.forEach(function(it){
+      it.classList.remove('right','wrong');
+      if(!it.dataset.pick){ all=false; return; }
+      var right = it.dataset.pick===it.getAttribute('data-answer');
+      it.classList.add(right?'right':'wrong'); it.querySelector('.fb').hidden=false; if(right) correct++;
+    });
+    document.getElementById('qcres').textContent = all ? ('You got '+correct+' of '+items.length+'.') : 'Answer all '+items.length+' first.';
+  });
+  document.querySelectorAll('[data-pop]').forEach(function(b){ b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); }); });
+  document.querySelectorAll('dialog.pop').forEach(function(d){ d.addEventListener('click', function(e){ if(e.target===d) d.close(); }); });
+})();
+</script>
+</body>
+</html>

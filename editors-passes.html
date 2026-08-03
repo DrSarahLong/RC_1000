@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prototype · Editor's Passes</title>
+<style>
+  :root{ --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a; --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe; --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; }
+  @media (prefers-color-scheme: dark){ :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; } }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #ep{max-width:720px; margin:0 auto; padding:28px 20px 90px}
+  #ep h1{font-family:Georgia,serif; font-size:1.8rem; margin:0}
+  #ep .kicker{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #ep .badge{display:inline-block; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:1px 9px; margin-bottom:8px}
+  #ep .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:16px}
+  #ep .sub{color:var(--muted); margin:8px 0 0}
+  #ep .honest{background:var(--accent-soft); border:1px solid var(--line); border-radius:10px; padding:11px 14px; font-size:.92rem; margin:14px 0}
+  #ep label.fld{font-weight:600; display:block; margin-bottom:6px}
+  #ep textarea{width:100%; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6; resize:vertical}
+  #ep #draft{min-height:200px}
+  #ep textarea:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #ep button{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:11px 18px; border:1px solid var(--accent); background:var(--accent); color:#fff}
+  #ep button.ghost{background:transparent; color:var(--accent)}
+  #ep button:disabled{opacity:.4; cursor:default}
+  #ep .row{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:14px}
+  #ep .priv{font-size:.82rem; color:var(--muted); margin-top:6px}
+  #ep .dots{display:flex; gap:6px; margin:2px 0 14px}
+  #ep .dots .d{width:26px; height:5px; border-radius:3px; background:var(--line)} #ep .dots .d.on{background:var(--accent)}
+  #ep .pass{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px}
+  #ep .pass .no{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  #ep .pass h2{font-family:Georgia,serif; font-size:1.3rem; margin:2px 0 8px}
+  #ep .quote{background:var(--field); border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:8px; padding:10px 13px; font-style:italic; margin:10px 0}
+  #ep .model{background:var(--goodsoft); border:1px solid var(--line); border-radius:8px; padding:9px 12px; font-size:.93rem; margin:8px 0}
+  #ep .judge{display:flex; gap:8px; flex-wrap:wrap; margin:10px 0}
+  #ep .judge button{flex:1 1 auto; background:var(--field); color:var(--ink); border:1.5px solid var(--line); font-weight:700; font-size:.92rem}
+  #ep .judge button.sel{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #ep .tip{margin:8px 0; font-size:.93rem; color:var(--muted)} #ep .tip[hidden]{display:none}
+  #ep .saved{color:var(--good); font-size:.82rem; font-weight:700; opacity:0; transition:opacity .2s} #ep .saved.show{opacity:1}
+  #ep .done{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px}
+  #ep .note{color:var(--muted); font-size:.9rem}
+</style>
+</head>
+<body>
+<div id="ep">
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Revision Tool</p>
+    <h1>The Editor's Passes</h1>
+    <p class="sub">One craft move at a time. The tool pulls a real piece of your draft and asks you to make the call, then rewrite it. It never judges your writing; you do.</p>
+  </header>
+
+  <div id="start">
+    <div class="honest">This walks you through five editing passes on your own essay. Paste your draft, and each pass will hand you one part of it to look at with fresh eyes. Private, saves only in your browser.</div>
+    <label class="fld" for="draft">Paste your draft</label>
+    <textarea id="draft" placeholder="Paste your whole personal essay here…"></textarea>
+    <div class="row"><button type="button" id="begin">Begin the passes</button></div>
+    <div class="priv">Private, saves only in your own browser.</div>
+  </div>
+
+  <div id="stage" hidden>
+    <div class="dots" id="dots"></div>
+    <div class="pass" id="pass"></div>
+    <div class="row">
+      <button type="button" class="ghost" id="back">Back</button>
+      <button type="button" id="next">Next pass</button>
+      <button type="button" class="ghost" id="restart">Start over</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var K="protoEP:";
+  var draft=document.getElementById('draft');
+  try{ var d=localStorage.getItem(K+'draft'); if(d!==null) draft.value=d; }catch(e){}
+  draft.addEventListener('input', function(){ try{ localStorage.setItem(K+'draft', draft.value); }catch(e){} });
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function firstSentence(t){ t=t.trim(); var m=t.match(/^[\s\S]*?[.!?]["”']?/); return m?m[0].trim():(t.split(/\n/)[0]||'').slice(0,160); }
+  function lastPara(t){ var ps=t.split(/\n\s*\n/).map(function(x){return x.trim();}).filter(Boolean); if(ps.length<=1) ps=t.split(/\n/).map(function(x){return x.trim();}).filter(Boolean); var p=ps[ps.length-1]||''; var s=p.match(/[^.!?]+[.!?]+/g)||[p]; return s.slice(-2).join(' ').trim(); }
+
+  var PASSES=[
+    {id:'open', title:'Your opening', kind:'judge',
+     get:function(t){return firstSentence(t);},
+     lead:'A personal essay is strongest when it starts <i>in</i> a moment, not with a sentence that announces the topic.',
+     q:'Your call: scene, or throat-clearing?',
+     opts:[['scene',"It's a scene"],['throat',"It's throat-clearing"]],
+     tips:{scene:'If you\'re sure, keep it. Just check that it drops us into a specific moment (a place, an action), not a summary.', throat:'Good eye. Find the first line where something actually happens (often two or three sentences down) and start there.'},
+     rw:'Rewrite your opening as a scene:'},
+    {id:'end', title:'Your ending', kind:'judge',
+     get:function(t){return lastPara(t);},
+     lead:'The most common way a personal essay goes false is a neat life-lesson at the end.',
+     q:'Your call: earned, or a tidy bow?',
+     opts:[['earned','Earned'],['bow','Tidy bow']],
+     tips:{earned:'If the essay truly earns it, keep it. Just make sure it isn\'t a slogan ("everything happens for a reason") standing in for a real thought.', bow:'Interrogate it. Is that lesson actually true? Always? What\'s the messier version you only half-believe? Write into that.'},
+     rw:'Rewrite your ending to stay in the real, unfinished question:'},
+    {id:'show', title:'Show the peak', kind:'input',
+     lead:'Find the most important moment in your essay, the emotional peak. Paste the sentence where you <i>tell</i> us how you felt (for example, "I was devastated").',
+     model:'Model. Tell: "I was so nervous." &nbsp;&rarr;&nbsp; Show: "In the locker room I tied and retied the same cleat until the lace was damp in my fingers."',
+     ph:'Paste your told-feeling sentence here…',
+     rw:'Now rewrite it to SHOW that feeling, put us in your body, the room, the detail:'},
+    {id:'arc', title:'The arc', kind:'single',
+     lead:'A personal essay should <i>build</i> to something. In one sentence: what do you understand at the end that you didn\'t at the start? If you can\'t answer, that\'s the most useful thing this pass can tell you.',
+     rw:'What shifts across your essay? (one sentence)'},
+    {id:'darling', title:'Kill a darling', kind:'single',
+     lead:'Find two places where you make the same point twice. Paste both sentences, then decide which one to keep and cut the other, even if you love it.',
+     rw:'Paste the two that repeat, then note which you\'ll keep:'}
+  ];
+
+  var idx=0;
+  var begin=document.getElementById('begin');
+  var stage=document.getElementById('stage'), startEl=document.getElementById('start');
+  var passEl=document.getElementById('pass'), dotsEl=document.getElementById('dots');
+
+  begin.addEventListener('click', function(){
+    if(draft.value.trim().split(/\s+/).length<30){ alert('Paste a few paragraphs of your draft first.'); return; }
+    startEl.hidden=true; stage.hidden=false; idx=0; render();
+  });
+  document.getElementById('restart').addEventListener('click', function(){ stage.hidden=true; startEl.hidden=false; });
+  document.getElementById('back').addEventListener('click', function(){ if(idx>0){ idx--; render(); } });
+  document.getElementById('next').addEventListener('click', function(){ if(idx<PASSES.length){ idx++; render(); } });
+
+  function field(key, label, ph, min){
+    return '<label class="fld" style="margin-top:8px">'+label+'</label>'
+      +'<textarea data-key="'+key+'" style="min-height:'+(min||80)+'px" placeholder="'+(ph||'')+'"></textarea>'
+      +'<div class="priv"><span class="saved">Saved ✓</span></div>';
+  }
+
+  function render(){
+    // dots
+    dotsEl.innerHTML=''; for(var i=0;i<PASSES.length;i++){ var s=document.createElement('span'); s.className='d'+(i<=idx?' on':''); dotsEl.appendChild(s); }
+    document.getElementById('back').disabled = idx===0;
+
+    if(idx>=PASSES.length){ renderDone(); document.getElementById('next').disabled=true; return; }
+    document.getElementById('next').disabled=false;
+    document.getElementById('next').textContent = idx===PASSES.length-1 ? 'Finish' : 'Next pass';
+
+    var p=PASSES[idx], h='';
+    h+='<div class="no">Pass '+(idx+1)+' of '+PASSES.length+'</div><h2>'+p.title+'</h2>';
+    h+='<p>'+p.lead+'</p>';
+    if(p.kind==='judge'){
+      h+='<div class="quote">'+esc(p.get(draft.value))+'</div>';
+      h+='<p style="font-weight:600;margin-bottom:2px">'+p.q+'</p><div class="judge">';
+      p.opts.forEach(function(o){ h+='<button type="button" data-v="'+o[0]+'">'+o[1]+'</button>'; });
+      h+='</div>';
+      Object.keys(p.tips).forEach(function(k){ h+='<div class="tip" data-v="'+k+'" hidden>'+p.tips[k]+'</div>'; });
+      h+=field(p.id+'_rw', p.rw, 'Your rewrite…', 80);
+    } else if(p.kind==='input'){
+      if(p.model) h+='<div class="model">'+p.model+'</div>';
+      h+=field(p.id+'_in','', p.ph, 60);
+      h+=field(p.id+'_rw', p.rw, 'Your rewrite…', 90);
+    } else if(p.kind==='single'){
+      h+=field(p.id+'_rw', p.rw, 'Type here…', 80);
+    }
+    passEl.innerHTML=h;
+    wire(passEl);
+  }
+
+  function renderDone(){
+    var h='<div class="no">All five passes done</div><h2>Nice work</h2>';
+    h+='<div class="done"><p>You just edited your essay the way an experienced writer does, one move at a time, making every call yourself. Carry your rewrites back into your Google Doc.</p></div>';
+    h+='<div class="row"><button type="button" id="dl">Download my passes</button></div>';
+    passEl.innerHTML=h;
+    document.getElementById('dl').addEventListener('click', dl);
+  }
+
+  function wire(scope){
+    scope.querySelectorAll('textarea[data-key]').forEach(function(t){
+      var key=t.getAttribute('data-key');
+      try{ var v=localStorage.getItem(K+key); if(v!==null) t.value=v; }catch(e){}
+      var flag=t.parentNode.querySelector('.saved');
+      t.addEventListener('input', function(){ try{ localStorage.setItem(K+key,t.value);}catch(e){} if(flag){ flag.classList.add('show'); clearTimeout(flag._t); flag._t=setTimeout(function(){flag.classList.remove('show');},1000);} });
+    });
+    var jb=scope.querySelectorAll('.judge button');
+    jb.forEach(function(b){ b.addEventListener('click', function(){
+      jb.forEach(function(x){x.classList.remove('sel');}); b.classList.add('sel');
+      var v=b.getAttribute('data-v'); var pid=PASSES[idx].id;
+      try{ localStorage.setItem(K+'judge_'+pid, v);}catch(e){}
+      scope.querySelectorAll('.tip').forEach(function(t){ t.hidden=t.getAttribute('data-v')!==v; });
+    }); });
+    try{ var jv=localStorage.getItem(K+'judge_'+PASSES[idx].id); if(jv){ jb.forEach(function(b){ if(b.getAttribute('data-v')===jv) b.classList.add('sel'); }); scope.querySelectorAll('.tip').forEach(function(t){ t.hidden=t.getAttribute('data-v')!==jv; }); } }catch(e){}
+  }
+
+  function get(key){ try{ return localStorage.getItem(K+key)||''; }catch(e){ return ''; } }
+  function dl(){
+    var L=['MY EDITOR\'S PASSES',''];
+    L.push('OPENING'); L.push('  '+firstSentence(draft.value)); L.push('  call: '+(get('judge_open')||'-')); if(get('open_rw'))L.push('  rewrite: '+get('open_rw')); L.push('');
+    L.push('ENDING'); L.push('  '+lastPara(draft.value)); L.push('  call: '+(get('judge_end')||'-')); if(get('end_rw'))L.push('  rewrite: '+get('end_rw')); L.push('');
+    L.push('SHOW THE PEAK'); if(get('show_in'))L.push('  told: '+get('show_in')); if(get('show_rw'))L.push('  shown: '+get('show_rw')); L.push('');
+    L.push('THE ARC'); if(get('arc_rw'))L.push('  '+get('arc_rw')); L.push('');
+    L.push('KILL A DARLING'); if(get('darling_rw'))L.push('  '+get('darling_rw'));
+    var b=new Blob([L.join('\n')],{type:'text/plain'}), u=URL.createObjectURL(b), a=document.createElement('a');
+    a.href=u; a.download='my-editors-passes.txt'; document.body.appendChild(a); a.click(); setTimeout(function(){URL.revokeObjectURL(u);a.remove();},100);
+  }
+})();
+</script>
+</body>
+</html>

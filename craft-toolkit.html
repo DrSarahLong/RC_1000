@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Craft Toolkit</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; --reflect:#5a3b86; --reflectsoft:#efe9f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; --reflect:#b3a4de; --reflectsoft:#1f1b2c; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #ck{max-width:780px; margin:0 auto; padding:28px 20px 90px}
+  #ck h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.95rem; margin:0; line-height:1.15}
+  #ck .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #ck .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:18px}
+  #ck .sub{color:var(--muted); margin:8px 0 0; font-size:1.05rem}
+  #ck h2{font-family:Georgia,"Iowan Old Style",serif; font-size:1.4rem; margin:6px 0 10px}
+  #ck p{margin:.6rem 0}
+  #ck .part{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:34px 0 6px; padding-top:8px; border-top:1px solid var(--line)}
+  #ck .intro{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:14px 0}
+  #ck .intro b{color:var(--accent)}
+  #ck .pillars{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 18px}
+  #ck .pillars .pil{border-top:1px solid var(--line); padding:12px 0} #ck .pillars .pil:first-child{border-top:0}
+  #ck .pillars .pil .n{font-weight:700}
+  #ck .pillars .pil .eg{color:var(--muted); font-size:.9rem; font-style:italic; margin-top:2px}
+  #ck .move{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px; margin:14px 0}
+  #ck .move .top{display:flex; align-items:baseline; gap:10px}
+  #ck .move .num{flex:none; width:26px; height:26px; border-radius:999px; background:var(--accent); color:#fff; font-weight:800; font-size:.9rem; display:flex; align-items:center; justify-content:center}
+  #ck .move h3{font-family:Georgia,"Iowan Old Style",serif; font-size:1.22rem; margin:0}
+  #ck .move .teach{color:var(--ink); margin:8px 0 12px}
+  #ck .ba{border-radius:10px; padding:11px 14px; margin:8px 0; font-size:.98rem}
+  #ck .before{background:var(--nosoft); border:1px solid var(--line)}
+  #ck .after{background:var(--goodsoft); border:1px solid var(--line)}
+  #ck .ba .lab{display:block; font-size:.66rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; margin-bottom:4px}
+  #ck .before .lab{color:var(--no)} #ck .after .lab{color:var(--good)}
+  #ck .peek{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:8px}
+  #ck .peek .q{font-size:.9rem; color:var(--muted); font-style:italic}
+  #ck .reveal{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:9px 15px; border:1px solid var(--accent); background:var(--accent); color:#fff}
+  #ck .hid{display:none}
+  #ck .why{border-left:4px solid var(--accent); background:var(--accent-soft); border-radius:0 8px 8px 0; padding:9px 13px; margin-top:10px; font-size:.94rem}
+  #ck .why .lab{font-size:.66rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; color:var(--accent); display:block; margin-bottom:2px}
+  #ck .close{background:var(--reflectsoft); border:1px solid var(--line); border-left:5px solid var(--reflect); border-radius:12px; padding:16px 18px; margin-top:26px}
+  #ck a{color:var(--accent)}
+  #ck .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="ck">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Craft Toolkit</p>
+    <h1>How Good Writing Actually Works</h1>
+    <p class="sub">The expressive writing gets your story out of your body and onto the page. Craft is what makes it worth another person's time to read. This is your reference shelf for the second part: the specific moves that turn true material into a real essay.</p>
+  </header>
+
+  <div class="intro">
+    <p><b>How to use this page.</b> Each move below shows a "before" and an "after" of the same sentence. Don't skip to the fix. Read the before, decide what <i>you'd</i> change, and only then hit <b>Show the fix</b>. You'll learn ten times more from a guess you tested than from an answer you were handed. Come back here whenever you're drafting or revising, these are the notes I'd write in your margins, gathered in one place.</p>
+  </div>
+
+  <p class="part">First · What a personal essay actually is</p>
+  <h2>Not a diary, not a lesson</h2>
+  <p>A diary just records what happened. A five-paragraph theme just proves a point. A personal essay does something harder and more interesting: it thinks on the page. Here's what real ones have in common.</p>
+  <div class="pillars">
+    <div class="pil"><span class="n"><button type="button" class="term" data-pop="presence">Personal presence.</button></span> You're on the page as a specific person thinking in real time, not a voice narrating from behind glass.<div class="eg">"I want to say I forgave him. I'm not sure the word fits what actually happened."</div></div>
+    <div class="pil"><span class="n">Self meeting the world.</span> It isn't only about you. It's you making contact with something outside you, a person, a place, an event, and what that contact reveals.<div class="eg">The grandmother, the field, the diagnosis: the outside thing is how you get at the inside one.</div></div>
+    <div class="pil"><span class="n">Self-discovery.</span> The essay figures something out. You know something at the end you didn't at the start, or you admit you still don't.<div class="eg">"I started this sure I was the calm one. I'm ending it wondering if calm was just fear that learned to sit still."</div></div>
+    <div class="pil"><span class="n">Show <i>and</i> tell.</span> The image <i>and</i> what you make of it. A scene with no reflection is a video clip; reflection with no scene is a lecture.</div>
+    <div class="pil"><span class="n"><button type="button" class="term" data-pop="veracity">Veracity.</button></span> It's true, and it reads true. You don't tidy your life into a lesson it didn't actually teach.</div>
+    <div class="pil"><span class="n"><button type="button" class="term" data-pop="form">Mutability of form.</button></span> The shape follows the thinking. A personal essay can be a letter, a list, a braided story. The form is a choice you get to make.</div>
+    <div class="pil"><span class="n"><button type="button" class="term" data-pop="plot">A sense of intellectual plot.</button></span> The suspense isn't "what happens next." It's "what will she understand." A real question pulls the reader all the way through.<div class="eg">"Was it the injury that changed me, or just the first thing I was willing to blame?"</div></div>
+  </div>
+
+  <p class="part">Second · The craft moves</p>
+  <h2>Nine fixes that do the most work</h2>
+  <p>Every one of these came up again and again in real student drafts. Learn them once and you'll catch them in your own writing for the rest of your life.</p>
+
+  <div class="move">
+    <div class="top"><span class="num">1</span><h3>Start in a scene</h3></div>
+    <p class="teach">Cut the <button type="button" class="term" data-pop="throat">throat-clearing</button> opener that <i>announces</i> the essay. Begin where something is actually happening.</p>
+    <div class="ba before"><span class="lab">Before</span>A meaningful experience that shaped who I am was the summer I spent working at my uncle's auto shop.</div>
+    <div class="peek"><span class="q">Where would you start it instead?</span><button type="button" class="reveal">Show the fix</button></div>
+    <div class="hid">
+      <div class="ba after"><span class="lab">After</span>The first car I ever worked on had a wasp nest behind the glovebox. My uncle handed me the wrench anyway. "They're more scared of you," he said. They were not.</div>
+      <div class="why"><span class="lab">Why it works</span>The before <i>tells the reader an essay is coming</i>. The after drops them straight into a specific morning with a wrench, a wasp nest, and an uncle who's about to be wrong. Start where the story starts, not one throat-clear before it.</div>
+    </div>
+  </div>
+
+  <div class="move">
+    <div class="top"><span class="num">2</span><h3>Scene over summary</h3></div>
+    <p class="teach">A summary flattens a hundred days into one tired sentence. Pick <i>one</i> real moment and let it carry the whole stretch of time.</p>
+    <div class="ba before"><span class="lab">Before</span>That whole year, things at home were tense and money was tight.</div>
+    <div class="peek"><span class="q">What single moment could stand in for the whole year?</span><button type="button" class="reveal">Show the fix</button></div>
+    <div class="hid">
+      <div class="ba after"><span class="lab">After</span>At dinner my mother would ask how Dad's day was, and the length of the pause before he answered told me whether we were allowed to laugh that night.</div>
+      <div class="why"><span class="lab">Why it works</span>"Tense" and "tight" are labels for the year. The pause before he answers is <i>the year itself</i>, in one image the reader can feel. One scene beats ten summaries.</div>
+    </div>
+  </div>
+
+  <div class="move">
+    <div class="top"><span class="num">3</span><h3>Show <i>and</i> tell</h3></div>
+    <p class="teach">Showing puts us in your body. Telling says what it meant. You need both: the scene earns the reflection, and the reflection tells us why the scene mattered.</p>
+    <div class="ba before"><span class="lab">Before</span>The first game of the season felt electric.</div>
+    <div class="peek"><span class="q">Show us "electric," then tell us what it meant to you.</span><button type="button" class="reveal">Show the fix</button></div>
+    <div class="hid">
+      <div class="ba after"><span class="lab">After</span>My knee bounced under the table, and every time the crowd noise spiked in my headphones I leaned in like I could shove the ball forward myself. I had never cared about anything this uselessly, this much.</div>
+      <div class="why"><span class="lab">Why it works</span>"Felt electric" is a label you hand the reader. The bouncing knee and the leaning <i>show</i> it; the last line <i>tells</i> us the meaning (caring uselessly, and being surprised by it). Show first, then land the point.</div>
+    </div>
+  </div>
+
+  <div class="move">
+    <div class="top"><span class="num">4</span><h3>Specific over abstract</h3></div>
+    <p class="teach">Abstractions ("love," "strong," "conditional") are concepts. Readers feel things, not concepts. Trade the concept for the concrete thing it's made of.</p>
+    <div class="ba before"><span class="lab">Before</span>My dad was always hard to please.</div>
+    <div class="peek"><span class="q">What exact thing did he do that "hard to please" is standing in for?</span><button type="button" class="reveal">Show the fix</button></div>
+    <div class="hid">
+      <div class="ba after"><span class="lab">After</span>My dad clapped for my brother's home runs with his whole body, up off the bleacher. For my strikeouts he'd just nod once, like he'd expected them.</div>
+      <div class="why"><span class="lab">Why it works</span>"Hard to please" tells us your verdict. The standing ovation versus the single nod lets us <i>reach that verdict ourselves</i>, which is far more convincing than being told.</div>
+    </div>
+  </div>
+
+  <div class="move">
+    <div class="top"><span class="num">5</span><h3>Shape an arc, vary the register</h3></div>
+    <p class="teach">"I won, then I won again, then I won again" is a list, not a story. Let tension build, then break it with a shorter, harder line. Same-length, same-tone sentences flatline.</p>
+    <div class="ba before"><span class="lab">Before</span>I kept getting better at chess and winning more and more games and it felt really good to keep improving.</div>
+    <div class="peek"><span class="q">Where's the turn? Where should a short, hard sentence land?</span><button type="button" class="reveal">Show the fix</button></div>
+    <div class="hid">
+      <div class="ba after"><span class="lab">After</span>I won my first tournament game by accident. The second on purpose. By the fifth I'd stopped shaking hands like I was surprised. Then a twelve-year-old beat me in nineteen moves and smiled like it was nothing. I wanted to quit. I wanted to play her again. Both, at once.</div>
+      <div class="why"><span class="lab">Why it works</span>The wins build (rising rhythm), then one sentence breaks the pattern ("Then a twelve-year-old beat me"). The short closing lines change the pace and hold two feelings at once. Rhythm is meaning.</div>
+    </div>
+  </div>
+
+  <div class="move">
+    <div class="top"><span class="num">6</span><h3>Resist the tidy moral</h3></div>
+    <p class="teach">The neat life-lesson ending is the most common way an essay goes false. When you feel a bow forming, <button type="button" class="term" data-pop="interrogate">interrogate it</button> instead. The honest question is more interesting than the tidy answer.</p>
+    <div class="ba before"><span class="lab">Before</span>In the end, moving to a new state made me stronger, and I learned everything happens for a reason.</div>
+    <div class="peek"><span class="q">Do you actually believe that? What's the truer, messier version?</span><button type="button" class="reveal">Show the fix</button></div>
+    <div class="hid">
+      <div class="ba after"><span class="lab">After</span>I want to say the move made me stronger. But maybe I just got used to it, and "stronger" is the word I reach for so it doesn't sound like I lost something I never got back.</div>
+      <div class="why"><span class="lab">Why it works</span>The before wraps the experience in a bow and asks the reader to stop thinking. The after stays inside the real question. That's where the essay is still alive, so end nearer to there.</div>
+    </div>
+  </div>
+
+  <div class="move">
+    <div class="top"><span class="num">7</span><h3>Kill your darlings</h3></div>
+    <p class="teach">When two or three sentences do the same job, keep the best one and cut the rest, even the pretty ones. Repetition of thought drains momentum.</p>
+    <div class="ba before"><span class="lab">Before</span>The distance broke something between us. The miles wore us down until we were strangers. The long drives home alone finally ended what we had.</div>
+    <div class="peek"><span class="q">Which one sentence would you keep? Cut the other two.</span><button type="button" class="reveal">Show the fix</button></div>
+    <div class="hid">
+      <div class="ba after"><span class="lab">After</span>The distance broke something between us. By spring we were strangers who used to be in love.</div>
+      <div class="why"><span class="lab">Why it works</span>Three sentences circling "the distance ended us" is one idea wearing three coats. Two clean lines land harder. "Kill your darlings" means cut the repetition even when the cut line was good, save it for something it can actually do.</div>
+    </div>
+  </div>
+
+  <div class="move">
+    <div class="top"><span class="num">8</span><h3>Paragraph on the shift</h3></div>
+    <p class="teach">A new paragraph is a signal to the reader: new moment, new idea, breathe here. Start one every time the scene, the time, or the thought changes. A wall of text buries your best moments.</p>
+    <div class="ba before"><span class="lab">Before</span>The kitchen still smelled like the garlic she'd burned and I hadn't moved from the chair in an hour and then my phone buzzed and it was the hospital saying she was stable and I don't remember standing up but I remember the parking lot, how cold the door handle was, how I'd driven halfway there before I realized I was still in my slippers.</div>
+    <div class="peek"><span class="q">Mark the two places where a new paragraph should start.</span><button type="button" class="reveal">Show the fix</button></div>
+    <div class="hid">
+      <div class="ba after"><span class="lab">After</span>The kitchen still smelled like the garlic she'd burned. I hadn't moved from the chair in an hour.<br><br>Then my phone buzzed. It was the hospital, saying she was stable.<br><br>I don't remember standing up. I remember the parking lot, how cold the door handle was, how I'd driven halfway there before I realized I was still in my slippers.</div>
+      <div class="why"><span class="lab">Why it works</span>Three moments (the kitchen, the call, the drive) now get three paragraphs and room to breathe. The reader can feel each one instead of drowning in a single block.</div>
+    </div>
+  </div>
+
+  <div class="move">
+    <div class="top"><span class="num">9</span><h3>Punctuate it like you've read some</h3></div>
+    <p class="teach">Two small mechanics that make writing look amateur when they're wrong: dialogue tags and <button type="button" class="term" data-pop="splice">comma splices</button>. Fix them once and they're fixed forever.</p>
+    <div class="ba before"><span class="lab">Before</span>"You'll understand when you're older" she said.<br><br>It was my first time on a plane, I gripped the armrest the whole way.</div>
+    <div class="peek"><span class="q">What punctuation is missing or misused in each?</span><button type="button" class="reveal">Show the fix</button></div>
+    <div class="hid">
+      <div class="ba after"><span class="lab">After</span>"You'll understand when you're older," she said.<br><br>It was my first time on a plane. I gripped the armrest the whole way.</div>
+      <div class="why"><span class="lab">Why it works</span>Dialogue: the comma (or ? or !) goes <i>inside</i> the quotes before the tag, never a bare word bumping into "she said." Comma splice: two complete sentences can't be joined with just a comma, use a period, a semicolon, or a joining word (and, but, so).</div>
+    </div>
+  </div>
+
+  <div class="close">
+    <p><b>One last thing.</b> You won't do all nine in a first draft, and you shouldn't try. Get the true thing down first (that's the expressive part). Then come back here with the reviser's eye and work one move at a time. Craft isn't talent you're born with. It's a short list of decisions, and now you have the list.</p>
+  </div>
+
+  <dialog class="pop" id="pop-presence"><h3>Personal presence</h3><p>The sense that a real, particular person is on the page, thinking and feeling in the moment, not a neutral narrator reporting facts. It's the difference between "The event was difficult" and "I keep replaying it, and I still can't decide if I handled it well." Presence is mostly voice plus honesty about what you don't know.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-veracity"><h3>Veracity</h3><p>Truthfulness, in two senses. Factual: it happened, or close enough that you're not inventing a cleaner story. And emotional: it <i>reads</i> true, you didn't flatten a messy experience into a neat moral it never taught you. Readers can smell a tidied-up life. The messy true version is always more powerful than the polished false one.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-form"><h3>Mutability of form</h3><p>"Mutable" means able to change shape. A personal essay doesn't have one required structure. It can be a letter to someone, a numbered list, a braid of two stories told side by side, or a straight chronological narrative. The shape should follow your thinking. Example: an essay about never being able to reach your father might take the form of an unsent letter, because the form itself says something the content can't.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-plot"><h3>Intellectual plot</h3><p>Regular plot is "what happens next." Intellectual plot is "what will the writer come to understand." It's the engine of an essay where not much "happens." The reader keeps going because a real question is unresolved: <i>Did the injury change me, or did I just need something to blame?</i> Plant that question early and circle it, and even a quiet essay has suspense.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-throat"><h3>Throat-clearing</h3><p>The warm-up sentences a writer says before the real essay begins, usually an announcement of the topic: "A meaningful experience I had was…," "Ever since I was little…," "This essay is about…." They're the sound of a writer clearing their throat before speaking. Almost always, your real first sentence is two or three lines down, where something actually happens. Find it and start there.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-interrogate"><h3>Interrogate the claim</h3><p>To question your own statement instead of just asserting it. When you write a neat conclusion ("hard work always pays off"), stop and ask it hard questions: Is that true? Always? How do I know? What's the counter-example from my own life? In this course you'll mark those spots with a bracket like [CLAIM?]. The real work is writing a few sentences <i>into</i> that bracket, not stopping at the flag. That's where the thinking gets interesting.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-splice"><h3>Comma splice</h3><p>Joining two complete sentences with only a comma: <i>"It was my first time on a plane, I gripped the armrest."</i> Both halves could stand alone, so a comma is too weak to hold them. Three fixes: a period (<i>plane. I gripped</i>), a semicolon (<i>plane; I gripped</i>), or a joining word (<i>plane, and I gripped</i>). Once you can hear it, you'll never unhear it.</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  document.querySelectorAll('#ck .reveal').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var panel = btn.closest('.move').querySelector('.hid');
+      if(!panel) return;
+      var open = !panel.classList.contains('hid');
+      if(open){ panel.classList.add('hid'); btn.textContent='Show the fix'; }
+      else { panel.classList.remove('hid'); btn.textContent='Hide the fix'; }
+    });
+  });
+  document.querySelectorAll('[data-pop]').forEach(function(b){ b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); }); });
+  document.querySelectorAll('dialog.pop').forEach(function(d){ d.addEventListener('click', function(e){ if(e.target===d) d.close(); }); });
+})();
+</script>
+</body>
+</html>

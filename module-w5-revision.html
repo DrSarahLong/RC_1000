@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Week 5 · Re-Seeing Your Essay</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; --due:#7a3b1f; --duesoft:#f6ebe1; --reflect:#5a3b86; --reflectsoft:#efe9f6; --gold:#a3771f;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ec4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; --due:#e0a878; --duesoft:#2c2013; --reflect:#b3a4de; --reflectsoft:#1f1b2c; --gold:#d8b168; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #mod{max-width:760px; margin:0 auto; padding:28px 20px 90px}
+  #mod h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.9rem; margin:0; line-height:1.15}
+  #mod .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #mod .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:18px}
+  #mod .sub{color:var(--muted); margin:8px 0 0; font-size:1.05rem}
+  #mod .meta{color:var(--muted); font-size:.86rem; margin-top:8px}
+  #mod .part{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:30px 0 4px; padding-top:6px; border-top:1px solid var(--line)}
+  #mod h2{font-family:Georgia,"Iowan Old Style",serif; font-size:1.35rem; margin:2px 0 10px}
+  #mod p{margin:.6rem 0}
+  #mod .box{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:12px 0}
+  #mod .box.accent{border-left:5px solid var(--accent)}
+  #mod .mdl{margin:8px 0}
+  #mod .mdl .row{border-radius:10px; padding:10px 13px; margin:6px 0; font-size:.97rem; border:1px solid var(--line)}
+  #mod .mdl .row.b{background:var(--nosoft)} #mod .mdl .row.a{background:var(--goodsoft)}
+  #mod .mdl .lab{display:block; font-size:.64rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; margin-bottom:3px}
+  #mod .mdl .row.b .lab{color:var(--no)} #mod .mdl .row.a .lab{color:var(--good)}
+  #mod .qc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px 4px; margin:10px 0}
+  #mod .qcitem{border-top:1px solid var(--line); padding:11px 0} #mod .qcitem:first-of-type{border-top:0}
+  #mod .qcitem .s{font-weight:600; margin:0 0 8px; font-style:italic}
+  #mod .qcitem .opts{display:flex; gap:8px}
+  #mod .qcitem .opt{flex:1; font:inherit; font-weight:700; font-size:.9rem; cursor:pointer; border-radius:8px; padding:8px; border:1.5px solid var(--line); background:var(--field); color:var(--ink)}
+  #mod .qcitem .opt.pick{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #mod .qcitem.right .opt.pick{border-color:var(--good); background:var(--goodsoft); color:var(--good)}
+  #mod .qcitem.wrong .opt.pick{border-color:var(--no); background:var(--nosoft); color:var(--no)}
+  #mod .qcitem .fb{margin-top:8px; font-size:.9rem; color:var(--muted)} #mod .qcitem .fb[hidden]{display:none}
+  #mod .qcbtn{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:9px 15px; border:1px solid var(--accent); background:var(--accent); color:#fff; margin:8px 0}
+  #mod .qcres{font-weight:700; color:var(--accent); margin-left:10px}
+  #mod .ground{background:var(--reflectsoft); border:1px solid var(--line); border-left:5px solid var(--reflect); border-radius:12px; padding:14px 16px; margin:14px 0}
+  #mod .ground .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--reflect); display:block; margin-bottom:3px}
+  #mod .sci{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:13px 16px; margin:12px 0; font-size:.96rem}
+  #mod .sci .lab{font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  #mod ul{margin:.5rem 0; padding-left:1.2rem} #mod li{margin:.45rem 0}
+  #mod ol.steps{margin:.5rem 0; padding-left:1.3rem} #mod ol.steps li{margin:.6rem 0}
+  #mod a{color:var(--accent)}
+  #mod .vs{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:12px 0}
+  #mod .vs .col{border:1px solid var(--line); border-radius:11px; padding:12px 14px; background:var(--card)}
+  #mod .vs .col h4{margin:0 0 6px; font-size:.95rem}
+  #mod .vs .edit h4{color:var(--muted)} #mod .vs .revise h4{color:var(--accent)}
+  #mod .vs .col ul{margin:.2rem 0; padding-left:1.1rem; font-size:.92rem} #mod .vs .col li{margin:.3rem 0}
+  @media (max-width:560px){ #mod .vs{grid-template-columns:1fr} }
+  #mod .read{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px}
+  #mod .read .r{border-top:1px solid var(--line); padding:11px 0} #mod .read .r:first-child{border-top:0}
+  #mod .read .r .t{font-weight:700} #mod .read .r .c{color:var(--muted); font-size:.88rem}
+  #mod .read .req{display:inline-block; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:0 8px; margin-left:6px; vertical-align:1px}
+  #mod a.btn{display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font-weight:700; border-radius:9px; padding:12px 20px; margin:8px 0}
+  #mod a.btn.ghost{background:transparent; color:var(--accent); border:1.5px solid var(--accent)}
+  #mod a.btn:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+  #mod .write{margin:10px 0}
+  #mod .write label{display:block; font-weight:600; margin-bottom:5px}
+  #mod textarea{width:100%; min-height:120px; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6; resize:vertical}
+  #mod textarea:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mod .priv{font-size:.82rem; color:var(--muted); margin-top:4px}
+  #mod .saved{color:var(--good); font-size:.85rem; font-weight:700; opacity:0; transition:opacity .2s}
+  #mod .saved.show{opacity:1}
+  #mod .duebox{background:var(--duesoft); border:1px solid var(--line); border-left:5px solid var(--due); border-radius:12px; padding:14px 16px; margin:16px 0}
+  #mod .duebox .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--due); display:block; margin-bottom:3px}
+  #mod .close{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-top:22px}
+  #mod .note{color:var(--muted); font-size:.9rem}
+  #mod .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  #mod .term:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0}
+  dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="mod">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Week 5 · Module</p>
+    <h1>Revision I: Re-Seeing Your Essay</h1>
+    <p class="sub">You have a messy first draft of your personal essay. This week you don't fix commas. You step back and see the whole thing again, and decide what it's really about.</p>
+    <p class="meta">Plan on a few sittings this week: read, practice, then revise. Work at your own pace, but don't leave it all for Sunday.</p>
+  </header>
+
+  <div class="ground">
+    <span class="lab">Before you start</span>
+    <p>Last week you wrote something honest, and re-reading your own words can feel tender. That's normal. Go at your own pace, take breaks, and remember: a rough draft isn't a verdict on you. It's raw material, exactly what it's supposed to be.</p>
+  </div>
+
+  <p class="part">Part 1 · Learn</p>
+  <h2>Revision means seeing again, not tidying up</h2>
+  <p>Most people think "revising" means fixing spelling and swapping a few words. That's <button type="button" class="term" data-pop="editing">editing</button>, and it comes later. <button type="button" class="term" data-pop="reseeing">Revision</button> is bigger: it's re-seeing the whole essay. Donald Murray, who shaped how writing is taught, put it bluntly: <i>writing is rewriting.</i> Your first draft was how you found out what you had to say. Revision is where you actually say it.</p>
+
+  <div class="vs">
+    <div class="col edit"><h4>Editing (later)</h4><ul><li>Fix typos &amp; commas</li><li>Swap a weak word</li><li>Tighten a sentence</li><li>Stays on the surface</li></ul></div>
+    <div class="col revise"><h4>Revising (this week)</h4><ul><li>What is this really about?</li><li>What's buried? What should open the essay?</li><li>Cut, reorder, deepen</li><li>Changes the whole shape</li></ul></div>
+  </div>
+
+  <div class="box accent">
+    <p>The researcher <button type="button" class="term" data-pop="sommers">Nancy Sommers</button> studied how real writers revise and found a sharp split: <b>beginners</b> mostly edit words on the surface, while <b>experienced writers re-see and restructure</b>, cutting whole sections, changing the order, discovering what they didn't know they thought. This week you practice the experienced move.</p>
+  </div>
+
+  <div class="sci">
+    <span class="lab">Why this is hard (and the fix)</span>
+    <p>You can't re-see a draft you're standing inside, you already know what you <i>meant</i>, so you can't tell what's actually on the page. Psychologists call the fix <button type="button" class="term" data-pop="distance">self-distancing</button> (Kross &amp; Ayduk): create distance from your own writing and you suddenly judge it clearly. Set it aside for a day, read it out loud, read it as if a stranger wrote it. That distance is a skill, and it's the whole game this week.</p>
+  </div>
+
+  <div class="box" style="border-left:5px solid var(--accent)">
+    <p><b>Two craft moves to watch for while you re-see.</b> Editing can't fix these; only revision can. Both live in your <a href="craft-toolkit.html" target="_blank" rel="noopener">Craft Toolkit</a> if you want more models.</p>
+
+    <p style="font-weight:700; margin:12px 0 2px">1. The arc: does the essay <i>build</i>, or just list?</p>
+    <p class="note" style="margin-top:0">A personal essay isn't a timeline ("then, then, then"). Something should shift, and tension should rise before it does. Let one line be shorter and harder than the rest so the turn lands.</p>
+    <div class="mdl">
+      <div class="row b"><span class="lab">Flat list</span>Freshman year I was shy. Then I joined debate. Then I got more confident. Now I speak up in class.</div>
+      <div class="row a"><span class="lab">An arc</span>Freshman year I ate lunch facing the wall. Debate didn't fix that; my hands still shook at every tournament. But somewhere around the fourth loss I stopped apologizing before I spoke. I only noticed months later, in a class where I raised my hand before I'd decided to.</div>
+    </div>
+
+    <p style="font-weight:700; margin:14px 0 2px">2. The ending: is it earned, or a tidy bow?</p>
+    <p class="note" style="margin-top:0">The most common way an essay goes false is a neat life-lesson at the end. When you feel a bow forming, question it instead. The unfinished, honest thought is stronger than the tidy one.</p>
+    <div class="mdl">
+      <div class="row b"><span class="lab">Tidy bow</span>Looking back, I realize my grandmother's death taught me to cherish every moment with the people I love.</div>
+      <div class="row a"><span class="lab">Earned</span>I'd like to say her death taught me to cherish every moment. Mostly it taught me that I'm already forgetting her voice, and that I keep her last voicemail without playing it, because playing it would use it up.</div>
+    </div>
+  </div>
+
+  <p class="part">Part 2 · Read (required)</p>
+  <div class="read">
+    <div class="r"><span class="t">Thirteen Lucky Strategies for Revision</span> <span class="req">Required</span><div class="c">Voices for Change, p. 45. A menu of concrete moves, keep it open while you revise.</div></div>
+    <div class="r"><span class="t">Re-Seeing Your Inquiry After Draft 1</span> <span class="req">Required</span><div class="c">Voices for Change, p. 53.</div></div>
+    <div class="r"><span class="t">Revision Strategies of Student Writers and Experienced Adult Writers</span> <span class="req">Required</span><div class="c">Nancy Sommers · Voices for Change, p. 631. The study behind this week, short and worth it.</div></div>
+    <div class="r"><span class="t"><a href="https://www.hippocampusmagazine.com/2015/03/forgotten-by-mary-ann-cooper/" target="_blank" rel="noopener">"Forgotten"</a></span> <span class="req" style="background:var(--accent);color:#fff;border-color:var(--accent)">Model essay</span><div class="c">Mary Ann Cooper. A 1950s beach day turns into a crisis when the family realizes a brother got left behind. Read it for a clean narrative <b>arc</b>, tension building then releasing. Free full text · Hippocampus.</div></div>
+    <div class="r"><span class="t"><a href="https://riverteethjournal.com/beautiful-things/full-moon-and-baked-beans-2/" target="_blank" rel="noopener">"Full Moon and Baked Beans"</a></span> <span class="req" style="background:var(--accent);color:#fff;border-color:var(--accent)">Model essay</span><div class="c">Anne Jacobson. Two friends share a can of cold baked beans under a full moon the week after graduation. Read it for an <b>earned, un-tidy ending</b>, a felt paradox instead of a lesson. Free full text · River Teeth.</div></div>
+  </div>
+
+  <p class="part">Part 3 · Practice</p>
+  <h2>Sharpen your eye on someone else's draft first</h2>
+  <p>Revising your own writing is hard because you're too close. So warm up on a stranger's. Open <b>Fix This Draft</b>, a weak first draft of a personal essay, and find what a good reviser would catch. You'll spot the exact problems that are probably hiding in your own draft too.</p>
+  <p><a class="btn" href="fix-this-draft.html" target="_blank" rel="noopener">Open Fix This Draft &rarr;</a> <a class="btn ghost" href="transfer-drill.html" target="_blank" rel="noopener">Or try the Transfer Drill &rarr;</a></p>
+  <p class="note">Both work the same way: you catch the problems in a stranger's draft first, where it's easy, then turn that eye on your own.</p>
+
+  <h2>Earned ending, or tidy bow?</h2>
+  <p>Your reader can feel the difference between an ending that stays honest and one that ties a neat ribbon on the experience. Read each closing line and decide. Commit, then <b>Check</b>.</p>
+  <div class="qc" id="qc">
+    <div class="qcitem" data-answer="tidy">
+      <p class="s">"In the end, this experience made me a stronger and better person."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="earned">Earned</button><button type="button" class="opt" data-pick="tidy">Tidy bow</button></div>
+      <div class="fb" hidden>Tidy bow. "Stronger and better person" is the ribbon the assignment asks you to resist. What actually changed, and what didn't?</div>
+    </div>
+    <div class="qcitem" data-answer="earned">
+      <p class="s">"I still don't know if I forgave him or just got tired of being angry. Some days it feels like the same thing."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="earned">Earned</button><button type="button" class="opt" data-pick="tidy">Tidy bow</button></div>
+      <div class="fb" hidden>Earned. It stays inside the real, unresolved question instead of resolving it too fast. More true, and more interesting.</div>
+    </div>
+    <div class="qcitem" data-answer="tidy">
+      <p class="s">"And that's how I learned that hard work always pays off."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="earned">Earned</button><button type="button" class="opt" data-pick="tidy">Tidy bow</button></div>
+      <div class="fb" hidden>Tidy bow. It's a slogan, not a discovery. Did the work pay off, or did you also get lucky? Interrogate it.</div>
+    </div>
+    <div class="qcitem" data-answer="earned">
+      <p class="s">"I keep the trophy in a drawer now. I can't tell if that's humility or just that I never decided what winning was worth."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="earned">Earned</button><button type="button" class="opt" data-pick="tidy">Tidy bow</button></div>
+      <div class="fb" hidden>Earned. A concrete image (the drawer) plus a real question it won't quite answer. It trusts the reader.</div>
+    </div>
+    <button type="button" class="qcbtn" id="qcbtn">Check</button><span class="qcres" id="qcres"></span>
+  </div>
+
+  <p class="part">Part 4 · Do (your essay)</p>
+  <h2>Now re-see your own draft</h2>
+
+  <p><b>Step 1: read it like a stranger.</b> Put your draft down, then come back and read it <button type="button" class="term" data-pop="aloud">out loud</button>, as if someone else wrote it. Don't fix anything yet. Then <button type="button" class="term" data-pop="freewrite">freewrite</button> your honest answers below (this is private, it saves only on your own computer):</p>
+  <div class="write">
+    <label for="w1">What is this essay <i>really</i> about, in one sentence? Where's the heat, the moment with the most life? What can go? What's missing?</label>
+    <textarea id="w1" data-save placeholder="Just write, no editing. What did the distance let you see?"></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w1">Saved ✓</span></div>
+  </div>
+
+  <p><b>Step 2: x-ray the structure.</b> Write one line for each paragraph saying what that paragraph <i>does</i> (not what it's about, what job it does). This <button type="button" class="term" data-pop="reverse">reverse outline</button> makes gaps, repetition, and bad order impossible to miss. Prefer to do it on your pasted draft? Use the <a href="reverse-outline.html" target="_blank" rel="noopener">Reverse-Outline X-Ray</a> tool, it splits your essay and stacks your labels into a skeleton you can read at a glance.</p>
+  <div class="write">
+    <label for="w2">One line per paragraph: the job it does. (e.g., "¶1 announces the topic," "¶4 tells the real story but buries it.")</label>
+    <textarea id="w2" data-save placeholder="¶1 ...&#10;¶2 ...&#10;¶3 ..."></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w2">Saved ✓</span></div>
+  </div>
+
+  <p><b>Step 3: make the big moves.</b> Now revise for meaning, not commas:</p>
+  <ol class="steps">
+    <li><b>Cut the deadwood.</b> The warm-up, the summary, the paragraphs that don't earn their place. Be brave.</li>
+    <li><b>Open on the heat.</b> Find your strongest moment (often buried near the end) and move it up, or start there.</li>
+    <li><b>Deepen it.</b> Give your real subject more room, slow it down, add the specific, shown detail.</li>
+  </ol>
+
+  <p><b>Step 4: interrogate your ending.</b> Read your last paragraph. If it wraps things up in a neat lesson, put a <button type="button" class="term" data-pop="claim">[CLAIM?]</button> on it and write a few sentences <i>into</i> that bracket below: is the lesson actually true? What's the messier, truer version?</p>
+  <div class="write">
+    <label for="w3">Your ending, interrogated: is it earned or tidy? Write the truer version.</label>
+    <textarea id="w3" data-save placeholder="The neat version says… but the thing I'm still not sure about is…"></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w3">Saved ✓</span></div>
+  </div>
+
+  <p class="note">Sentences and commas come <b>next</b> week (Revision II), that's when you'll run the Draft Check. This week stays on the big picture. Trust the order.</p>
+
+  <div class="close">
+    <p><b>As you finish:</b> save your revised draft somewhere safe, then step away from the screen for a bit, you did the hard, real work of re-seeing, and that deserves a break. Next week we sharpen the sentences and polish. Nice work.</p>
+  </div>
+
+  <div class="duebox">
+    <span class="lab">Due this week (Sunday)</span>
+    <p>Your <b>revised draft</b> of the personal essay, one that shows real re-seeing: cutting, reordering, deepening. Fixing a few typos isn't revision yet. Submit it as your Google Doc so I can leave you comments before the final.</p>
+  </div>
+
+  <dialog class="pop" id="pop-editing"><h3>Editing vs. revising vs. proofreading</h3><p>Three different jobs, done big to small. <b>Revising</b> works on ideas and structure (this week). <b>Editing</b> works on sentences, word choice, flow (next week). <b>Proofreading</b> catches typos, last. Doing them in that order saves you from polishing a paragraph you were about to cut.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-reseeing"><h3>Re-seeing</h3><p>"Revision" literally means <i>seeing again</i>. Donald Murray: writing <i>is</i> rewriting. The first draft is how you discover what you have to say; revision is where you shape it into something a reader can follow. It works on the whole, its point, shape, and order, before the commas.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-sommers"><h3>Nancy Sommers on revision</h3><p>In her classic study (your reading this week), Sommers found beginners treat revision as fixing words on the surface, while experienced writers revise for <i>meaning</i>, cutting, reordering, and discovering new ideas mid-revision. The takeaway that changes everything: revise the whole before you revise the words.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-distance"><h3>Self-distancing</h3><p>You can't fairly judge writing you're standing inside, you know what you meant, so you read your intention instead of your words. Kross &amp; Ayduk's research shows that creating distance (time, reading aloud, asking "what is this writer trying to say?") lets you evaluate and improve your own work as if it were someone else's. It's a learnable move, and it's the heart of revision.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-aloud"><h3>Read it out loud</h3><p>Your eyes skip what your ears catch. Reading a draft aloud (or letting your device read it to you) forces you to hear every word, and it surfaces clunky sentences, missing words, and places where the essay drifts. Every spot you stumble is a spot your reader will too.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-freewrite"><h3>Freewriting</h3><p>Writing fast and without stopping to think about being "good," a technique from Peter Elbow and Ken Macrorie. You keep your hand moving so your editor brain can't interrupt, and you find what you actually think. Here it's a tool for re-seeing: freewrite your reaction to your own draft and you'll say truer things than a careful, self-conscious note would let you.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-reverse"><h3>Reverse outline</h3><p>An outline you make <i>after</i> drafting, to reveal the structure you actually built. Go paragraph by paragraph and write, in one line, the job each does. Laid out together, the gaps, repetition, and out-of-order pieces jump out, and it's far easier to rearrange a list of one-liners than to rewrite finished prose.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-claim"><h3>[CLAIM?]: interrogate it</h3><p>A note you leave in your own margin wherever you've asserted a tidy conclusion ("it made me stronger," "everything happens for a reason"). The bracket isn't the work; it's the flag. The work is writing a few sentences <i>into</i> it, questioning the claim: Is it true? Always? What's the counter-example from my own life? That's where a personal essay does its real thinking.</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  var PREFIX = "rc1000w5:";
+  var fields = Array.prototype.slice.call(document.querySelectorAll('#mod [data-save]'));
+  fields.forEach(function(el){
+    try{ var v = localStorage.getItem(PREFIX+el.id); if(v!==null) el.value = v; }catch(e){}
+    var flag = document.querySelector('.saved[data-for="'+el.id+'"]');
+    el.addEventListener('input', function(){
+      try{ localStorage.setItem(PREFIX+el.id, el.value); }catch(e){}
+      if(flag){ flag.classList.add('show'); clearTimeout(flag._t); flag._t=setTimeout(function(){ flag.classList.remove('show'); },1100); }
+    });
+  });
+  var items=Array.prototype.slice.call(document.querySelectorAll('#qc .qcitem'));
+  items.forEach(function(it){
+    var opts=it.querySelectorAll('.opt');
+    opts.forEach(function(o){ o.addEventListener('click', function(){ opts.forEach(function(x){x.classList.remove('pick');}); o.classList.add('pick'); it.dataset.pick=o.getAttribute('data-pick'); it.classList.remove('right','wrong'); it.querySelector('.fb').hidden=true; document.getElementById('qcres').textContent=''; }); });
+  });
+  var qcbtn=document.getElementById('qcbtn');
+  if(qcbtn) qcbtn.addEventListener('click', function(){
+    var correct=0, all=true;
+    items.forEach(function(it){
+      it.classList.remove('right','wrong');
+      if(!it.dataset.pick){ all=false; return; }
+      var right = it.dataset.pick===it.getAttribute('data-answer');
+      it.classList.add(right?'right':'wrong'); it.querySelector('.fb').hidden=false; if(right) correct++;
+    });
+    document.getElementById('qcres').textContent = all ? ('You got '+correct+' of 4.') : 'Answer all four first.';
+  });
+  document.querySelectorAll('[data-pop]').forEach(function(b){
+    b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); });
+  });
+  document.querySelectorAll('dialog.pop').forEach(function(d){
+    d.addEventListener('click', function(e){ if(e.target===d) d.close(); });
+  });
+})();
+</script>
+</body>
+</html>

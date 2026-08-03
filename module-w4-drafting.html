@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Week 4 · The Shitty First Draft</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; --due:#7a3b1f; --duesoft:#f6ebe1; --reflect:#5a3b86; --reflectsoft:#efe9f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; --due:#e0a878; --duesoft:#2c2013; --reflect:#b3a4de; --reflectsoft:#1f1b2c; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #mod{max-width:760px; margin:0 auto; padding:28px 20px 90px}
+  #mod h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.9rem; margin:0; line-height:1.15}
+  #mod .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #mod .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:18px}
+  #mod .sub{color:var(--muted); margin:8px 0 0; font-size:1.05rem}
+  #mod .meta{color:var(--muted); font-size:.86rem; margin-top:8px}
+  #mod .part{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:30px 0 4px; padding-top:6px; border-top:1px solid var(--line)}
+  #mod h2{font-family:Georgia,"Iowan Old Style",serif; font-size:1.35rem; margin:2px 0 10px}
+  #mod p{margin:.6rem 0}
+  #mod .box{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:12px 0}
+  #mod .box.accent{border-left:5px solid var(--accent)}
+  #mod .mdl{margin:8px 0}
+  #mod .mdl .row{border-radius:10px; padding:10px 13px; margin:6px 0; font-size:.97rem; border:1px solid var(--line)}
+  #mod .mdl .row.b{background:var(--nosoft)} #mod .mdl .row.a{background:var(--goodsoft)}
+  #mod .mdl .lab{display:block; font-size:.64rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; margin-bottom:3px}
+  #mod .mdl .row.b .lab{color:var(--no)} #mod .mdl .row.a .lab{color:var(--good)}
+  #mod .ground{background:var(--reflectsoft); border:1px solid var(--line); border-left:5px solid var(--reflect); border-radius:12px; padding:14px 16px; margin:14px 0}
+  #mod .ground .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--reflect); display:block; margin-bottom:3px}
+  #mod .sci{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:13px 16px; margin:12px 0; font-size:.96rem}
+  #mod .sci .lab{font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  #mod ul{margin:.5rem 0; padding-left:1.2rem} #mod li{margin:.45rem 0}
+  #mod ol.steps{margin:.5rem 0; padding-left:1.3rem} #mod ol.steps li{margin:.6rem 0}
+  #mod a{color:var(--accent)}
+  #mod .read{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px}
+  #mod .read .r{border-top:1px solid var(--line); padding:11px 0} #mod .read .r:first-child{border-top:0}
+  #mod .read .r .t{font-weight:700} #mod .read .r .c{color:var(--muted); font-size:.88rem}
+  #mod .read .req{display:inline-block; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:0 8px; margin-left:6px; vertical-align:1px}
+  #mod .qc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px 4px; margin:10px 0}
+  #mod .qcitem{border-top:1px solid var(--line); padding:11px 0} #mod .qcitem:first-of-type{border-top:0}
+  #mod .qcitem .s{font-weight:600; margin:0 0 8px; font-style:italic}
+  #mod .qcitem .opts{display:flex; gap:8px}
+  #mod .qcitem .opt{flex:1; font:inherit; font-weight:700; font-size:.9rem; cursor:pointer; border-radius:8px; padding:8px; border:1.5px solid var(--line); background:var(--field); color:var(--ink)}
+  #mod .qcitem .opt.pick{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #mod .qcitem.right .opt.pick{border-color:var(--good); background:var(--goodsoft); color:var(--good)}
+  #mod .qcitem.wrong .opt.pick{border-color:var(--no); background:var(--nosoft); color:var(--no)}
+  #mod .qcitem .fb{margin-top:8px; font-size:.9rem; color:var(--muted)} #mod .qcitem .fb[hidden]{display:none}
+  #mod .qcbtn{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:9px 15px; border:1px solid var(--accent); background:var(--accent); color:#fff; margin:8px 0}
+  #mod .qcres{font-weight:700; color:var(--accent); margin-left:10px}
+  #mod .write{margin:10px 0}
+  #mod .write label{display:block; font-weight:600; margin-bottom:5px}
+  #mod textarea{width:100%; min-height:120px; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6; resize:vertical}
+  #mod textarea:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mod .priv{font-size:.82rem; color:var(--muted); margin-top:4px}
+  #mod .saved{color:var(--good); font-size:.85rem; font-weight:700; opacity:0; transition:opacity .2s} #mod .saved.show{opacity:1}
+  #mod .duebox{background:var(--duesoft); border:1px solid var(--line); border-left:5px solid var(--due); border-radius:12px; padding:14px 16px; margin:16px 0}
+  #mod .duebox .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--due); display:block; margin-bottom:3px}
+  #mod .close{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-top:22px}
+  #mod .note{color:var(--muted); font-size:.9rem}
+  #mod .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="mod">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Week 4 · Module</p>
+    <h1>The Shitty First Draft</h1>
+    <p class="sub">You have your material and your point. Now write the whole essay, start to finish, and let it be bad on purpose. Getting it down and getting it good are two different jobs. This week is only the first one.</p>
+    <p class="meta">Set aside real time to draft. It's the biggest write of the unit, and the most freeing.</p>
+  </header>
+
+  <div class="ground">
+    <span class="lab">A reminder</span>
+    <p>Nobody writes a good draft first, not published authors, not me. So the pressure to "write it well" right now is a trap. Your only job this week is to get the whole thing out of your head and onto the page. Bad is allowed. Bad is <i>the assignment.</i></p>
+  </div>
+
+  <p class="part">Part 1 · Learn</p>
+  <h2>Permission to write badly</h2>
+  <p>The writer Anne Lamott gave this its famous name: the <button type="button" class="term" data-pop="sfd">shitty first draft</button> (you're reading her this week). Her point: you can't fix a blank page, so the first draft's only job is to <i>exist</i>. You pour it out; you make it good later. Trying to draft and perfect at the same time is why people freeze. So don't. Just get to the end.</p>
+  <div class="box accent">
+    <p>Two things to lean on as you draft:</p>
+    <ul>
+      <li><b>Write toward the heat.</b> Start near a real moment, not "This essay is about…" or "Ever since I was little…" (that warm-up is <button type="button" class="term" data-pop="throatclearing">throat-clearing</button>, you can cut it later). Keep going until you reach the thing that matters, then keep going past it. Drafts often find their best material in the last paragraph.</li>
+      <li><b><button type="button" class="term" data-pop="showtell">Show more than you tell.</button></b> When you catch yourself summarizing ("it was hard," "she was kind"), drop into the actual scene, the moment, the detail, and let the reader feel it.</li>
+    </ul>
+  </div>
+  <div class="box" style="border-left:5px solid var(--accent)">
+    <p><b>See the moves in action.</b> Your reference shelf for this whole unit is the <a href="craft-toolkit.html" target="_blank" rel="noopener">Craft Toolkit</a>, nine before/after models you can keep open while you draft. Two of them matter most this week:</p>
+    <p style="font-weight:700; margin:12px 0 2px">Start in a scene (cut the throat-clearing):</p>
+    <div class="mdl">
+      <div class="row b"><span class="lab">Before</span>An experience that really shaped me was the year my family moved across the country.</div>
+      <div class="row a"><span class="lab">After</span>We left Ohio with the back seat so full I rode the last four hours with a lamp in my lap, the cord wrapped twice around my wrist so it wouldn't slide.</div>
+    </div>
+    <p style="font-weight:700; margin:12px 0 2px">Show <i>and</i> tell (scene first, then the meaning):</p>
+    <div class="mdl">
+      <div class="row b"><span class="lab">Before</span>Saying goodbye to my best friend when she moved was one of the hardest things I've been through, and it made me realize how much she meant to me.</div>
+      <div class="row a"><span class="lab">After</span>We stood in her empty driveway and neither of us knew what to do with our hands. She hugged me too fast, got in the car, and didn't look back. I understood then that she'd already left days ago; the car was just the last part to go.</div>
+    </div>
+    <p class="note">Notice the second "after" does both jobs: it <i>shows</i> the driveway and the too-fast hug, then <i>tells</i> us the meaning in one line. The reflection grows out of the image instead of replacing it.</p>
+  </div>
+
+  <div class="sci">
+    <span class="lab">Why "bad first" actually works</span>
+    <p>Generating language and judging language use different mental modes, and running both at once jams you (that frozen, blank-page feeling). Let the words come out rough and make the judging wait. You'll have plenty of judgment to spend in revision, next week.</p>
+  </div>
+
+  <p class="part">Part 2 · Read (required)</p>
+  <div class="read">
+    <div class="r"><span class="t">Writing Paragraphs</span> <span class="req">Required</span><div class="c">Voices for Change, p. 20.</div></div>
+    <div class="r"><span class="t">Shitty First Drafts</span> <span class="req">Required</span><div class="c">Anne Lamott · Voices for Change, p. 625. Short, funny, and the permission slip for this whole week.</div></div>
+    <div class="r"><span class="t"><a href="https://poets.org/poem/gate-4" target="_blank" rel="noopener">"Gate A-4"</a></span> <span class="req" style="background:var(--accent);color:#fff;border-color:var(--accent)">Model essay</span><div class="c">Naomi Shihab Nye. An airport delay becomes a circle of kindness. Read it for <b>starting in a scene</b>, straight into the moment with no throat-clearing. Free full text · Poets.org.</div></div>
+    <div class="r"><span class="t"><a href="https://brevitymag.com/nonfiction/the-sloth/" target="_blank" rel="noopener">"The Sloth"</a></span> <span class="req" style="background:var(--accent);color:#fff;border-color:var(--accent)">Model essay</span><div class="c">Jill Christman. Four months after a death, the writer watches a sloth move through a tree. Read it for <b>show and tell</b>, almost all image, landing on one spare told line. Free full text · Brevity.</div></div>
+  </div>
+
+  <p class="part">Part 3 · Practice</p>
+  <h2>Telling, or showing?</h2>
+  <p>The single biggest upgrade in a personal essay is trading summary for scene. Read each line and decide: is it <b>telling</b> (stating a conclusion) or <b>showing</b> (giving the moment and letting us feel it)? Commit, then <b>Check</b>.</p>
+  <div class="qc" id="qc">
+    <div class="qcitem" data-answer="tell">
+      <p class="s">"My dad was really stressed about money that year."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="tell">Telling</button><button type="button" class="opt" data-pick="show">Showing</button></div>
+      <div class="fb" hidden>Telling. It states the conclusion. What did the stress <i>look</i> like? That's your scene.</div>
+    </div>
+    <div class="qcitem" data-answer="show">
+      <p class="s">"At the register, my dad read the receipt twice before he'd let us leave, moving his lips over the total."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="tell">Telling</button><button type="button" class="opt" data-pick="show">Showing</button></div>
+      <div class="fb" hidden>Showing. We feel the money stress without being told the word "stressed." One gesture does the work.</div>
+    </div>
+    <div class="qcitem" data-answer="tell">
+      <p class="s">"I was so nervous before the game."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="tell">Telling</button><button type="button" class="opt" data-pick="show">Showing</button></div>
+      <div class="fb" hidden>Telling. "Nervous" names the feeling instead of showing it. Get us into the moment.</div>
+    </div>
+    <div class="qcitem" data-answer="show">
+      <p class="s">"In the locker room I tied and retied the same cleat until the lace was damp in my fingers."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="tell">Telling</button><button type="button" class="opt" data-pick="show">Showing</button></div>
+      <div class="fb" hidden>Showing. The nervous energy is in the action. We're in the locker room with you.</div>
+    </div>
+    <button type="button" class="qcbtn" id="qcbtn">Check</button><span class="qcres" id="qcres"></span>
+  </div>
+  <p class="note">You still need <i>some</i> telling, it's how you move through time and reflect. But when a moment matters, show it. Aim for at least one real scene in your draft.</p>
+
+  <p class="part">Part 4 · Do</p>
+  <h2>Draft the whole thing</h2>
+  <p>Write your personal essay start to finish, guided by your working thesis, without stopping to fix. Draft it in your Google Doc (that's what you'll turn in). If it helps to start here, warm up by writing your <b>opening scene</b> below, then carry it into your Doc and keep going.</p>
+  <div class="write">
+    <label for="w_open">Warm-up: your opening scene (a real moment, no throat-clearing):</label>
+    <textarea id="w_open" data-save placeholder="Drop us straight into a moment. A place, a person, an action. Start in the middle of it."></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_open">Saved ✓</span></div>
+  </div>
+  <div class="write">
+    <label for="w_showtell">One more rep (worth it): write one small scene, a few sentences of pure moment with no explaining. Then add a single sentence naming what it meant.</label>
+    <textarea id="w_showtell" data-save placeholder="Scene first, put us in the moment. Then one line: and what that told me was…"></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_showtell">Saved ✓</span></div>
+  </div>
+
+  <p class="note">Don't stop to fix spelling or hunt for the perfect word. Reach the end. That's the win.</p>
+
+  <p>Don't polish it yet. This is the rough draft on purpose, we sharpen sentences and re-see the whole thing in the next two weeks, with tools built for exactly that. For now, just get to the end.</p>
+
+  <div class="close">
+    <p><b>You wrote a whole draft.</b> Most people never get past the fear of a blank page, and you did. It's supposed to be rough. That means you did it right. Next week we re-see it and make it strong.</p>
+  </div>
+
+  <div class="duebox">
+    <span class="lab">Due this week (Sunday)</span>
+    <p>Your <b>complete first draft</b> of the personal essay, start to finish, submitted as a Google Doc. It does not need to be good; it needs to be <i>whole</i>. I'll read it and give you a direction for revision. (Your notebook stays private, collected at midterm and end of term.)</p>
+  </div>
+
+  <dialog class="pop" id="pop-sfd"><h3>Shitty first drafts</h3><p>Anne Lamott's idea, and the title of your reading: let the first draft be bad on purpose. You can't improve a blank page, so a first draft's only job is to exist. Getting it down and getting it good are two different jobs; doing them at once is why people freeze. Pour it out now, fix it later.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-throatclearing"><h3>Throat-clearing</h3><p>The warm-up sentences writers put at the start before they get to the real thing, "This essay is about…," "Ever since I was little…," "Merriam-Webster defines…." They announce a topic instead of starting it. Your first strong sentence is usually the second or third one you wrote; find it and cut everything before it.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-showtell"><h3>Show, don't (only) tell</h3><p>"Telling" states a conclusion ("she was kind"). "Showing" gives the evidence, the moment, action, detail, and lets the reader conclude it ("she saved the last crossword for us"). You need some telling to move and reflect, but the moments that matter should be shown. When you catch a summary, ask: what's the scene underneath it?</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  var PREFIX="rc1000w4:";
+  document.querySelectorAll('#mod [data-save]').forEach(function(el){
+    try{ var v=localStorage.getItem(PREFIX+el.id); if(v!==null) el.value=v; }catch(e){}
+    var flag=document.querySelector('.saved[data-for="'+el.id+'"]');
+    el.addEventListener('input', function(){ try{ localStorage.setItem(PREFIX+el.id, el.value); }catch(e){} if(flag){ flag.classList.add('show'); clearTimeout(flag._t); flag._t=setTimeout(function(){flag.classList.remove('show');},1100);} });
+  });
+  var items=Array.prototype.slice.call(document.querySelectorAll('#qc .qcitem'));
+  items.forEach(function(it){
+    var opts=it.querySelectorAll('.opt');
+    opts.forEach(function(o){ o.addEventListener('click', function(){ opts.forEach(function(x){x.classList.remove('pick');}); o.classList.add('pick'); it.dataset.pick=o.getAttribute('data-pick'); it.classList.remove('right','wrong'); it.querySelector('.fb').hidden=true; document.getElementById('qcres').textContent=''; }); });
+  });
+  document.getElementById('qcbtn').addEventListener('click', function(){
+    var correct=0, all=true;
+    items.forEach(function(it){
+      it.classList.remove('right','wrong');
+      if(!it.dataset.pick){ all=false; return; }
+      var right = it.dataset.pick===it.getAttribute('data-answer');
+      it.classList.add(right?'right':'wrong'); it.querySelector('.fb').hidden=false; if(right) correct++;
+    });
+    document.getElementById('qcres').textContent = all ? ('You got '+correct+' of 4.') : 'Answer all four first.';
+  });
+  document.querySelectorAll('[data-pop]').forEach(function(b){ b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); }); });
+  document.querySelectorAll('dialog.pop').forEach(function(d){ d.addEventListener('click', function(e){ if(e.target===d) d.close(); }); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Week 10 · Synthesis &amp; MLA</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; --due:#7a3b1f; --duesoft:#f6ebe1; --reflect:#5a3b86; --reflectsoft:#efe9f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; --due:#e0a878; --duesoft:#2c2013; --reflect:#b3a4de; --reflectsoft:#1f1b2c; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #mod{max-width:760px; margin:0 auto; padding:28px 20px 90px}
+  #mod h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.9rem; margin:0; line-height:1.15}
+  #mod .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #mod .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:18px}
+  #mod .sub{color:var(--muted); margin:8px 0 0; font-size:1.05rem}
+  #mod .meta{color:var(--muted); font-size:.86rem; margin-top:8px}
+  #mod .part{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:30px 0 4px; padding-top:6px; border-top:1px solid var(--line)}
+  #mod h2{font-family:Georgia,"Iowan Old Style",serif; font-size:1.35rem; margin:2px 0 10px}
+  #mod p{margin:.6rem 0}
+  #mod .box{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:12px 0}
+  #mod .box.accent{border-left:5px solid var(--accent)}
+  #mod .mdl{margin:8px 0}
+  #mod .mdl .row{border-radius:10px; padding:10px 13px; margin:6px 0; font-size:.97rem; border:1px solid var(--line)}
+  #mod .mdl .row.b{background:var(--nosoft)} #mod .mdl .row.a{background:var(--goodsoft)}
+  #mod .mdl .lab{display:block; font-size:.64rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; margin-bottom:3px}
+  #mod .mdl .row.b .lab{color:var(--no)} #mod .mdl .row.a .lab{color:var(--good)}
+  #mod .ground{background:var(--reflectsoft); border:1px solid var(--line); border-left:5px solid var(--reflect); border-radius:12px; padding:14px 16px; margin:14px 0}
+  #mod .ground .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--reflect); display:block; margin-bottom:3px}
+  #mod .sci{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:13px 16px; margin:12px 0; font-size:.96rem}
+  #mod .sci .lab{font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  #mod ul{margin:.5rem 0; padding-left:1.2rem} #mod li{margin:.45rem 0}
+  #mod ol.steps{margin:.5rem 0; padding-left:1.3rem} #mod ol.steps li{margin:.6rem 0}
+  #mod a{color:var(--accent)}
+  #mod .read{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px}
+  #mod .read .r{border-top:1px solid var(--line); padding:11px 0} #mod .read .r:first-child{border-top:0}
+  #mod .read .r .t{font-weight:700} #mod .read .r .c{color:var(--muted); font-size:.88rem}
+  #mod .read .req{display:inline-block; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:0 8px; margin-left:6px; vertical-align:1px}
+  #mod .qc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px 4px; margin:10px 0}
+  #mod .qcitem{border-top:1px solid var(--line); padding:11px 0} #mod .qcitem:first-of-type{border-top:0}
+  #mod .qcitem .s{font-weight:600; margin:0 0 8px; font-style:italic}
+  #mod .qcitem .opts{display:flex; gap:8px; flex-wrap:wrap}
+  #mod .qcitem .opt{flex:1 1 45%; font:inherit; font-weight:700; font-size:.86rem; cursor:pointer; border-radius:8px; padding:8px 6px; border:1.5px solid var(--line); background:var(--field); color:var(--ink)}
+  #mod .qcitem .opt.pick{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #mod .qcitem.right .opt.pick{border-color:var(--good); background:var(--goodsoft); color:var(--good)}
+  #mod .qcitem.wrong .opt.pick{border-color:var(--no); background:var(--nosoft); color:var(--no)}
+  #mod .qcitem .fb{margin-top:8px; font-size:.9rem; color:var(--muted)} #mod .qcitem .fb[hidden]{display:none}
+  #mod .qcbtn{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:9px 15px; border:1px solid var(--accent); background:var(--accent); color:#fff; margin:8px 0}
+  #mod .qcres{font-weight:700; color:var(--accent); margin-left:10px}
+  #mod .qsb{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:10px 0}
+  #mod .qsb label{display:block; font-weight:600; margin:8px 0 4px; font-size:.94rem}
+  #mod .qsb input, #mod .qsb textarea{width:100%; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:8px; padding:9px 11px; font:inherit}
+  #mod .qsb textarea{min-height:52px; line-height:1.5; resize:vertical}
+  #mod .qsb input:focus, #mod .qsb textarea:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mod .sandwich{margin-top:12px; border-radius:10px; overflow:hidden; border:1px solid var(--line)}
+  #mod .sandwich .band{padding:10px 13px; font-size:.96rem}
+  #mod .sandwich .lead{background:var(--accent-soft)} #mod .sandwich .src{background:var(--field)} #mod .sandwich .exp{background:var(--accent-soft)}
+  #mod .sandwich .bl{display:block; font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; font-weight:800; color:var(--accent); margin-bottom:2px}
+  #mod .sandwich .ph{color:var(--muted); font-style:italic}
+  #mod .write{margin:10px 0}
+  #mod .write label{display:block; font-weight:600; margin-bottom:5px}
+  #mod textarea.big{width:100%; min-height:110px; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6; resize:vertical}
+  #mod textarea.big:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mod .priv{font-size:.82rem; color:var(--muted); margin-top:4px}
+  #mod .saved{color:var(--good); font-size:.85rem; font-weight:700; opacity:0; transition:opacity .2s} #mod .saved.show{opacity:1}
+  #mod a.btn{display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font-weight:700; border-radius:9px; padding:12px 20px; margin:8px 0}
+  #mod .duebox{background:var(--duesoft); border:1px solid var(--line); border-left:5px solid var(--due); border-radius:12px; padding:14px 16px; margin:16px 0}
+  #mod .duebox .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--due); display:block; margin-bottom:3px}
+  #mod .close{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-top:22px}
+  #mod .note{color:var(--muted); font-size:.9rem}
+  #mod .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="mod">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Week 10 · Module</p>
+    <h1>Writing Yourself Into the Conversation</h1>
+    <p class="sub">You have your claim, your experience, and a few solid sources. Now you weave them together, bringing sources into your prose without burying your voice or dropping quotes like bricks. Then you cite them in MLA and draft the whole argument.</p>
+    <p class="meta">The biggest writing week of this project. You'll produce a full rough draft, with sources.</p>
+  </header>
+
+  <div class="ground">
+    <span class="lab">A reminder</span>
+    <p>Working with sources for the first time can feel stiff, like the essay stops being yours. It doesn't have to. The goal this week is to keep <i>you</i> in charge and let the sources back you up. Your voice still leads.</p>
+  </div>
+
+  <p class="part">Part 1 · Learn</p>
+  <h2>You're joining a conversation</h2>
+  <p>Think of your topic as a conversation that's been going on before you walked in. Other people, researchers, writers, experts, have already said things about it. <button type="button" class="term" data-pop="synthesis">Synthesis</button> means entering that conversation: you say what <i>they</i> say, then you say what <i>you</i> think, and you show how the two connect. The scholars Gerald Graff and Cathy Birkenstein call this the <button type="button" class="term" data-pop="theysay">"they say / I say"</button> move, and it's the engine of academic writing. You're not reporting sources like a book report. You're using them to build your case.</p>
+
+  <h2>Three ways to bring in a source</h2>
+  <div class="box accent">
+    <ul>
+      <li><b><button type="button" class="term" data-pop="quote">Quote</button></b> when the exact words matter, they're vivid, precise, or you want to analyze them. Use quotes sparingly.</li>
+      <li><b><button type="button" class="term" data-pop="paraphrase">Paraphrase</button></b> (put one idea fully in your own words) when the point matters more than the phrasing. This is your workhorse.</li>
+      <li><b>Summarize</b> when you need the gist of a whole study or article in a sentence or two.</li>
+    </ul>
+    <p class="note">All three need a citation, even the paraphrase and the summary. Borrowing an idea counts, the same as borrowing words.</p>
+  </div>
+
+  <h2>The quote sandwich: never drop a quote naked</h2>
+  <p>The most common source mistake is the <button type="button" class="term" data-pop="dump">quote bomb</button>: a quotation dropped into a paragraph with nothing around it, left for the reader to interpret. Fix it with a <button type="button" class="term" data-pop="sandwich">quote sandwich</button>, three layers:</p>
+  <div class="mdl">
+    <div class="row b"><span class="lab">Quote bomb (no framing)</span>Teenagers need more sleep. "Adolescents who start school later score measurably higher on tests of attention" (Wahlstrom 12). My district should start later.</div>
+    <div class="row a"><span class="lab">A quote sandwich</span>My groggy first periods weren't just my problem. As sleep researcher Kyla Wahlstrom found, "adolescents who start school later score measurably higher on tests of attention" (12). In other words, the fog I felt at 7 a.m. shows up in the data as lost learning, which is exactly why my district should push the bell back.</div>
+  </div>
+  <p class="note">Top slice: your <button type="button" class="term" data-pop="signal">lead-in</button> (who's speaking, why they matter). Filling: the quote or paraphrase, cited. Bottom slice: your explanation tying it to <i>your</i> claim. The source is the filling; your voice is the bread on both sides.</p>
+
+  <h2>Citing in MLA, briefly</h2>
+  <p>Every borrowed idea gets an <button type="button" class="term" data-pop="intext">in-text citation</button>: the author's last name and a page number in parentheses, <b>(Wahlstrom 12)</b>, right where the borrowing ends. If your lead-in already names the author ("As Wahlstrom found…"), the parentheses just need the page: <b>(12)</b>. Each in-text citation points to a full entry on your <button type="button" class="term" data-pop="workscited">Works Cited</button> page. You don't have to memorize the formatting, that's what the builder below is for.</p>
+  <p><a class="btn" href="mla-citation-builder.html" target="_blank" rel="noopener">Open the MLA Citation Builder &rarr;</a></p>
+
+  <p class="part">Part 2 · Read (required)</p>
+  <div class="read">
+    <div class="r"><span class="t">Summaries, Paraphrases, and the Academic Conversation</span> <span class="req">Required</span><div class="c">Voices for Change, p. 96.</div></div>
+    <div class="r"><span class="t">Citing Sources and Avoiding Plagiarism</span> <span class="req">Required</span><div class="c">Voices for Change, p. 347.</div></div>
+    <div class="r"><span class="t">Integrating Sources</span> <span class="req">Required</span><div class="c">Voices for Change, p. 352. The quote-sandwich move, in depth.</div></div>
+    <div class="r"><span class="t">Documenting in MLA Style</span> <span class="req">Required</span><div class="c">Voices for Change, p. 365. Your reference for in-text citations and Works Cited.</div></div>
+  </div>
+
+  <p class="part">Part 3 · Practice (A)</p>
+  <h2>Paraphrase, or patchwriting?</h2>
+  <p>A real paraphrase puts the idea in <i>your</i> words and structure. Swapping a few synonyms while keeping the original's shape is <button type="button" class="term" data-pop="patch">patchwriting</button>, and it counts as plagiarism even with a citation. Here's the original; decide whether each student version is a safe paraphrase or too close.</p>
+  <div class="box"><b>Original source:</b> <i>"Adolescents' internal clocks shift later during puberty, making early school start times biologically mismatched with teenage sleep."</i></div>
+  <div class="qc" id="qc">
+    <div class="qcitem" data-answer="close">
+      <p class="s">"Teens' internal clocks shift later during puberty, making early start times biologically mismatched with teenage sleep."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="good">Safe paraphrase</button><button type="button" class="opt" data-pick="close">Too close (patchwriting)</button></div>
+      <div class="fb" hidden>Too close. It just swaps a couple of words and keeps the original sentence's exact structure. A citation won't save it; either quote it directly or truly rewrite it.</div>
+    </div>
+    <div class="qcitem" data-answer="good">
+      <p class="s">"Because puberty pushes a teenager's body clock later, a 7 a.m. first bell fights their biology instead of working with it (Author 4)."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="good">Safe paraphrase</button><button type="button" class="opt" data-pick="close">Too close (patchwriting)</button></div>
+      <div class="fb" hidden>Safe paraphrase. New words, new structure, same idea, and it's cited. This is what a real paraphrase looks like.</div>
+    </div>
+    <div class="qcitem" data-answer="close">
+      <p class="s">"During puberty, adolescents' internal clocks shift to a later time, so early school starts are biologically mismatched with how teenagers sleep."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="good">Safe paraphrase</button><button type="button" class="opt" data-pick="close">Too close (patchwriting)</button></div>
+      <div class="fb" hidden>Too close. Rearranging the clauses and changing "making" to "so" still tracks the original almost word for word. Read it, look away, and write the idea from memory instead.</div>
+    </div>
+    <button type="button" class="qcbtn" id="qcbtn">Check</button><span class="qcres" id="qcres"></span>
+  </div>
+
+  <p class="part">Part 3 · Practice (B)</p>
+  <h2>Build a quote sandwich</h2>
+  <p>Take one source from your source set and build a sandwich around it. Fill each layer and watch it assemble. This saves on your own computer.</p>
+  <div class="qsb">
+    <label for="qs_lead">Top slice: your lead-in (name the source and why they matter):</label>
+    <input type="text" id="qs_lead" data-save placeholder="As sleep researcher Kyla Wahlstrom found,">
+    <label for="qs_src">Filling: the quote or paraphrase, with the citation:</label>
+    <textarea id="qs_src" data-save placeholder="&quot;adolescents who start school later score higher on tests of attention&quot; (12)."></textarea>
+    <label for="qs_exp">Bottom slice: your explanation (how it backs YOUR claim):</label>
+    <textarea id="qs_exp" data-save placeholder="In other words, the fog I felt at 7 a.m. shows up in the data as lost learning, which is why…"></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="qs_lead">Saved ✓</span></div>
+    <div class="sandwich" id="sandwich">
+      <div class="band lead"><span class="bl">Your lead-in</span><span id="o_lead" class="ph">who's speaking, and why they matter…</span></div>
+      <div class="band src"><span class="bl">The source (cited)</span><span id="o_src" class="ph">the quote or paraphrase…</span></div>
+      <div class="band exp"><span class="bl">Your explanation</span><span id="o_exp" class="ph">how it backs your claim…</span></div>
+    </div>
+  </div>
+
+  <p class="part">Part 4 · Do</p>
+  <h2>Draft the whole argument, with sources</h2>
+  <p>Time to write the <button type="button" class="term" data-pop="sfd">shitty first draft</button> of your argument, start to finish. Bring in at least two of your vetted sources using quote sandwiches, cite them in MLA, and keep your own voice leading throughout. It's a rough draft, so let it be rough; just get the whole case down.</p>
+  <div class="write">
+    <label for="w_draft">Warm up here if it helps, then carry it into your Google Doc (that's what you turn in):</label>
+    <textarea id="w_draft" class="big" data-save placeholder="Open on the moment that gave you this position, then build the case, weaving your sources in…"></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_draft">Saved ✓</span></div>
+  </div>
+  <p class="note">Keep the <a href="mla-citation-builder.html" target="_blank" rel="noopener">MLA Citation Builder</a> open in another tab as you go, and start your Works Cited page now, one entry per source, so it isn't a scramble at the end.</p>
+
+  <div class="close">
+    <p><b>That's a real argument on the page.</b> Claim, lived experience, and outside evidence, woven together in your voice. Next week we revise it: tightening the case, checking that every source earns its place, and making sure you still sound like you.</p>
+  </div>
+
+  <div class="duebox">
+    <span class="lab">Due this week (Sunday)</span>
+    <p>Your <b>complete first draft of the argument</b>, with at least two sources integrated and cited in MLA, plus a starter Works Cited page. Submit as a Google Doc. It can be rough; it needs to be whole. (Notebook writing stays private, collected at midterm and end of term.)</p>
+  </div>
+
+  <dialog class="pop" id="pop-synthesis"><h3>Synthesis</h3><p>Combining sources and your own thinking into one flowing argument, rather than listing what each source says one after another. Example of NOT synthesizing: "Source A says X. Source B says Y. Source C says Z." Synthesis: "The research agrees that X, and my own experience shows why that matters here." You're the one connecting the dots, in service of your claim.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-theysay"><h3>They say / I say</h3><p>Gerald Graff and Cathy Birkenstein's frame for academic writing: start by laying out what others say ("they say"), then respond with your own view ("I say"). Example: "Many people assume phones are harmless in class (they say). My own semester with one on my desk taught me otherwise (I say)." It keeps your writing in conversation instead of talking into a void.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-quote"><h3>Quoting</h3><p>Using a source's exact words, inside quotation marks, with a citation. Reserve it for when the wording itself matters, it's striking, precise, or you want to examine it. Example: quote a senator's exact phrasing if you're going to analyze that phrasing. Don't quote a plain fact you could just state; paraphrase that instead. Over-quoting makes an essay read like a scrapbook.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-paraphrase"><h3>Paraphrasing</h3><p>Restating one specific idea from a source fully in your own words and sentence structure, then citing it. It's the main way you'll use sources. Example, original: "Funding cuts reduced clinic hours." Paraphrase: "When the budget shrank, the clinic could stay open fewer hours a week (Author 8)." Same idea, genuinely your words. Changing only a few words is patchwriting, not paraphrase.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-dump"><h3>The quote bomb</h3><p>Dropping a quotation into your paragraph with no lead-in and no follow-up, leaving the reader to figure out why it's there. Example: <i>My town needs more buses. "Ridership rose 40% after the pilot" (Lee 3). Also parking is hard.</i> The quote just sits there, orphaned. The fix is the quote sandwich: frame it before, explain it after.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-sandwich"><h3>The quote sandwich</h3><p>A three-part way to integrate any source so it never sits naked: (1) a lead-in that introduces it, (2) the quote or paraphrase, cited, (3) your explanation connecting it to your point. Example: "As Lee reports (top), 'ridership rose 40% after the pilot' (3) (filling). That jump is exactly the demand my neighborhood keeps being told doesn't exist (bottom)." Source in the middle, your voice on both sides.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-signal"><h3>Signal phrase (lead-in)</h3><p>The words that introduce a source and hand the reader a reason to trust it: "As Dr. Wahlstrom found," "According to a 2014 policy statement," "The sociologist Tressie McMillan Cottom argues." Example: instead of a bare quote, "According to sleep researcher Kyla Wahlstrom, ___." It tells the reader who's talking and why they count, before the borrowed words arrive.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-intext"><h3>In-text citation</h3><p>The short parenthetical that marks borrowed material right where it appears: normally the author's last name and a page, <b>(Wahlstrom 12)</b>. If you already named the author in your lead-in, just the page: <b>(12)</b>. No page (like a web source)? Just the author: <b>(Wahlstrom)</b>. Each one matches a full entry on your Works Cited page, so a reader can find the exact source.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-workscited"><h3>Works Cited</h3><p>The alphabetized list of full source details at the end of an MLA paper, one entry per source you cited. Example entry: <i>Wahlstrom, Kyla. "School Start Time and Sleepy Teens." Archives of Pediatrics, vol. 164, no. 7, 2010, pp. 676-681.</i> Build these as you go with the citation builder; assembling them all at the end is a recipe for a bad night.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-patch"><h3>Patchwriting</h3><p>Paraphrasing so lightly that you keep the source's structure and just swap in synonyms. It's a form of plagiarism even when cited, because the sentence is still basically the author's. Example, original: "The policy reduced emissions sharply." Patchwriting: "The rule cut emissions dramatically." Real fix: read it, look away, and write the idea in your own sentence from memory, then check you didn't drift back.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-sfd"><h3>Shitty first draft (recap)</h3><p>Anne Lamott's permission slip from Project 1: the first draft's only job is to exist. Even now, with sources to juggle, don't try to draft and perfect at once. Get the whole argument down, rough citations and all, then fix it next week. A messy complete draft beats a perfect half.</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  var PREFIX="rc1000w10:";
+  document.querySelectorAll('#mod [data-save]').forEach(function(el){
+    try{ var v=localStorage.getItem(PREFIX+el.id); if(v!==null) el.value=v; }catch(e){}
+    var flag=document.querySelector('.saved[data-for="'+el.id+'"]');
+    el.addEventListener('input', function(){ try{ localStorage.setItem(PREFIX+el.id, el.value); }catch(e){} if(flag){ flag.classList.add('show'); clearTimeout(flag._t); flag._t=setTimeout(function(){flag.classList.remove('show');},1100);} });
+  });
+  // quote-sandwich live preview
+  function bind(id, outId, ph){
+    var el=document.getElementById(id), out=document.getElementById(outId);
+    function upd(){ var v=el.value.trim(); if(v){ out.textContent=v; out.classList.remove('ph'); } else { out.textContent=ph; out.classList.add('ph'); } }
+    el.addEventListener('input', upd); upd();
+  }
+  bind('qs_lead','o_lead',"who's speaking, and why they matter…");
+  bind('qs_src','o_src','the quote or paraphrase…');
+  bind('qs_exp','o_exp','how it backs your claim…');
+  // quickcheck
+  var items=Array.prototype.slice.call(document.querySelectorAll('#qc .qcitem'));
+  items.forEach(function(it){
+    var opts=it.querySelectorAll('.opt');
+    opts.forEach(function(o){ o.addEventListener('click', function(){ opts.forEach(function(x){x.classList.remove('pick');}); o.classList.add('pick'); it.dataset.pick=o.getAttribute('data-pick'); it.classList.remove('right','wrong'); it.querySelector('.fb').hidden=true; document.getElementById('qcres').textContent=''; }); });
+  });
+  document.getElementById('qcbtn').addEventListener('click', function(){
+    var correct=0, all=true;
+    items.forEach(function(it){
+      it.classList.remove('right','wrong');
+      if(!it.dataset.pick){ all=false; return; }
+      var right = it.dataset.pick===it.getAttribute('data-answer');
+      it.classList.add(right?'right':'wrong'); it.querySelector('.fb').hidden=false; if(right) correct++;
+    });
+    document.getElementById('qcres').textContent = all ? ('You got '+correct+' of '+items.length+'.') : 'Answer all '+items.length+' first.';
+  });
+  document.querySelectorAll('[data-pop]').forEach(function(b){ b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); }); });
+  document.querySelectorAll('dialog.pop').forEach(function(d){ d.addEventListener('click', function(e){ if(e.target===d) d.close(); }); });
+})();
+</script>
+</body>
+</html>

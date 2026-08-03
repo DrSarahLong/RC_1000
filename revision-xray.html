@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Revision X-Ray</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a; --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe; --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3;
+    --claim:rgba(138,75,125,.30); --claimb:#8a4b7d;
+    --ev:rgba(47,125,84,.26); --evb:#2f7d54;
+    --counter:rgba(163,84,31,.28); --counterb:#a3541f;
+    --src:rgba(45,105,180,.24); --srcb:#2d69b4;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815;
+      --claim:rgba(207,154,196,.32); --claimb:#cf9ac4; --ev:rgba(122,197,152,.28); --evb:#7ac598; --counter:rgba(224,168,120,.30); --counterb:#e0a878; --src:rgba(126,170,224,.30); --srcb:#7eaae0; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #rx{max-width:760px; margin:0 auto; padding:28px 20px 90px}
+  #rx h1{font-family:Georgia,serif; font-size:1.85rem; margin:0}
+  #rx .kicker{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #rx .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:16px}
+  #rx .sub{color:var(--muted); margin:8px 0 0}
+  #rx .honest{background:var(--accent-soft); border:1px solid var(--line); border-radius:10px; padding:11px 14px; font-size:.92rem; margin:14px 0}
+  #rx .honest b{color:var(--accent)}
+  #rx label.fld{font-weight:600; display:block; margin-bottom:6px}
+  #rx textarea{width:100%; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6; resize:vertical}
+  #rx #draft{min-height:180px}
+  #rx textarea:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #rx button{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:10px 16px; border:1px solid var(--accent); background:var(--accent); color:#fff}
+  #rx button.ghost{background:transparent; color:var(--accent)}
+  #rx button:disabled{opacity:.45; cursor:default}
+  #rx .row{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:12px}
+  #rx .priv{font-size:.82rem; color:var(--muted); margin-top:6px}
+  #rx h2{font-family:Georgia,serif; font-size:1.25rem; margin:22px 0 6px}
+  #rx .tools{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0; position:sticky; top:0; background:var(--paper); padding:8px 0; z-index:5}
+  #rx .tools button.tag{font-size:.86rem; font-weight:700; border:2px solid var(--line); background:var(--card); color:var(--ink); padding:8px 12px}
+  #rx .tools button.tag .sw{display:inline-block; width:12px; height:12px; border-radius:3px; margin-right:6px; vertical-align:-1px}
+  #rx .tools button.tag.on{border-color:var(--ink)}
+  #rx .tools button.tag[data-tag="claim"] .sw{background:var(--claimb)} #rx .tools button.tag[data-tag="ev"] .sw{background:var(--evb)}
+  #rx .tools button.tag[data-tag="counter"] .sw{background:var(--counterb)} #rx .tools button.tag[data-tag="src"] .sw{background:var(--srcb)}
+  #rx .tools button.tag.on[data-tag="claim"]{background:var(--claim)} #rx .tools button.tag.on[data-tag="ev"]{background:var(--ev)}
+  #rx .tools button.tag.on[data-tag="counter"]{background:var(--counter)} #rx .tools button.tag.on[data-tag="src"]{background:var(--src)}
+  #rx .tools button.tag[data-tag="erase"]{color:var(--muted)}
+  #rx .hint{font-size:.86rem; color:var(--muted); margin:2px 0 8px}
+  #rx .stage{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; line-height:2.05; max-height:360px; overflow:auto}
+  #rx .sent{cursor:pointer; padding:1px 2px; border-radius:4px; border-bottom:2px solid transparent}
+  #rx .sent:hover{outline:1px dashed var(--line)}
+  #rx .sent.claim{background:var(--claim); border-bottom-color:var(--claimb)}
+  #rx .sent.ev{background:var(--ev); border-bottom-color:var(--evb)}
+  #rx .sent.counter{background:var(--counter); border-bottom-color:var(--counterb)}
+  #rx .sent.src{background:var(--src); border-bottom-color:var(--srcb)}
+  #rx .tally{display:flex; flex-wrap:wrap; gap:8px; margin:12px 0}
+  #rx .chip{font-size:.82rem; font-weight:700; border-radius:999px; padding:4px 12px; border:1px solid var(--line)}
+  #rx .chip .n{font-weight:800; margin-left:4px}
+  #rx .chip.claim{background:var(--claim)} #rx .chip.ev{background:var(--ev)} #rx .chip.counter{background:var(--counter)} #rx .chip.src{background:var(--src)}
+  #rx .diag{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px; margin:10px 0}
+  #rx .diag .d{border-top:1px solid var(--line); padding:9px 0; font-size:.94rem; display:flex; gap:9px} #rx .diag .d:first-child{border-top:0}
+  #rx .diag .d .i{flex:none; font-weight:800}
+  #rx .diag .d.ok .i{color:var(--good)} #rx .diag .d.warn .i{color:var(--no)}
+  #rx .cites{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px; margin:10px 0}
+  #rx .cites .ci{border-top:1px solid var(--line); padding:10px 0} #rx .cites .ci:first-child{border-top:0}
+  #rx .cites .q{font-style:italic; font-size:.93rem; margin-bottom:6px}
+  #rx .cites .yn button{font-size:.82rem; font-weight:700; padding:5px 12px; border:1.5px solid var(--line); background:var(--field); color:var(--ink); margin-right:6px}
+  #rx .cites .yn button.sel-y{border-color:var(--evb); background:var(--goodsoft); color:var(--good)}
+  #rx .cites .yn button.sel-n{border-color:var(--no); background:var(--nosoft); color:var(--no)}
+  #rx .audio{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:10px 0}
+  #rx audio{width:100%; margin-top:10px}
+  #rx .saved{color:var(--good); font-size:.82rem; font-weight:700; opacity:0; transition:opacity .2s} #rx .saved.show{opacity:1}
+  #rx .note{color:var(--muted); font-size:.9rem}
+  #rx .hidden{display:none}
+  #rx a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div id="rx">
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Revision Tool</p>
+    <h1>Revision X-Ray</h1>
+    <p class="sub">Paste your argument or op-ed, then mark it up: highlight your claim, your evidence, and your counterargument in different colors. Check that every source is actually cited. Hear it read back. The tool doesn't grade you, it makes you find the parts yourself.</p>
+  </header>
+
+  <div class="honest">
+    <b>How this works.</b> A checklist lets you say "yes, I have evidence" without proving it. This makes you point to it. If you can't highlight a claim, you don't have a clear one yet. If your evidence highlights are thin, that's your revision. Nothing here is graded or uploaded, it runs in your browser, and you do all the marking.
+  </div>
+
+  <label class="fld" for="draft">Paste your draft</label>
+  <textarea id="draft" placeholder="Paste your argument or op-ed here…"></textarea>
+  <div class="row"><button type="button" id="go">X-ray it</button><button type="button" class="ghost" id="clear">Clear</button></div>
+  <div class="priv">Private, saves only in your own browser.</div>
+
+  <div id="stageWrap" class="hidden">
+    <h2>1. Highlight the parts</h2>
+    <p class="hint">Pick a color, then click sentences to paint them. Click a painted sentence again to clear it.</p>
+    <div class="tools" id="tools">
+      <button type="button" class="tag on" data-tag="claim"><span class="sw"></span>Claim</button>
+      <button type="button" class="tag" data-tag="ev"><span class="sw"></span>Evidence</button>
+      <button type="button" class="tag" data-tag="counter"><span class="sw"></span>Counterargument</button>
+      <button type="button" class="tag" data-tag="src"><span class="sw"></span>Source / cited fact</button>
+      <button type="button" class="tag" data-tag="erase">Erase</button>
+    </div>
+    <div class="stage" id="stage" aria-live="off"></div>
+
+    <div class="tally" id="tally"></div>
+    <div class="diag" id="diag"></div>
+
+    <h2>2. Check your citations</h2>
+    <p class="hint">Every sentence you marked as a source or borrowed fact needs a citation or a link. Confirm each one.</p>
+    <div class="cites" id="cites"></div>
+
+    <h2>3. Hear it</h2>
+    <div class="audio">
+      <p class="note" style="margin-top:0">Reading aloud catches what your eyes skip, missing words, clunky rhythm, a sentence that drones. Do both if you can: let the device read it to you, then record yourself and listen for where you stumble or lose steam.</p>
+      <div class="row">
+        <button type="button" id="ttsPlay">Read it to me</button>
+        <button type="button" class="ghost" id="ttsStop">Stop</button>
+        <button type="button" id="recBtn">Record myself</button>
+      </div>
+      <div id="recMsg" class="note"></div>
+      <audio id="player" controls class="hidden"></audio>
+    </div>
+
+    <h2>4. Note what you'll fix</h2>
+    <label class="fld" for="notes" style="font-weight:600">Your revision plan (goes in your notebook):</label>
+    <textarea id="notes" style="min-height:90px" placeholder="Between what the colors showed me and hearing it read back, the weakest spot was… I'll fix it by…"></textarea>
+    <div class="priv"><span class="saved" id="nsaved">Saved ✓</span></div>
+    <div class="row"><button type="button" id="dl">Download my x-ray + plan</button></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var K="revXray:";
+  var draft=document.getElementById('draft');
+  try{ var d=localStorage.getItem(K+'draft'); if(d!==null) draft.value=d; }catch(e){}
+  draft.addEventListener('input', function(){ try{ localStorage.setItem(K+'draft', draft.value); }catch(e){} });
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  var TAGS={claim:'Claim', ev:'Evidence', counter:'Counterargument', src:'Source'};
+  var active='claim', sentences=[], tags=[], cited={};
+  var stage=document.getElementById('stage');
+
+  function saveTags(){ try{ localStorage.setItem(K+'tags', JSON.stringify(tags)); localStorage.setItem(K+'cited', JSON.stringify(cited)); }catch(e){} }
+
+  document.getElementById('go').addEventListener('click', function(){
+    var t=draft.value.trim();
+    if(t.split(/\s+/).length<25){ alert('Paste a few paragraphs of your draft first.'); return; }
+    sentences = t.match(/[^.!?]+[.!?]*(?:["”')\]]+)?/g) || [t];
+    sentences = sentences.map(function(s){return s;}).filter(function(s){return s.trim();});
+    // restore tags if same length
+    var saved=null; try{ saved=JSON.parse(localStorage.getItem(K+'tags')||'null'); }catch(e){}
+    tags = (saved && saved.length===sentences.length) ? saved : sentences.map(function(){return '';});
+    try{ cited=JSON.parse(localStorage.getItem(K+'cited')||'{}'); }catch(e){ cited={}; }
+    renderStage();
+    document.getElementById('stageWrap').classList.remove('hidden');
+    update();
+  });
+
+  function renderStage(){
+    stage.innerHTML='';
+    sentences.forEach(function(s, i){
+      var sp=document.createElement('span');
+      sp.className='sent'+(tags[i]?' '+tags[i]:'');
+      sp.setAttribute('data-i', i);
+      sp.textContent = s.replace(/\s+$/,'') + ' ';
+      sp.addEventListener('click', function(){
+        if(active==='erase'){ tags[i]=''; }
+        else { tags[i] = (tags[i]===active) ? '' : active; }
+        sp.className='sent'+(tags[i]?' '+tags[i]:'');
+        if(tags[i]!=='src' && cited[i]!==undefined){ delete cited[i]; }
+        saveTags(); update();
+      });
+      stage.appendChild(sp);
+    });
+  }
+
+  document.querySelectorAll('#tools .tag').forEach(function(b){
+    b.addEventListener('click', function(){
+      active=b.getAttribute('data-tag');
+      document.querySelectorAll('#tools .tag').forEach(function(x){ x.classList.toggle('on', x===b); });
+    });
+  });
+
+  function count(tag){ return tags.filter(function(t){return t===tag;}).length; }
+
+  function update(){
+    var c=count('claim'), e=count('ev'), co=count('counter'), sr=count('src');
+    document.getElementById('tally').innerHTML =
+      '<span class="chip claim">Claim<span class="n">'+c+'</span></span>'+
+      '<span class="chip ev">Evidence<span class="n">'+e+'</span></span>'+
+      '<span class="chip counter">Counterargument<span class="n">'+co+'</span></span>'+
+      '<span class="chip src">Sources<span class="n">'+sr+'</span></span>';
+    var d=[];
+    d.push(c>0 ? {ok:1, m:'You marked a clear claim. Good, that\'s the spine of the piece.'} : {ok:0, m:'No claim highlighted. An argument needs one clear position. Find it, or write one.'});
+    d.push(e>0 ? {ok:1, m:'You have evidence marked. Check that each claim and reason has some near it.'} : {ok:0, m:'No evidence highlighted. Every reason needs backing, your experience, a source, a fact.'});
+    d.push(co>0 ? {ok:1, m:'You marked a counterargument. Naming the other side makes you more convincing.'} : {ok:0, m:'No counterargument marked. Did you answer the strongest objection? If not, add one.'});
+    if(c>0 && e>0 && e<Math.max(1, Math.ceil(c/1))){ /* light nudge only */ }
+    document.getElementById('diag').innerHTML = d.map(function(x){ return '<div class="d '+(x.ok?'ok':'warn')+'"><span class="i">'+(x.ok?'✓':'!')+'</span><span>'+x.m+'</span></div>'; }).join('');
+    renderCites();
+  }
+
+  function renderCites(){
+    var box=document.getElementById('cites');
+    var srcIdx=[]; tags.forEach(function(t,i){ if(t==='src') srcIdx.push(i); });
+    if(!srcIdx.length){ box.innerHTML='<div class="ci"><span class="note">Highlight your sources above (the blue tag) and they\'ll appear here for a citation check.</span></div>'; return; }
+    box.innerHTML='';
+    srcIdx.forEach(function(i){
+      var ci=document.createElement('div'); ci.className='ci';
+      ci.innerHTML='<div class="q">'+esc(sentences[i].trim())+'</div>'+
+        '<div class="yn"><b style="font-size:.86rem">Has a citation or link?</b> '+
+        '<button type="button" data-i="'+i+'" data-v="y">Yes</button>'+
+        '<button type="button" data-i="'+i+'" data-v="n">Not yet</button></div>';
+      box.appendChild(ci);
+    });
+    box.querySelectorAll('.yn button').forEach(function(b){
+      var i=b.getAttribute('data-i'), v=b.getAttribute('data-v');
+      if(cited[i]===v) b.classList.add(v==='y'?'sel-y':'sel-n');
+      b.addEventListener('click', function(){
+        cited[i]=v; saveTags();
+        var parent=b.parentNode; parent.querySelectorAll('button').forEach(function(x){ x.classList.remove('sel-y','sel-n'); });
+        b.classList.add(v==='y'?'sel-y':'sel-n');
+        var missing=srcIdx.filter(function(k){ return cited[k]!=='y'; }).length;
+        document.getElementById('citemsg').textContent = missing? (missing+' source'+(missing>1?'s':'')+' still need a citation.') : 'Every source is cited. Nice.';
+      });
+    });
+    if(!document.getElementById('citemsg')){ var m=document.createElement('div'); m.id='citemsg'; m.className='note'; m.style.marginTop='8px'; box.appendChild(m); }
+    else { box.appendChild(document.getElementById('citemsg')); }
+    var missing=srcIdx.filter(function(k){ return cited[k]!=='y'; }).length;
+    document.getElementById('citemsg').textContent = missing? (missing+' source'+(missing>1?'s':'')+' still need a citation.') : 'Every source is cited. Nice.';
+  }
+
+  // ---- Hear it: text to speech ----
+  var ttsOn=false;
+  document.getElementById('ttsPlay').addEventListener('click', function(){
+    if(!('speechSynthesis' in window)){ alert('Your browser can\'t read text aloud. Try recording yourself instead.'); return; }
+    speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(draft.value);
+    u.rate=0.95; speechSynthesis.speak(u);
+  });
+  document.getElementById('ttsStop').addEventListener('click', function(){ if('speechSynthesis' in window) speechSynthesis.cancel(); });
+
+  // ---- Hear it: record yourself ----
+  var recBtn=document.getElementById('recBtn'), recMsg=document.getElementById('recMsg'), player=document.getElementById('player');
+  var mediaRec=null, chunks=[], recording=false;
+  recBtn.addEventListener('click', function(){
+    if(recording){ if(mediaRec) mediaRec.stop(); return; }
+    if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+      recMsg.textContent='Recording needs the published web version and a microphone; on a local file it may be blocked. In the meantime, use "Read it to me" or read it aloud yourself.'; return;
+    }
+    navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+      mediaRec=new MediaRecorder(stream); chunks=[];
+      mediaRec.ondataavailable=function(ev){ if(ev.data.size) chunks.push(ev.data); };
+      mediaRec.onstop=function(){
+        var blob=new Blob(chunks,{type:'audio/webm'});
+        player.src=URL.createObjectURL(blob); player.classList.remove('hidden');
+        stream.getTracks().forEach(function(t){ t.stop(); });
+        recBtn.textContent='Record myself'; recMsg.textContent='Recorded. Play it back and listen for the spots you stumble or lose energy.'; recording=false;
+      };
+      mediaRec.start(); recording=true; recBtn.textContent='Stop recording'; recMsg.textContent='Recording… read your draft aloud, then hit stop.';
+    }).catch(function(){ recMsg.textContent='Couldn\'t reach a microphone. Check permission, or just read it aloud to yourself.'; });
+  });
+
+  // ---- notes + download ----
+  var notes=document.getElementById('notes'), nf=document.getElementById('nsaved');
+  try{ var nv=localStorage.getItem(K+'notes'); if(nv!==null) notes.value=nv; }catch(e){}
+  notes.addEventListener('input', function(){ try{ localStorage.setItem(K+'notes', notes.value); }catch(e){} if(nf){ nf.classList.add('show'); clearTimeout(nf._t); nf._t=setTimeout(function(){nf.classList.remove('show');},1000);} });
+
+  document.getElementById('dl').addEventListener('click', function(){
+    var L=['MY REVISION X-RAY',''];
+    L.push('What I marked:');
+    L.push('  Claims: '+count('claim')+'  |  Evidence: '+count('ev')+'  |  Counterargument: '+count('counter')+'  |  Sources: '+count('src'));
+    L.push('');
+    var uncited=[]; tags.forEach(function(t,i){ if(t==='src' && cited[i]!=='y') uncited.push(sentences[i].trim()); });
+    if(uncited.length){ L.push('Sources still needing a citation:'); uncited.forEach(function(s){ L.push('  - '+s); }); L.push(''); }
+    L.push('My revision plan:'); L.push(notes.value||'(none yet)');
+    var b=new Blob([L.join('\n')],{type:'text/plain'}), u=URL.createObjectURL(b), a=document.createElement('a');
+    a.href=u; a.download='my-revision-xray.txt'; document.body.appendChild(a); a.click(); setTimeout(function(){URL.revokeObjectURL(u);a.remove();},100);
+  });
+
+  document.getElementById('clear').addEventListener('click', function(){
+    draft.value=''; document.getElementById('stageWrap').classList.add('hidden');
+    try{ localStorage.removeItem(K+'draft'); localStorage.removeItem(K+'tags'); localStorage.removeItem(K+'cited'); }catch(e){}
+    tags=[]; cited={}; draft.focus();
+  });
+})();
+</script>
+</body>
+</html>

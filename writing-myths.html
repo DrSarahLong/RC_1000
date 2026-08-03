@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Writing Myths</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #wm{max-width:720px; margin:0 auto; padding:28px 20px 90px}
+  #wm h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.8rem; margin:0}
+  #wm .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #wm .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:16px}
+  #wm .sub{color:var(--muted); margin:6px 0 0}
+  #wm .how{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:13px 16px; margin-bottom:12px; font-size:.95rem}
+  #wm .how b{color:var(--accent)}
+  #wm .card{background:var(--card); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:12px; padding:14px 16px; margin:12px 0}
+  #wm .card.right{border-left-color:var(--good)} #wm .card.wrong{border-left-color:var(--no)}
+  #wm .stmt{font-size:1.06rem; font-weight:600; margin:0 0 10px}
+  #wm .choices{display:flex; gap:8px}
+  #wm .choice{flex:1; font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:9px; border:1.5px solid var(--line); background:var(--field); color:var(--ink)}
+  #wm .choice.pick{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #wm .choice:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+  #wm .mark{font-weight:800; font-size:.85rem; margin-left:8px}
+  #wm .card.right .mark{color:var(--good)} #wm .card.wrong .mark{color:var(--no)}
+  #wm .why{margin-top:10px; border-radius:8px; padding:10px 12px; font-size:.94rem; background:var(--accent-soft)}
+  #wm .why[hidden]{display:none}
+  #wm .controls{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:14px 0}
+  #wm button.act{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:11px 18px; border:1px solid var(--accent); background:var(--accent); color:#fff}
+  #wm button.act.ghost{background:transparent; color:var(--accent); font-weight:600}
+  #wm button.act:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+  #wm #result{font-weight:700}
+  #wm .done{margin-top:20px; background:var(--card); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:12px; padding:16px 18px}
+  #wm .done[hidden]{display:none} #wm .done b{color:var(--accent)}
+  #wm .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="wm">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Week 1 · Practice</p>
+    <h1>Writing Myths</h1>
+    <p class="sub">You've been writing for years, and picked up some beliefs about it along the way. A surprising number of them are wrong, and they're the exact beliefs that hold writers back. Let's clear them out.</p>
+  </header>
+
+  <div class="how">
+    <p><b>Your call first.</b> For each statement, decide: <b>True</b>, or <b>Myth</b>? Commit to an answer, then hit <b>Check</b> to see how you did and why. This is what the whole course runs on.</p>
+  </div>
+
+  <div class="card" data-card data-answer="myth">
+    <p class="stmt">"Good writers get it right on the first try."</p>
+    <div class="choices"><button type="button" class="choice" data-pick="true">True</button><button type="button" class="choice" data-pick="myth">Myth</button></div>
+    <div class="why" hidden><b>Myth.</b> Nobody's first draft is their best draft, not published authors, not me. Good writing is <i>re</i>written. That's why we'll spend real time on <button type="button" class="term" data-pop="sfd">first drafts</button> and revision, and why a messy start is exactly right.</div>
+  </div>
+
+  <div class="card" data-card data-answer="myth">
+    <p class="stmt">"You should know exactly what you want to say before you start writing."</p>
+    <div class="choices"><button type="button" class="choice" data-pick="true">True</button><button type="button" class="choice" data-pick="myth">Myth</button></div>
+    <div class="why" hidden><b>Myth.</b> You write to <button type="button" class="term" data-pop="discovery">find out</button> what you think, not to transcribe something you already finished in your head. Waiting until you "know" is why people stare at a blank page. Start messy; the thinking happens on the page.</div>
+  </div>
+
+  <div class="card" data-card data-answer="myth">
+    <p class="stmt">"Being a good writer is a talent you're either born with or you're not."</p>
+    <div class="choices"><button type="button" class="choice" data-pick="true">True</button><button type="button" class="choice" data-pick="myth">Myth</button></div>
+    <div class="why" hidden><b>Myth.</b> Writing is a <button type="button" class="term" data-pop="learnable">learnable skill</button>, like an instrument. It responds to practice and feedback, both of which this class is built on. Where you start is not where you'll finish.</div>
+  </div>
+
+  <div class="card" data-card data-answer="myth">
+    <p class="stmt">"Revision means fixing your spelling and grammar."</p>
+    <div class="choices"><button type="button" class="choice" data-pick="true">True</button><button type="button" class="choice" data-pick="myth">Myth</button></div>
+    <div class="why" hidden><b>Myth.</b> That's <button type="button" class="term" data-pop="revision">editing and proofreading</button>, which come last. <i>Revision</i> means re-seeing the whole, its point, shape, and order. Confuse the two and you polish sentences you were about to cut.</div>
+  </div>
+
+  <div class="card" data-card data-answer="myth">
+    <p class="stmt">"Writing is basically private self-expression, just getting your own feelings out."</p>
+    <div class="choices"><button type="button" class="choice" data-pick="true">True</button><button type="button" class="choice" data-pick="myth">Myth</button></div>
+    <div class="why" hidden><b>Myth.</b> Even a personal essay is <button type="button" class="term" data-pop="social">written for a reader</button>, in a situation, to do something. Writing is a social and rhetorical act. Expressive writing helps you discover your material, but you then shape it for someone else. Both are true at once.</div>
+  </div>
+
+  <div class="card" data-card data-answer="true">
+    <p class="stmt">"Dumping your messy thoughts onto the page can actually help you think more clearly, and even feel better."</p>
+    <div class="choices"><button type="button" class="choice" data-pick="true">True</button><button type="button" class="choice" data-pick="myth">Myth</button></div>
+    <div class="why" hidden><b>True</b>, and there's real science behind it. Writing out worries or hard experiences <button type="button" class="term" data-pop="worry">frees up mental space</button> and organizes your thinking (Ramirez &amp; Beilock even found students who wrote about their worries before a test <i>scored higher</i>). We'll use this as an engine for invention all semester.</div>
+  </div>
+
+  <div class="controls">
+    <button type="button" class="act" id="check">Check my answers</button>
+    <button type="button" class="act ghost" id="reset">Reset</button>
+    <span id="result"></span>
+  </div>
+
+  <div class="done" id="done" hidden>
+    <p><b>Here's what this class believes, and it's the opposite of the myths:</b> writing is a <i>learnable process of discovery</i>, done for real readers, and the act of writing helps you think and feel better along the way. Everything we do this semester runs on that. Welcome.</p>
+  </div>
+
+  <dialog class="pop" id="pop-sfd"><h3>Shitty first drafts</h3><p>The writer Anne Lamott's famous idea (you'll read her this term): let the first draft be bad on purpose. You can't fix or improve a blank page, so the job of a first draft is just to exist. Getting it down and getting it good are two different jobs, don't try to do them at once.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-discovery"><h3>Writing is discovery</h3><p>Donald Murray and Peter Elbow taught that you write to find out what you think, the draft is the thinking, not a report of thinking you already did. That's why "just start" beats "plan it all first." The page is where your ideas actually take shape.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-learnable"><h3>Writing is learnable</h3><p>The "born writer" myth quietly gives people permission to give up. The truth researchers and teachers keep confirming: writing improves with deliberate practice and feedback, exactly what a writing course provides. Talent helps nobody who doesn't practice; practice helps everybody.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-revision"><h3>Revision vs. editing</h3><p>Different jobs, done big to small. <b>Revision</b> re-sees ideas and structure (what's missing, repeated, out of order). <b>Editing</b> fixes sentences. <b>Proofreading</b> catches typos, last. We spend a whole week on real revision because it's where writing actually gets better.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-social"><h3>Writing is social and rhetorical</h3><p>One of the field's core ideas (Adler-Kassner &amp; Wardle): writing always happens for an audience, in a context, to accomplish something. Even the most personal essay makes choices for a reader. So "express yourself" and "reach a reader" aren't opposites, good writing does both.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-worry"><h3>Writing to clear your head</h3><p>Ramirez &amp; Beilock (2011) found that students who spent a few minutes writing about their worries before a high-pressure test <i>performed better</i>, because offloading worry onto the page frees up working memory for the task. Getting the mess out of your head and onto paper is a real cognitive tool, not just a feeling.</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  var cards = Array.prototype.slice.call(document.querySelectorAll('#wm [data-card]'));
+  var result = document.getElementById('result');
+  var done = document.getElementById('done');
+  cards.forEach(function(card){
+    var btns = card.querySelectorAll('.choice');
+    btns.forEach(function(b){
+      b.addEventListener('click', function(){
+        btns.forEach(function(x){ x.classList.remove('pick'); });
+        b.classList.add('pick');
+        card.dataset.pick = b.getAttribute('data-pick');
+        card.classList.remove('right','wrong'); var m=card.querySelector('.mark'); if(m) m.remove();
+        card.querySelector('.why').hidden = true; result.textContent=''; done.hidden=true;
+      });
+    });
+  });
+  document.getElementById('check').addEventListener('click', function(){
+    var correct=0, all=true;
+    cards.forEach(function(card){
+      card.classList.remove('right','wrong'); var old=card.querySelector('.mark'); if(old) old.remove();
+      var pick=card.dataset.pick;
+      if(!pick){ all=false; return; }
+      var right = pick===card.getAttribute('data-answer');
+      card.classList.add(right?'right':'wrong');
+      var m=document.createElement('span'); m.className='mark'; m.textContent = right?'✓':'✗';
+      card.querySelector('.stmt').appendChild(m);
+      card.querySelector('.why').hidden=false;
+      if(right) correct++;
+    });
+    if(!all){ result.textContent='Answer every one first.'; done.hidden=true; return; }
+    result.textContent = 'You got '+correct+' of 6.' + (correct===6?' You see writing clearly already.':' Read the ones you missed, they matter.');
+    done.hidden=false;
+  });
+  document.getElementById('reset').addEventListener('click', function(){
+    cards.forEach(function(card){
+      delete card.dataset.pick; card.classList.remove('right','wrong');
+      card.querySelectorAll('.choice').forEach(function(x){ x.classList.remove('pick'); });
+      var m=card.querySelector('.mark'); if(m) m.remove(); card.querySelector('.why').hidden=true;
+    });
+    result.textContent=''; done.hidden=true;
+  });
+  document.querySelectorAll('[data-pop]').forEach(function(b){
+    b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); });
+  });
+  document.querySelectorAll('dialog.pop').forEach(function(d){
+    d.addEventListener('click', function(e){ if(e.target===d) d.close(); });
+  });
+})();
+</script>
+</body>
+</html>

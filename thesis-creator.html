@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prototype · Thesis Creator</title>
+<style>
+  :root{ --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a; --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe; --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; }
+  @media (prefers-color-scheme: dark){ :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; } }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #tc{max-width:730px; margin:0 auto; padding:28px 20px 90px}
+  #tc h1{font-family:Georgia,serif; font-size:1.8rem; margin:0}
+  #tc .kicker{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #tc .badge{display:inline-block; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:1px 9px; margin-bottom:8px}
+  #tc .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:16px}
+  #tc .sub{color:var(--muted); margin:8px 0 0}
+  #tc .honest{background:var(--accent-soft); border:1px solid var(--line); border-radius:10px; padding:11px 14px; font-size:.92rem; margin:14px 0}
+  #tc .honest b{color:var(--accent)}
+  #tc .pick{display:flex; gap:10px; flex-wrap:wrap; margin:14px 0}
+  #tc .pick button{flex:1 1 200px; text-align:left; font:inherit; cursor:pointer; border-radius:12px; padding:13px 15px; border:1.5px solid var(--line); background:var(--card); color:var(--ink)}
+  #tc .pick button .t{font-weight:800; display:block; font-size:1rem}
+  #tc .pick button .d{color:var(--muted); font-size:.86rem}
+  #tc .pick button.sel{border-color:var(--accent); background:var(--accent-soft)}
+  #tc .pick button.sel .t{color:var(--accent)}
+  #tc .part{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:24px 0 4px; padding-top:8px; border-top:1px solid var(--line)}
+  #tc h2{font-family:Georgia,serif; font-size:1.3rem; margin:2px 0 8px}
+  #tc p{margin:.6rem 0}
+  #tc .teach{background:var(--card); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:12px; padding:14px 16px}
+  #tc .vs{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:10px 0}
+  @media (max-width:540px){ #tc .vs{grid-template-columns:1fr} }
+  #tc .vs .col{border:1px solid var(--line); border-radius:10px; padding:10px 12px; font-size:.93rem}
+  #tc .vs .col .lab{font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; font-weight:800; display:block; margin-bottom:4px}
+  #tc .vs .weak{background:var(--nosoft)} #tc .vs .weak .lab{color:var(--no)}
+  #tc .vs .strong{background:var(--goodsoft)} #tc .vs .strong .lab{color:var(--good)}
+  #tc .egs{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px}
+  #tc .egs .e{border-top:1px solid var(--line); padding:10px 0; font-style:italic} #tc .egs .e:first-child{border-top:0}
+  #tc .egs .egl{font-style:normal; font-weight:800; color:var(--accent)}
+  #tc ul.ch{margin:.3rem 0; padding-left:1.2rem} #tc ul.ch li{margin:.35rem 0}
+  #tc .place{background:var(--card); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:10px; padding:11px 14px; margin:12px 0; font-size:.94rem}
+  #tc label.fld{font-weight:600; display:block; margin:12px 0 5px}
+  #tc input, #tc textarea{width:100%; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:9px; padding:10px 12px; font:inherit}
+  #tc textarea{min-height:56px; line-height:1.5; resize:vertical}
+  #tc input:focus, #tc textarea:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #tc .preview{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:14px 0}
+  #tc .preview .lab{font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; font-weight:800; color:var(--accent); display:block; margin-bottom:4px}
+  #tc .preview .txt{font-size:1.08rem; font-family:Georgia,serif}
+  #tc .preview .txt .blank{color:var(--muted); font-style:italic}
+  #tc .checks{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px; margin:10px 0}
+  #tc .checks .c{border-top:1px solid var(--line); padding:9px 0; display:flex; gap:10px; align-items:flex-start} #tc .checks .c:first-child{border-top:0}
+  #tc .checks input{width:18px; height:18px; margin-top:3px; accent-color:var(--accent)}
+  #tc .checks .q{font-weight:600}
+  #tc button.act{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:11px 18px; border:1px solid var(--accent); background:var(--accent); color:#fff; margin-top:6px}
+  #tc .note{color:var(--muted); font-size:.9rem}
+  #tc .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  dialog.pop{max-width:520px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,serif;margin:0 0 8px} dialog.pop form{margin-top:14px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="tc">
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Revision Tool</p>
+    <h1>The Thesis Creator</h1>
+    <p class="sub">"Thesis" means something different in each essay you'll write this term. This helps you build the right kind for the genre you're in. Pick one to start.</p>
+  </header>
+
+  <div class="honest">
+    <b>What this does, and doesn't.</b> It won't tell you whether your idea is the right one, no tool can. It teaches you what each kind of thesis needs, shows you real examples, and gives you a frame to build yours. You make the calls. Everything saves only in your browser.
+  </div>
+
+  <div class="pick" id="pick">
+    <button type="button" data-g="personal"><span class="t">Personal Essay</span><span class="d">A quiet controlling idea, the thing you came to understand.</span></button>
+    <button type="button" data-g="argument"><span class="t">Argument</span><span class="d">A loud, debatable claim you can defend.</span></button>
+    <button type="button" data-g="oped"><span class="t">Op-Ed</span><span class="d">A public claim with stakes and a "why now."</span></button>
+  </div>
+
+  <div id="panel"></div>
+
+  <dialog class="pop" id="pop-fivepara"><h3>The five-paragraph thesis</h3><p>The kind you were probably taught in high school: one sentence at the end of your introduction that flatly announces what the essay will prove ("In this essay, I will argue three reasons why…"). It works for a timed exam. But it's only one species of thesis, and it's the wrong one for a personal essay, where the controlling idea is revealed, not announced.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-controlling"><h3>Controlling idea</h3><p>The single insight that governs a personal essay, the answer to "so what, why does this still matter to me?" You often never state it outright in the essay; you let the scenes reveal it. But you have to KNOW it, or the essay wanders. It's a compass for you, the writer, more than a sentence for the reader.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-debatable"><h3>Debatable</h3><p>A claim is only a thesis if a reasonable person could disagree with it. "Social media affects teens" isn't debatable (everyone agrees), so it's a topic, not a thesis. "Schools should ban phones in class" is debatable, someone could argue the other side, so it can anchor an argument.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-montaigne"><h3>Michel de Montaigne</h3><p>The French writer (1533&ndash;1592) who invented the personal essay. He retreated to his tower library and wrote hundreds of pieces trying to work out what he actually thought, about friendship, fear, his own habits, everything. He called them <i>Essais</i>. The exploring, first-person, changing-its-mind-on-the-page voice you use in a personal essay comes straight from him.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-essayword"><h3>Where "essay" comes from</h3><p>From the French <i>essayer</i>: to try, to attempt, to test. Montaigne meant it literally. An essay is an <i>attempt</i> to work something out, not a finished proof. That is why a personal essay can wander, question itself, and change its mind. You are trying an idea on, wrestling with it, rather than defending a verdict.</p><form method="dialog"><button>Got it</button></form></dialog>
+</div>
+
+<script>
+(function(){
+  var K="protoTC:";
+  var GENRES={
+    personal:{
+      title:'The Personal-Essay Thesis',
+      teach:'The word <button type="button" class="term" data-pop="essayword">essay</button> comes from the French <i>essayer</i>: to try, to attempt, to test an idea by wrestling with it on the page. <button type="button" class="term" data-pop="montaigne">Montaigne</button>, who invented the form in 1580, wasn\'t proving fixed points, he was thinking things through in writing. That is the spirit here: a personal essay\'s thesis is less a verdict than the insight you are wrestling toward.<br><br>You were probably taught the <button type="button" class="term" data-pop="fivepara">five-paragraph kind</button>: a stiff sentence that announces your point and lists three body paragraphs. A personal-essay thesis does none of that. It is your <button type="button" class="term" data-pop="controlling">controlling idea</button>, a "so what?" anchor that ties your specific story to a larger, human truth. Subtle, reflective, driven by an underlying insight. Ask: <i>so what? Why does this still matter to me?</i>',
+      vs:{weakLab:'A topic',weak:'My grandmother\'s house.',strongLab:'A controlling idea',strong:'My grandmother\'s house was the one place I was allowed to be a child, which is why losing it felt like losing my childhood twice.'},
+      egs:[
+        {label:'The Realization Shift',text:'I used to think safety meant staying silent, but learning to fix motorcycles taught me that true security comes from making some noise.'},
+        {label:'The Micro-to-Macro Insight',text:'Cleaning up my grandmother\'s crowded kitchen after she passed didn\'t just clear out old spices; it forced me to stop holding onto versions of myself that I had outgrown.'},
+        {label:'The Question-Driven Anchor',text:'Trying to teach my stubborn dog how to sit didn\'t show me how to control an animal; it revealed my own deep fear of losing control.'}
+      ],
+      characteristics:['<b>Reflective insight.</b> It shows how an experience changed your perspective or revealed a value you hold.','<b>Subtle and fluid.</b> It often blends into the opening narrative instead of standing out as a stiff declaration.','<b>Thematic tension.</b> It points to a realization, a complication, or a shift in how you see the world.'],
+      placement:'Unlike an argument, a personal essay rarely states its thesis in the first sentence. Your controlling idea can open the essay, surface midway as a realization, or arrive only at the end, after the scenes have earned it. Often it is woven into the narrative rather than declared. What matters is that <i>you</i> know it from the start, so the essay points somewhere.',
+      frames:[
+        {k:'subj',label:'Your subject or moment (a few words):',ph:'e.g., the summer we packed up Dad\'s apartment'},
+        {k:'surface',label:'The surface story, what it looks like from the outside, or what you first thought:',ph:'e.g., it was just a boring chore'},
+        {k:'turn',label:'What you came to understand (the "so what," the turn):',ph:'e.g., that folding his shirts was the last thing I could still do for him'}
+      ],
+      assemble:function(v){ return 'On the surface this is about '+span(v.subj,'my subject')+'. What it\'s really about is '+span(v.turn,'what I came to understand')+'.'; },
+      checks:['This is something I DISCOVERED, not a bare topic.','It carries a "so what", why it still matters to me.','Only I could have written it (my specific stamp).','It hints at a turn or tension, not a tidy moral.']
+    },
+    argument:{
+      title:'The Argumentative Thesis',
+      teach:'Now the thesis gets louder. An argumentative thesis is a <button type="button" class="term" data-pop="debatable">claim</button>: a position a reasonable person could disagree with. If nobody could disagree, it\'s a fact or a topic, not a thesis. The strongest ones name your main reason and nod to the other side.',
+      vs:{weakLab:'A fact / topic',weak:'Social media affects teenagers.',strongLab:'A claim',strong:'Schools should ban phones during class, because the constant pull of notifications costs students more attention than the rare emergency text is worth.'},
+      egs:['Although fantasy football looks like pure luck, it rewards preparation, which is why it hooked me the way schoolwork never had.','Community gardens do more for a neighborhood\'s health than a new grocery store, because they rebuild the trust a food desert really lacks.'],
+      placement:'Up front. An argumentative thesis almost always lands at the end of your opening paragraph, so the reader knows the claim before you defend it.',
+      frames:[
+        {k:'claim',label:'Your claim (a position someone could argue with):',ph:'e.g., our campus should keep the late-night library hours'},
+        {k:'reason',label:'Your main reason (because…):',ph:'e.g., they\'re the only quiet study space for students who work days'},
+        {k:'obj',label:'The strongest objection (even though / although…):',ph:'e.g., they cost the school money to staff'}
+      ],
+      assemble:function(v){ return 'Although '+span(v.obj,'the objection')+', '+span(v.claim,'my claim')+', because '+span(v.reason,'my reason')+'.'; },
+      checks:['A reasonable person could disagree with this.','I give a reason (a "because").','I\'ve acknowledged the other side.','It\'s ONE arguable claim, not two tangled together.']
+    },
+    oped:{
+      title:'The Op-Ed Thesis',
+      teach:'An op-ed thesis is an argument aimed at the public, with stakes and urgency. It answers three things fast: what should the reader see, why does it matter, and why now. Op-ed readers decide in seconds whether to keep going, so the thesis usually lands right up top and carries a sense of "this matters to you."',
+      vs:{weakLab:'Weak',weak:'Recycling is important.',strongLab:'An op-ed thesis',strong:'Our town\'s new single-stream recycling quietly sends half of what we sort to the landfill, and until we admit it, we\'re paying to feel good instead of doing good.'},
+      egs:['The state wants to cut the one bus line that gets rural students to community college, and calling it a budget decision hides what it really is: a door closing.','We keep telling teenagers to get off their phones, but we built a world with nowhere else for them to go.'],
+      placement:'Right at the top, usually in the first paragraph or two. Op-ed readers will not wait, so the position and the stakes come early.',
+      frames:[
+        {k:'pos',label:'What you want readers to SEE (your position):',ph:'e.g., our town\'s recycling program isn\'t working'},
+        {k:'stakes',label:'Why it matters NOW (the stakes, the hook):',ph:'e.g., we just raised everyone\'s trash fees to pay for it'},
+        {k:'call',label:'So what should change (the call):',ph:'e.g., the council should audit it before renewing the contract'}
+      ],
+      assemble:function(v){ return span(v.pos,'your position')+'. It matters now because '+span(v.stakes,'the stakes')+', and '+span(v.call,'the call')+'.'; },
+      checks:['There\'s a clear stake, who\'s affected, what\'s at risk.','There\'s a "why now."','Someone who disagrees would still read past my first line.','It\'s about a PUBLIC issue, not a private preference.']
+    }
+  };
+
+  function span(v,ph){ v=(v||'').trim(); return v?esc(v):'<span class="blank">['+ph+']</span>'; }
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  var pickBtns=document.querySelectorAll('#pick button');
+  var panel=document.getElementById('panel');
+  var current=null;
+
+  pickBtns.forEach(function(b){ b.addEventListener('click', function(){
+    pickBtns.forEach(function(x){x.classList.remove('sel');}); b.classList.add('sel');
+    current=b.getAttribute('data-g'); try{ localStorage.setItem(K+'genre', current); }catch(e){}
+    render(current);
+  }); });
+
+  function render(g){
+    var G=GENRES[g], h='';
+    h+='<p class="part">'+g+' thesis</p><h2>'+G.title+'</h2>';
+    h+='<div class="teach">'+G.teach+'</div>';
+    if(G.characteristics){ h+='<p style="font-weight:700;margin:14px 0 2px">What a good one has:</p><ul class="ch">'; G.characteristics.forEach(function(c){ h+='<li>'+c+'</li>'; }); h+='</ul>'; }
+    h+='<div class="vs"><div class="col weak"><span class="lab">'+G.vs.weakLab+'</span>'+esc(G.vs.weak)+'</div>'
+      +'<div class="col strong"><span class="lab">'+G.vs.strongLab+'</span>'+esc(G.vs.strong)+'</div></div>';
+    h+='<p style="font-weight:700;margin-bottom:2px">A few more of this kind:</p><div class="egs">';
+    G.egs.forEach(function(e){ if(e&&e.label){ h+='<div class="e"><span class="egl">'+esc(e.label)+'.</span> '+esc(e.text)+'</div>'; } else { h+='<div class="e">'+esc(e)+'</div>'; } });
+    h+='</div>';
+    if(G.placement){ h+='<div class="place"><b>Where does it go in the essay?</b> '+G.placement+'</div>'; }
+
+    h+='<p class="part">Build yours</p><p class="note">Fill these in. Your draft thesis assembles below as you type. You may never write it this baldly in the essay, but you need to know it.</p>';
+    G.frames.forEach(function(f){ h+='<label class="fld" for="f_'+f.k+'">'+f.label+'</label><textarea id="f_'+f.k+'" data-k="'+f.k+'" placeholder="'+f.ph+'"></textarea>'; });
+
+    h+='<div class="preview"><span class="lab">Your working thesis</span><div class="txt" id="prev"></div></div>';
+
+    h+='<p style="font-weight:700;margin-bottom:2px">Check it yourself:</p><div class="checks">';
+    G.checks.forEach(function(c,i){ h+='<div class="c"><input type="checkbox" id="chk_'+g+'_'+i+'" data-chk="'+i+'"><label class="q" for="chk_'+g+'_'+i+'">'+esc(c)+'</label></div>'; });
+    h+='</div>';
+    h+='<button type="button" class="act" id="dl">Download my thesis</button>';
+
+    panel.innerHTML=h;
+
+    // wire frames
+    var fields=panel.querySelectorAll('textarea[data-k]');
+    fields.forEach(function(t){
+      var key=K+g+'_'+t.getAttribute('data-k');
+      try{ var v=localStorage.getItem(key); if(v!==null) t.value=v; }catch(e){}
+      t.addEventListener('input', function(){ try{ localStorage.setItem(key,t.value); }catch(e){} updatePrev(g); });
+    });
+    // wire checks
+    panel.querySelectorAll('input[data-chk]').forEach(function(cb){
+      var key=K+g+'_chk_'+cb.getAttribute('data-chk');
+      try{ cb.checked = localStorage.getItem(key)==='1'; }catch(e){}
+      cb.addEventListener('change', function(){ try{ localStorage.setItem(key, cb.checked?'1':'0'); }catch(e){} });
+    });
+    // popups
+    panel.querySelectorAll('[data-pop]').forEach(function(b){ b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); }); });
+    document.getElementById('dl').addEventListener('click', function(){ dl(g); });
+    updatePrev(g);
+  }
+
+  function vals(g){ var o={}; panel.querySelectorAll('textarea[data-k]').forEach(function(t){ o[t.getAttribute('data-k')]=t.value; }); return o; }
+  function updatePrev(g){ document.getElementById('prev').innerHTML=GENRES[g].assemble(vals(g)); }
+
+  function dl(g){
+    var G=GENRES[g], v=vals(g);
+    var plain=G.assemble(v).replace(/<span class="blank">\[[^\]]*\]<\/span>/g,'[...]').replace(/<[^>]+>/g,'');
+    var L=['MY WORKING THESIS ('+g+')','',plain,'','Self-check:'];
+    G.checks.forEach(function(c,i){ var on=false; try{ on=localStorage.getItem(K+g+'_chk_'+i)==='1'; }catch(e){} L.push('  ['+(on?'x':' ')+'] '+c); });
+    var b=new Blob([L.join('\n')],{type:'text/plain'}), u=URL.createObjectURL(b), a=document.createElement('a');
+    a.href=u; a.download='my-thesis.txt'; document.body.appendChild(a); a.click(); setTimeout(function(){URL.revokeObjectURL(u);a.remove();},100);
+  }
+
+  document.querySelectorAll('dialog.pop').forEach(function(d){ d.addEventListener('click', function(e){ if(e.target===d) d.close(); }); });
+  // restore last genre
+  try{ var lg=localStorage.getItem(K+'genre'); if(lg&&GENRES[lg]){ var btn=document.querySelector('#pick button[data-g="'+lg+'"]'); if(btn){ btn.classList.add('sel'); current=lg; render(lg); } }}catch(e){}
+})();
+</script>
+</body>
+</html>

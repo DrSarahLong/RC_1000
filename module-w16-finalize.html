@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Week 16 · Finalize &amp; Submit</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; --due:#7a3b1f; --duesoft:#f6ebe1; --reflect:#5a3b86; --reflectsoft:#efe9f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; --due:#e0a878; --duesoft:#2c2013; --reflect:#b3a4de; --reflectsoft:#1f1b2c; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #mod{max-width:760px; margin:0 auto; padding:28px 20px 90px}
+  #mod h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.9rem; margin:0; line-height:1.15}
+  #mod .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #mod .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:18px}
+  #mod .sub{color:var(--muted); margin:8px 0 0; font-size:1.05rem}
+  #mod .meta{color:var(--muted); font-size:.86rem; margin-top:8px}
+  #mod .part{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:30px 0 4px; padding-top:6px; border-top:1px solid var(--line)}
+  #mod h2{font-family:Georgia,"Iowan Old Style",serif; font-size:1.35rem; margin:2px 0 10px}
+  #mod p{margin:.6rem 0}
+  #mod .box{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:12px 0}
+  #mod .box.accent{border-left:5px solid var(--accent)}
+  #mod .ground{background:var(--reflectsoft); border:1px solid var(--line); border-left:5px solid var(--reflect); border-radius:12px; padding:14px 16px; margin:14px 0}
+  #mod .ground .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--reflect); display:block; margin-bottom:3px}
+  #mod ul{margin:.5rem 0; padding-left:1.2rem} #mod li{margin:.45rem 0}
+  #mod a{color:var(--accent)}
+  #mod .qc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px 4px; margin:10px 0}
+  #mod .qcitem{border-top:1px solid var(--line); padding:11px 0} #mod .qcitem:first-of-type{border-top:0}
+  #mod .qcitem .s{font-weight:600; margin:0 0 8px; font-style:italic}
+  #mod .qcitem .opts{display:flex; gap:8px}
+  #mod .qcitem .opt{flex:1; font:inherit; font-weight:700; font-size:.86rem; cursor:pointer; border-radius:8px; padding:8px; border:1.5px solid var(--line); background:var(--field); color:var(--ink)}
+  #mod .qcitem .opt.pick{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #mod .qcitem.right .opt.pick{border-color:var(--good); background:var(--goodsoft); color:var(--good)}
+  #mod .qcitem.wrong .opt.pick{border-color:var(--no); background:var(--nosoft); color:var(--no)}
+  #mod .qcitem .fb{margin-top:8px; font-size:.9rem; color:var(--muted)} #mod .qcitem .fb[hidden]{display:none}
+  #mod .qcbtn{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:9px 15px; border:1px solid var(--accent); background:var(--accent); color:#fff; margin:8px 0}
+  #mod .qcres{font-weight:700; color:var(--accent); margin-left:10px}
+  #mod .steps{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:4px 16px; margin:12px 0}
+  #mod .steps .st{border-top:1px solid var(--line); padding:11px 0; display:flex; gap:11px; align-items:flex-start} #mod .steps .st:first-child{border-top:0}
+  #mod .steps .st input{width:19px; height:19px; margin-top:2px; accent-color:var(--accent); flex:none}
+  #mod .steps .st .q{font-weight:600}
+  #mod .steps .st .q .h{display:block; color:var(--muted); font-weight:400; font-size:.89rem; margin-top:2px}
+  #mod a.btn{display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font-weight:700; border-radius:9px; padding:12px 20px; margin:8px 0}
+  #mod .duebox{background:var(--duesoft); border:1px solid var(--line); border-left:5px solid var(--due); border-radius:12px; padding:14px 16px; margin:16px 0}
+  #mod .duebox .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--due); display:block; margin-bottom:3px}
+  #mod .letter{background:var(--card); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:14px; padding:22px 24px; margin-top:26px; line-height:1.8}
+  #mod .letter h2{margin:0 0 10px; color:var(--accent)}
+  #mod .letter p{margin:.7rem 0}
+  #mod .letter .sig{font-family:Georgia,"Iowan Old Style",serif; font-style:italic; margin-top:16px; font-size:1.05rem}
+  #mod .note{color:var(--muted); font-size:.9rem}
+  #mod .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="mod">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Week 16 · Module</p>
+    <h1>Finalize &amp; Submit</h1>
+    <p class="sub">The finish line. This week you proofread, make your site readable for everyone, publish it clean, and hand me the finished portfolio. Small, careful moves, then you're done.</p>
+    <p class="meta">The last week. Polish, check, publish, submit.</p>
+  </header>
+
+  <div class="ground">
+    <span class="lab">One last stretch</span>
+    <p>You've done the big work. What's left is the satisfying, low-stakes part: catching the last typos and making sure your site opens cleanly for anyone who visits. Take your time and enjoy it, this is you putting the frame on the picture.</p>
+  </div>
+
+  <p class="part">Part 1 · Learn</p>
+  <h2>Proofreading is not revising</h2>
+  <p>Revision reshaped your ideas; <button type="button" class="term" data-pop="proof">proofreading</button> is the last, small pass for surface errors, typos, a doubled word, an inconsistent heading, a broken link. Your eyes skim what they expect, so slow them down: read each page aloud, or read the sentences from bottom to top so your brain can't autocomplete. Click every link to be sure it works.</p>
+
+  <h2>Make it readable for everyone</h2>
+  <p><button type="button" class="term" data-pop="a11y">Accessibility</button> means building your site so people with disabilities, low vision, a screen reader, a small phone, can read your work too. It's part of writing for a real public, and it's the right thing to do. Five quick moves cover most of it:</p>
+  <div class="box accent">
+    <ul>
+      <li><b><button type="button" class="term" data-pop="alt">Alt text</button> on every image</b>, a short description so screen-reader users know what it shows.</li>
+      <li><b>Strong contrast, readable size.</b> Dark text on light (or the reverse), and nothing tiny.</li>
+      <li><b>Real headings.</b> Use the Heading styles, rather than big bold text; screen readers use them to navigate.</li>
+      <li><b><button type="button" class="term" data-pop="linktext">Descriptive link text.</button></b> "Read my op-ed," not "click here." A link should make sense out of context.</li>
+      <li><b>Check it on a phone.</b> Most readers will visit on one. Make sure nothing's cut off or cramped.</li>
+    </ul>
+    <p class="note">Want the deeper version? <a href="https://webaim.org/intro/" target="_blank" rel="noopener">WebAIM's Introduction to Web Accessibility</a> is a free, plain-language guide.</p>
+  </div>
+
+  <p class="part">Part 2 · Practice</p>
+  <h2>Accessible, or not yet?</h2>
+  <p>For each choice, decide whether it makes your site usable for everyone. Commit, then <b>Check</b>.</p>
+  <div class="qc" id="qc">
+    <div class="qcitem" data-answer="no">
+      <p class="s">Making your links say "click here" instead of naming where they go.</p>
+      <div class="opts"><button type="button" class="opt" data-pick="yes">Accessible</button><button type="button" class="opt" data-pick="no">Not yet</button></div>
+      <div class="fb" hidden>Not yet. Screen-reader users often jump link to link; "click here" out of context means nothing. "Read my personal essay" tells them exactly where they'll land.</div>
+    </div>
+    <div class="qcitem" data-answer="yes">
+      <p class="s">Writing a short alt-text description for the photo on your Bio page.</p>
+      <div class="opts"><button type="button" class="opt" data-pick="yes">Accessible</button><button type="button" class="opt" data-pick="no">Not yet</button></div>
+      <div class="fb" hidden>Accessible. Alt text lets a blind reader know what your image shows. Ten seconds, and your site works for more people.</div>
+    </div>
+    <div class="qcitem" data-answer="no">
+      <p class="s">Making a section title by bolding normal text and bumping the size, instead of using the Heading style.</p>
+      <div class="opts"><button type="button" class="opt" data-pick="yes">Accessible</button><button type="button" class="opt" data-pick="no">Not yet</button></div>
+      <div class="fb" hidden>Not yet. It only <i>looks</i> like a heading. A screen reader can't tell it's a heading, so the page loses its structure. Use the real Heading style.</div>
+    </div>
+    <div class="qcitem" data-answer="yes">
+      <p class="s">Choosing near-black text on a white background for your essay pages.</p>
+      <div class="opts"><button type="button" class="opt" data-pick="yes">Accessible</button><button type="button" class="opt" data-pick="no">Not yet</button></div>
+      <div class="fb" hidden>Accessible. High contrast is easy on every reader's eyes and essential for some. Legibility first, always.</div>
+    </div>
+    <button type="button" class="qcbtn" id="qcbtn">Check</button><span class="qcres" id="qcres"></span>
+  </div>
+
+  <p class="part">Part 3 · Do</p>
+  <h2>Your final checklist, then submit</h2>
+  <p>Work through these on your site. Tick each as you finish, this saves on your computer.</p>
+  <div class="steps" id="steps">
+    <div class="st"><input type="checkbox" data-s="1"><span class="q">Proofread every page.<span class="h">Read each one aloud once. Fix typos, doubled words, and inconsistent formatting.</span></span></div>
+    <div class="st"><input type="checkbox" data-s="2"><span class="q">Every image has alt text.<span class="h">Right-click an image in Google Sites &rarr; Add alt text.</span></span></div>
+    <div class="st"><input type="checkbox" data-s="3"><span class="q">Strong contrast and readable font size.<span class="h">Dark on light or light on dark; nothing tiny or low-contrast.</span></span></div>
+    <div class="st"><input type="checkbox" data-s="4"><span class="q">Real Heading styles give each page structure.<span class="h">Titles and section heads use the Heading styles, rather than big bold text.</span></span></div>
+    <div class="st"><input type="checkbox" data-s="5"><span class="q">Link text says where it goes.<span class="h">"Read my op-ed," never "click here."</span></span></div>
+    <div class="st"><input type="checkbox" data-s="6"><span class="q">It looks right on a phone.<span class="h">Open your site on your phone and scroll every page.</span></span></div>
+    <div class="st"><input type="checkbox" data-s="7"><span class="q">Re-publish so your latest edits are live.<span class="h">Google Sites doesn't show edits publicly until you click Publish again.</span></span></div>
+    <div class="st"><input type="checkbox" data-s="8"><span class="q">Triple-check the link, one last time.<span class="h">Open the published link in a private / incognito window. Confirm it loads for someone who isn't signed in as you.</span></span></div>
+    <div class="st"><input type="checkbox" data-s="9"><span class="q">Submit the published link on AsULearn.<span class="h">Only the verified, working link. That link is your final Digital Portfolio.</span></span></div>
+  </div>
+
+  <p><a class="btn" href="https://sites.google.com" target="_blank" rel="noopener">Open Google Sites &rarr;</a></p>
+
+  <div class="duebox">
+    <span class="lab">Due this week: the final deadline</span>
+    <p>Your finished <b>Digital Portfolio</b>: a published Google Site with your Home, Bio, three revised essays, Philosophy of Writing, and Reflection pages, proofread and accessible. Submit the verified <b>published link</b> on AsULearn. This is the culminating project of the course.</p>
+  </div>
+
+  <div class="letter">
+    <h2>A note to close</h2>
+    <p>When this semester started, a lot of you told me some version of the same thing: "I'm not really a writer." I'd like you to open your own portfolio, read it top to bottom, and then try saying that to me again.</p>
+    <p>Look at what's there. A personal essay that turned a hard, true thing into something a stranger can feel. An argument built from your own life and widened with real evidence, made fair enough to survive its own toughest question. An op-ed you could send to a newspaper tomorrow. And a page where you said, in your own words, what you believe writing can do in the world. That is not the work of someone who "can't write." It is the work of a writer. You.</p>
+    <p>Here's what I most want you to carry out the door. The skills are real, the scene, the claim, the quote sandwich, the ruthless cut, and they'll serve you in every class and every job you'll ever have. But the bigger thing is this: you now know your voice can reach another person and move them. James Baldwin said that if you shift, even by a millimeter, the way someone sees the world, you have changed the world. You did that this semester, in these pages. You can do it again, anywhere, for anything you decide matters.</p>
+    <p>So keep the website. Add to it. Write the op-ed when something makes you angry. Tell the true story only you can tell. The world has no shortage of people willing to stay quiet. It needs the ones who won't, and you just spent sixteen weeks proving you're one of them.</p>
+    <p>It has been a real privilege to read your work. Now go and live a great story.</p>
+    <p class="sig">Dr. Long</p>
+  </div>
+
+  <dialog class="pop" id="pop-proof"><h3>Proofreading</h3><p>The final, surface-level pass, catching typos, missing or doubled words, inconsistent formatting, and broken links, after all the real revising is done. Example: "teh" for "the," a heading in a different font, a link that goes nowhere. Because your eyes fill in what you meant, read slowly: aloud, or bottom to top, so you see what's actually on the page.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-a11y"><h3>Accessibility</h3><p>Designing so that people with disabilities can use your site, readers who are blind and use screen readers, who have low vision, who can't use a mouse. Example: alt text lets a screen reader describe your photo; high contrast helps a low-vision reader; real headings let someone navigate by structure. It's part of writing for a genuine public: everyone gets to read your work, including readers who move through a page very differently than you do.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-alt"><h3>Alt text</h3><p>A short written description of an image, read aloud by screen readers and shown if the image won't load. Example: for a photo of a stadium at dusk, "an empty football field under fading lights." In Google Sites: right-click the image and choose Add alt text. It takes seconds and it's the single most common accessibility fix.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-linktext"><h3>Descriptive link text</h3><p>Wording a link so it makes sense on its own, because many readers scan or jump between links out of context. Example: "click here" tells a screen-reader user nothing; "Read my argument essay" tells them exactly where the link leads. Name the destination in the link itself.</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  var PREFIX="rc1000w16:";
+  document.querySelectorAll('#steps input[data-s]').forEach(function(cb){
+    var key=PREFIX+'step_'+cb.getAttribute('data-s');
+    try{ cb.checked = localStorage.getItem(key)==='1'; }catch(e){}
+    cb.addEventListener('change', function(){ try{ localStorage.setItem(key, cb.checked?'1':'0'); }catch(e){} });
+  });
+  var items=Array.prototype.slice.call(document.querySelectorAll('#qc .qcitem'));
+  items.forEach(function(it){
+    var opts=it.querySelectorAll('.opt');
+    opts.forEach(function(o){ o.addEventListener('click', function(){ opts.forEach(function(x){x.classList.remove('pick');}); o.classList.add('pick'); it.dataset.pick=o.getAttribute('data-pick'); it.classList.remove('right','wrong'); it.querySelector('.fb').hidden=true; document.getElementById('qcres').textContent=''; }); });
+  });
+  document.getElementById('qcbtn').addEventListener('click', function(){
+    var correct=0, all=true;
+    items.forEach(function(it){
+      it.classList.remove('right','wrong');
+      if(!it.dataset.pick){ all=false; return; }
+      var right = it.dataset.pick===it.getAttribute('data-answer');
+      it.classList.add(right?'right':'wrong'); it.querySelector('.fb').hidden=false; if(right) correct++;
+    });
+    document.getElementById('qcres').textContent = all ? ('You got '+correct+' of '+items.length+'.') : 'Answer all '+items.length+' first.';
+  });
+  document.querySelectorAll('[data-pop]').forEach(function(b){ b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); }); });
+  document.querySelectorAll('dialog.pop').forEach(function(d){ d.addEventListener('click', function(e){ if(e.target===d) d.close(); }); });
+})();
+</script>
+</body>
+</html>

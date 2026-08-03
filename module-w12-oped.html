@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Week 12 · Reading Op-Eds Like a Writer</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; --due:#7a3b1f; --duesoft:#f6ebe1; --reflect:#5a3b86; --reflectsoft:#efe9f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; --due:#e0a878; --duesoft:#2c2013; --reflect:#b3a4de; --reflectsoft:#1f1b2c; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #mod{max-width:760px; margin:0 auto; padding:28px 20px 90px}
+  #mod h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.9rem; margin:0; line-height:1.15}
+  #mod .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #mod .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:18px}
+  #mod .sub{color:var(--muted); margin:8px 0 0; font-size:1.05rem}
+  #mod .meta{color:var(--muted); font-size:.86rem; margin-top:8px}
+  #mod .part{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:30px 0 4px; padding-top:6px; border-top:1px solid var(--line)}
+  #mod h2{font-family:Georgia,"Iowan Old Style",serif; font-size:1.35rem; margin:2px 0 10px}
+  #mod p{margin:.6rem 0}
+  #mod .box{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:12px 0}
+  #mod .box.accent{border-left:5px solid var(--accent)}
+  #mod .mdl{margin:8px 0}
+  #mod .mdl .row{border-radius:10px; padding:10px 13px; margin:6px 0; font-size:.97rem; border:1px solid var(--line)}
+  #mod .mdl .row.b{background:var(--nosoft)} #mod .mdl .row.a{background:var(--goodsoft)}
+  #mod .mdl .lab{display:block; font-size:.64rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; margin-bottom:3px}
+  #mod .mdl .row.b .lab{color:var(--no)} #mod .mdl .row.a .lab{color:var(--good)}
+  #mod .anat{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:4px 16px; margin:12px 0}
+  #mod .anat .a{border-top:1px solid var(--line); padding:11px 0; display:flex; gap:12px; flex-wrap:wrap} #mod .anat .a:first-child{border-top:0}
+  #mod .anat .lab{flex:none; width:90px; font-size:.6rem; letter-spacing:.05em; text-transform:uppercase; font-weight:800; color:var(--accent); padding-top:3px}
+  #mod .anat .tx{flex:1 1 220px}
+  #mod .ground{background:var(--reflectsoft); border:1px solid var(--line); border-left:5px solid var(--reflect); border-radius:12px; padding:14px 16px; margin:14px 0}
+  #mod .ground .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--reflect); display:block; margin-bottom:3px}
+  #mod ul{margin:.5rem 0; padding-left:1.2rem} #mod li{margin:.45rem 0}
+  #mod ol.steps{margin:.5rem 0; padding-left:1.3rem} #mod ol.steps li{margin:.6rem 0}
+  #mod a{color:var(--accent)}
+  #mod .read{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px}
+  #mod .read .r{border-top:1px solid var(--line); padding:11px 0} #mod .read .r:first-child{border-top:0}
+  #mod .read .r .t{font-weight:700} #mod .read .r .c{color:var(--muted); font-size:.88rem}
+  #mod .read .req{display:inline-block; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:0 8px; margin-left:6px; vertical-align:1px}
+  #mod .qc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px 4px; margin:10px 0}
+  #mod .qcitem{border-top:1px solid var(--line); padding:11px 0} #mod .qcitem:first-of-type{border-top:0}
+  #mod .qcitem .s{font-weight:600; margin:0 0 8px; font-style:italic}
+  #mod .qcitem .opts{display:flex; gap:8px; flex-wrap:wrap}
+  #mod .qcitem .opt{flex:1 1 30%; font:inherit; font-weight:700; font-size:.84rem; cursor:pointer; border-radius:8px; padding:8px 6px; border:1.5px solid var(--line); background:var(--field); color:var(--ink)}
+  #mod .qcitem .opt.pick{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #mod .qcitem.right .opt.pick{border-color:var(--good); background:var(--goodsoft); color:var(--good)}
+  #mod .qcitem.wrong .opt.pick{border-color:var(--no); background:var(--nosoft); color:var(--no)}
+  #mod .qcitem .fb{margin-top:8px; font-size:.9rem; color:var(--muted)} #mod .qcitem .fb[hidden]{display:none}
+  #mod .qcbtn{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:9px 15px; border:1px solid var(--accent); background:var(--accent); color:#fff; margin:8px 0}
+  #mod .qcres{font-weight:700; color:var(--accent); margin-left:10px}
+  #mod .hb{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:10px 0}
+  #mod .hb label{display:block; font-weight:600; margin:8px 0 4px; font-size:.94rem}
+  #mod .hb input, #mod .hb textarea{width:100%; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:8px; padding:9px 11px; font:inherit}
+  #mod .hb textarea{min-height:52px; line-height:1.5; resize:vertical}
+  #mod .hb input:focus, #mod .hb textarea:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mod .preview{margin-top:12px; border:1px solid var(--line); border-radius:10px; overflow:hidden}
+  #mod .preview .hl{background:var(--ink); color:var(--paper); padding:12px 15px; font-family:Georgia,serif; font-size:1.25rem; font-weight:700}
+  #mod .preview .lede{background:var(--field); padding:12px 15px; font-size:1rem}
+  #mod .preview .ph{color:var(--muted); font-style:italic; font-weight:400}
+  #mod .write{margin:10px 0}
+  #mod .write label{display:block; font-weight:600; margin-bottom:5px}
+  #mod textarea.big{width:100%; min-height:120px; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6; resize:vertical}
+  #mod textarea.big:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mod .priv{font-size:.82rem; color:var(--muted); margin-top:4px}
+  #mod .saved{color:var(--good); font-size:.85rem; font-weight:700; opacity:0; transition:opacity .2s} #mod .saved.show{opacity:1}
+  #mod a.btn{display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font-weight:700; border-radius:9px; padding:12px 20px; margin:8px 0}
+  #mod .duebox{background:var(--duesoft); border:1px solid var(--line); border-left:5px solid var(--due); border-radius:12px; padding:14px 16px; margin:16px 0}
+  #mod .duebox .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--due); display:block; margin-bottom:3px}
+  #mod .close{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-top:22px}
+  #mod .note{color:var(--muted); font-size:.9rem}
+  #mod .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="mod">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Week 12 · Module</p>
+    <h1>Reading Op-Eds Like a Writer</h1>
+    <p class="sub">Your last <i>writing</i> project is the shortest and the most public. You'll take an argument and aim it at a real newspaper reader, someone busy, skeptical, and one thumb-scroll from leaving. (One project still comes after this: the digital portfolio, where you gather everything you've written.) This week you learn the form by taking it apart.</p>
+    <p class="meta">Project 3 begins. This week: study the genre and pitch your op-ed.</p>
+  </header>
+
+  <div class="ground">
+    <span class="lab">Good news</span>
+    <p>You already did the hard thinking in Project 2. The op-ed doesn't ask for new research; it asks you to make a version of your case land fast, for a stranger, in about 700 words. If anything, this project is a relief: shorter, punchier, and closer to how you actually talk.</p>
+  </div>
+
+  <p class="part">Part 1 · Learn</p>
+  <h2>Writing for the public is a different job</h2>
+  <p>An <button type="button" class="term" data-pop="oped">op-ed</button> (opinion editorial) is a short argument, usually 600 to 800 words, written for a <button type="button" class="term" data-pop="public">general public</button>, not a professor. That reader owes you nothing. She's scrolling, she's skeptical, and she'll leave the second she's bored. So public writing runs on a few rules the academic essay doesn't:</p>
+  <div class="box accent">
+    <ul>
+      <li><b>One idea, fast.</b> No long wind-up. The reader learns your point in the first few lines.</li>
+      <li><b>A <button type="button" class="term" data-pop="newspeg">news peg</button>.</b> A reason this matters <i>right now</i>, a vote, an event, a season, a headline.</li>
+      <li><b>Plain language.</b> No jargon, no throat-clearing. If your smart aunt wouldn't say it, cut it.</li>
+      <li><b>Sources as <button type="button" class="term" data-pop="hyperlink">links</button>, not citations.</b> You hyperlink your evidence; there's no Works Cited page.</li>
+      <li><b>Your voice, loud.</b> First person, personality, a point of view. This is the craft-infused argument at full strength.</li>
+    </ul>
+  </div>
+
+  <h2>The anatomy of an op-ed</h2>
+  <p>Read enough of them and the same skeleton shows up. Here's a short one with its parts labeled, read it as a writer, noticing each move:</p>
+  <div class="anat">
+    <div class="a"><span class="lab"><button type="button" class="term" data-pop="headline">Headline</button></span><span class="tx"><b>The Late Bus My District Wants to Cut Is a Ladder</b></span></div>
+    <div class="a"><span class="lab"><button type="button" class="term" data-pop="hook">Hook</button></span><span class="tx">The 5:40 activity bus smells like wet cleats and cold pizza. It's also the only reason I graduated.</span></div>
+    <div class="a"><span class="lab"><button type="button" class="term" data-pop="nutgraf">Nut graf</button></span><span class="tx">This spring my school board will vote to cut it to save $90,000. For students who work or play sports and don't have a car or a parent free at three o'clock, that bus isn't a convenience. It's the difference between staying in school and slipping out of it.</span></div>
+    <div class="a"><span class="lab">Evidence</span><span class="tx">When districts cut late transportation, the sharpest attendance drops hit low-income students <a href="#" onclick="return false">(state report)</a>.</span></div>
+    <div class="a"><span class="lab"><button type="button" class="term" data-pop="counter">Counter</button></span><span class="tx">Ninety thousand dollars is real money, and I don't envy a board that has to cut somewhere.</span></div>
+    <div class="a"><span class="lab"><button type="button" class="term" data-pop="kicker">Kicker</button></span><span class="tx">So cut it from the scoreboard, not from the ladder that gets kids to the game in the first place.</span></div>
+  </div>
+  <p class="note">Notice how fast it moves: a vivid hook, the claim and the "why now" by the third sentence, one piece of linked evidence, a quick nod to the other side, and a closing line with a snap. That's the whole form.</p>
+
+  <div class="box">
+    <p><b>Read op-eds like a writer.</b> <button type="button" class="term" data-pop="rhet">Rhetorical analysis</button> just means noticing <i>how</i> a piece works on you: who's the audience, what's the claim, where's the news peg, how does the writer use credibility, emotion, and logic (<button type="button" class="term" data-pop="appeals">ethos, pathos, logos</button>)? You can read excellent, free op-eds at <a href="https://theconversation.com" target="_blank" rel="noopener">The Conversation</a>, where experts write for the public under an open license. Read three this week and watch for the skeleton above.</p>
+  </div>
+
+  <p class="part">Part 2 · Read (required)</p>
+  <div class="read">
+    <div class="r"><span class="t">Writing in Public Genres</span> <span class="req">Required</span><div class="c">Voices for Change, p. 218. Writing that leaves the classroom.</div></div>
+    <div class="r"><span class="t">Rhetorical Analysis</span> <span class="req">Required</span><div class="c">Voices for Change, p. 137. Reading for how a text persuades.</div></div>
+    <div class="r"><span class="t">Writing in Public and Digital Composing</span> <span class="req">Required</span><div class="c">Voices for Change, p. 216.</div></div>
+  </div>
+
+  <p class="part">Part 3 · Practice</p>
+  <h2>Name the move</h2>
+  <p>Op-ed writers hit the same beats. For each line, which part of an op-ed is it doing? Commit, then <b>Check</b>.</p>
+  <div class="qc" id="qc">
+    <div class="qcitem" data-answer="hook">
+      <p class="s">"The first time I skipped a meal to make rent, I was nineteen and too proud to call it what it was."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="hook">Hook</button><button type="button" class="opt" data-pick="nut">Nut graf</button><button type="button" class="opt" data-pick="kicker">Kicker</button></div>
+      <div class="fb" hidden>Hook. A vivid, specific first line that pulls you in and makes you want the next sentence. It doesn't state the argument yet, it earns your attention.</div>
+    </div>
+    <div class="qcitem" data-answer="nut">
+      <p class="s">"As the state votes next week on cutting campus food aid, colleges should protect one thing: the free pantry that keeps students like me enrolled."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="hook">Hook</button><button type="button" class="opt" data-pick="nut">Nut graf</button><button type="button" class="opt" data-pick="kicker">Kicker</button></div>
+      <div class="fb" hidden>Nut graf. It packs the claim <i>and</i> the news peg ("votes next week") into one sentence, telling the reader exactly what this piece argues and why now.</div>
+    </div>
+    <div class="qcitem" data-answer="counter">
+      <p class="s">"Yes, a pantry costs money, and every line of a college budget is somebody's priority."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="counter">Counter</button><button type="button" class="opt" data-pick="hook">Hook</button><button type="button" class="opt" data-pick="nut">Nut graf</button></div>
+      <div class="fb" hidden>Counter. A quick, fair nod to the other side. In an op-ed you don't dwell on it; you grant it a sentence, then answer it.</div>
+    </div>
+    <div class="qcitem" data-answer="kicker">
+      <p class="s">"A college that can fund a new scoreboard can afford to keep its students fed."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="counter">Counter</button><button type="button" class="opt" data-pick="nut">Nut graf</button><button type="button" class="opt" data-pick="kicker">Kicker</button></div>
+      <div class="fb" hidden>Kicker. The closing snap, short, pointed, and it leaves the reader with the argument ringing. Great op-eds land the last line like a punch.</div>
+    </div>
+    <button type="button" class="qcbtn" id="qcbtn">Check</button><span class="qcres" id="qcres"></span>
+  </div>
+
+  <p class="part">Part 4 · Do</p>
+  <h2>Pitch your op-ed</h2>
+
+  <p><b>Step 1: angle and news peg.</b> You can reuse your Project 2 argument or pick a fresh one. Then find your <button type="button" class="term" data-pop="newspeg">news peg</button>, the reason a reader should care <i>this week</i>. If there's no peg yet, invent a real occasion (a season, an anniversary, a local vote, a trend).</p>
+  <div class="write">
+    <label for="w_angle">My op-ed's argument, and why it matters now:</label>
+    <textarea id="w_angle" data-save placeholder="I'm arguing that… and it's timely because…"></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_angle">Saved ✓</span></div>
+  </div>
+
+  <p><b>Step 2: draft a headline and a hook.</b> The headline earns the click; the hook earns the next sentence. Aim for specific and surprising over grand and vague. Type them and see them as a reader would.</p>
+  <div class="hb">
+    <label for="hb_head">Headline (short, specific, a little bold):</label>
+    <input type="text" id="hb_head" data-save placeholder="The Late Bus My District Wants to Cut Is a Ladder">
+    <label for="hb_hook">Hook (your vivid first line):</label>
+    <textarea id="hb_hook" data-save placeholder="The 5:40 activity bus smells like wet cleats and cold pizza…"></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="hb_head">Saved ✓</span></div>
+    <div class="preview">
+      <div class="hl" id="pv_head"><span class="ph">Your headline appears here…</span></div>
+      <div class="lede" id="pv_hook"><span class="ph">Your opening line appears here…</span></div>
+    </div>
+  </div>
+  <p class="note">For the argument line at the heart of your pitch (your nut graf), open the <a href="thesis-creator.html" target="_blank" rel="noopener">Thesis Creator</a> and pick <b>"Op-Ed"</b>, it builds the position + why-now + call.</p>
+
+  <p><b>Step 3: outline the whole thing.</b> Sketch the skeleton in order: hook, nut graf (claim + why now), two or three quick points with linked evidence, a one-sentence counter, and a kicker.</p>
+  <div class="write">
+    <label for="w_outline">My op-ed outline (the six beats, in order):</label>
+    <textarea id="w_outline" class="big" data-save placeholder="Hook: …&#10;Nut graf (claim + why now): …&#10;Point 1 (+ link): …&#10;Point 2 (+ link): …&#10;Counter: …&#10;Kicker: …"></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_outline">Saved ✓</span></div>
+  </div>
+
+  <div class="close">
+    <p><b>You've got a pitch and a skeleton.</b> Next week you write the op-ed itself, all 700 tight words of it, and revise it to a public shine. This is the piece you could actually submit to a paper. Keep that in mind: someone out there needs to read exactly what you have to say.</p>
+  </div>
+
+  <div class="duebox">
+    <span class="lab">Due this week (Sunday)</span>
+    <p>Your <b>op-ed pitch and outline</b>: your argument, its news peg, a draft headline and hook, and the six-beat outline, submitted as a Google Doc so I can react before you draft. (Notebook writing stays private, collected at midterm and end of term.)</p>
+  </div>
+
+  <dialog class="pop" id="pop-oped"><h3>Op-ed</h3><p>Short for "opposite the editorial page," where newspapers historically ran outside voices. It's a brief, argument-driven opinion piece (usually 600 to 800 words) written for the general public. Example: a nurse arguing, in her local paper, that the city should fund a second ambulance, using her own night shifts as evidence. One clear opinion, made vivid and fast.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-public"><h3>A public audience</h3><p>Not your professor, not other experts, but a general reader who is busy, skeptical, and free to leave. Example: the person half-reading their phone on a lunch break. Writing for them means no jargon, no assumed background, and a reason to keep going in every paragraph. You earn each sentence of their attention.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-newspeg"><h3>News peg (timeliness)</h3><p>The hook to <i>right now</i> that makes an editor run your piece this week instead of never. Example: "As the council votes Tuesday on the bike-lane budget…" ties your evergreen opinion to a live event. No peg? Create a real occasion, a season ("as students move in this fall"), an anniversary, a new report. Timeliness is why op-eds get published.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-hyperlink"><h3>Hyperlinked citation</h3><p>In public writing you don't use MLA; you link. When you state a fact from a source, you make the key words a hyperlink to it. Example: "attendance <a href="#" onclick="return false">dropped sharply</a> after the cut" links straight to the report. It keeps the prose clean while letting a curious reader check your evidence in one click. No Works Cited page needed.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-headline"><h3>Headline</h3><p>The title that earns the click. Strong op-ed headlines are specific and carry a hint of the argument or a bit of surprise. Example: "Ban Cars from Downtown" is fine; "I Sold My Car and Got My City Back" is better, it's concrete and it hooks. Editors often rewrite headlines, but a sharp one shows you understand the audience.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-hook"><h3>Hook (the lede)</h3><p>The opening line or two, built to make a scrolling reader stop. Usually a vivid scene, a surprising fact, or a sharp confession, not a summary of your argument. Example: "The first time I skipped a meal to make rent, I was nineteen." It creates a small itch the reader needs the next sentence to scratch.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-nutgraf"><h3>Nut graf</h3><p>Journalists' term for the sentence or two that tells the reader, early, what the piece is about and why it matters now, the "nut" of it. Example: "As the board votes next week, it should protect the late bus, because for students like me it's the difference between graduating and dropping out." Claim plus news peg, in one breath. After a great hook, the nut graf makes the promise.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-counter"><h3>Counter (in an op-ed)</h3><p>The same fairness move from your argument essay, but compressed to a sentence or two. You grant the other side's strongest point, then answer it, showing you're reasonable without slowing down. Example: "A pantry costs money, and every budget line is someone's priority, but a student who can't eat can't learn." Concede, pivot, keep moving.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-kicker"><h3>Kicker</h3><p>The closing line, the snap the reader walks away with. Short, pointed, often circling back to the hook's image. Example, after opening on a late bus: "So cut it from the scoreboard, not the ladder." A weak op-ed trails off; a strong one lands its last sentence like a door closing.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-rhet"><h3>Rhetorical analysis</h3><p>Reading a text to see <i>how</i> it persuades, the machinery under the words. You ask: who's the audience, what's the claim, what evidence, and how does the writer use credibility, emotion, and logic? Example: noticing that an op-ed opens with a personal story (emotion) before citing a statistic (logic) is rhetorical analysis. Doing it to others' op-eds teaches you to build your own.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-appeals"><h3>Ethos, pathos, logos (recap)</h3><p>Aristotle's three appeals: <b>ethos</b> (why you're credible), <b>pathos</b> (feeling), <b>logos</b> (logic and evidence). Op-eds lean hard on all three, fast. Example: "As an ER nurse (ethos), I've held the hand of a man who waited 40 minutes for a second ambulance (pathos); our response times rank last in the county (logos)." Three appeals, three clauses.</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  var PREFIX="rc1000w12:";
+  document.querySelectorAll('#mod [data-save]').forEach(function(el){
+    try{ var v=localStorage.getItem(PREFIX+el.id); if(v!==null) el.value=v; }catch(e){}
+    var flag=document.querySelector('.saved[data-for="'+el.id+'"]');
+    el.addEventListener('input', function(){ try{ localStorage.setItem(PREFIX+el.id, el.value); }catch(e){} if(flag){ flag.classList.add('show'); clearTimeout(flag._t); flag._t=setTimeout(function(){flag.classList.remove('show');},1100);} });
+  });
+  // headline/hook live preview
+  function bind(id, outId, ph){
+    var el=document.getElementById(id), out=document.getElementById(outId);
+    function upd(){ var v=el.value.trim(); if(v){ out.textContent=v; } else { out.innerHTML='<span class="ph">'+ph+'</span>'; } }
+    el.addEventListener('input', upd); upd();
+  }
+  bind('hb_head','pv_head','Your headline appears here…');
+  bind('hb_hook','pv_hook','Your opening line appears here…');
+  var items=Array.prototype.slice.call(document.querySelectorAll('#qc .qcitem'));
+  items.forEach(function(it){
+    var opts=it.querySelectorAll('.opt');
+    opts.forEach(function(o){ o.addEventListener('click', function(){ opts.forEach(function(x){x.classList.remove('pick');}); o.classList.add('pick'); it.dataset.pick=o.getAttribute('data-pick'); it.classList.remove('right','wrong'); it.querySelector('.fb').hidden=true; document.getElementById('qcres').textContent=''; }); });
+  });
+  document.getElementById('qcbtn').addEventListener('click', function(){
+    var correct=0, all=true;
+    items.forEach(function(it){
+      it.classList.remove('right','wrong');
+      if(!it.dataset.pick){ all=false; return; }
+      var right = it.dataset.pick===it.getAttribute('data-answer');
+      it.classList.add(right?'right':'wrong'); it.querySelector('.fb').hidden=false; if(right) correct++;
+    });
+    document.getElementById('qcres').textContent = all ? ('You got '+correct+' of '+items.length+'.') : 'Answer all '+items.length+' first.';
+  });
+  document.querySelectorAll('[data-pop]').forEach(function(b){ b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); }); });
+  document.querySelectorAll('dialog.pop').forEach(function(d){ d.addEventListener('click', function(e){ if(e.target===d) d.close(); }); });
+})();
+</script>
+</body>
+</html>

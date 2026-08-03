@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prototype · Reverse-Outline X-Ray</title>
+<style>
+  :root{ --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a; --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe; --good:#2f7d54; --goodsoft:#e4f1e8; }
+  @media (prefers-color-scheme: dark){ :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; } }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #ro{max-width:740px; margin:0 auto; padding:28px 20px 90px}
+  #ro h1{font-family:Georgia,serif; font-size:1.8rem; margin:0}
+  #ro .kicker{font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #ro .badge{display:inline-block; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:1px 9px; margin-bottom:8px}
+  #ro .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:16px}
+  #ro .sub{color:var(--muted); margin:8px 0 0}
+  #ro .honest{background:var(--accent-soft); border:1px solid var(--line); border-radius:10px; padding:11px 14px; font-size:.92rem; margin:14px 0}
+  #ro label.fld{font-weight:600; display:block; margin-bottom:6px}
+  #ro textarea{width:100%; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6; resize:vertical}
+  #ro #draft{min-height:200px}
+  #ro textarea:focus, #ro input:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #ro button{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:11px 18px; border:1px solid var(--accent); background:var(--accent); color:#fff}
+  #ro button.ghost{background:transparent; color:var(--accent)}
+  #ro .row{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:14px}
+  #ro .priv{font-size:.82rem; color:var(--muted); margin-top:6px}
+  #ro .para{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin:10px 0}
+  #ro .para .pn{font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  #ro .para .pre{color:var(--muted); font-size:.9rem; font-style:italic; margin:4px 0 8px}
+  #ro .para input{width:100%; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:8px; padding:9px 11px; font:inherit}
+  #ro .skel{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:8px 16px; margin:10px 0}
+  #ro .skel .s{border-top:1px solid var(--line); padding:9px 0; display:flex; gap:10px} #ro .skel .s:first-child{border-top:0}
+  #ro .skel .s .k{font-weight:800; color:var(--accent); flex:none; width:34px}
+  #ro .skel .s .j{font-weight:600}
+  #ro .skel .s .empty{color:var(--muted); font-weight:400; font-style:italic}
+  #ro .checks{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:8px 16px; margin:12px 0}
+  #ro .checks .c{border-top:1px solid var(--line); padding:10px 0; display:flex; gap:10px; align-items:flex-start} #ro .checks .c:first-child{border-top:0}
+  #ro .checks input{margin-top:4px; width:18px; height:18px; accent-color:var(--accent)}
+  #ro .checks .q{font-weight:600}
+  #ro .checks .q .h{display:block; color:var(--muted); font-weight:400; font-size:.9rem}
+  #ro .saved{color:var(--good); font-size:.82rem; font-weight:700; opacity:0; transition:opacity .2s} #ro .saved.show{opacity:1}
+  #ro h2{font-family:Georgia,serif; font-size:1.3rem; margin:20px 0 6px}
+  #ro .note{color:var(--muted); font-size:.9rem}
+</style>
+</head>
+<body>
+<div id="ro">
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Revision Tool</p>
+    <h1>Reverse-Outline X-Ray</h1>
+    <p class="sub">The tool breaks your draft into paragraphs. You write what each one <i>does</i>. Laid out together, the skeleton shows you the gaps, the repeats, and the buried story, things you can't see while you're inside the prose.</p>
+  </header>
+
+  <div id="start">
+    <div class="honest">This does no judging. It just splits your draft into paragraphs so you can label the <b>job</b> each one does (not what it's about, what job it does: "sets the scene," "explains the backstory," "the real turning point"). Private, saves in your browser only.</div>
+    <label class="fld" for="draft">Paste your draft</label>
+    <textarea id="draft" placeholder="Paste your whole essay. Leave a blank line between paragraphs so it splits cleanly…"></textarea>
+    <div class="row"><button type="button" id="go">X-ray my structure</button></div>
+    <div class="priv">Private, saves only in your own browser.</div>
+  </div>
+
+  <div id="stage" hidden>
+    <h2>Label each paragraph's job</h2>
+    <p class="note">One short line each. What <i>job</i> does this paragraph do for the essay?</p>
+    <div id="paras"></div>
+    <div class="row"><button type="button" id="build">Build my skeleton &rarr;</button><button type="button" class="ghost" id="restart">Start over</button></div>
+
+    <div id="result" hidden>
+      <h2>Your essay's skeleton</h2>
+      <div class="skel" id="skel"></div>
+      <h2>Now read it like an x-ray</h2>
+      <div class="checks" id="checks">
+        <div class="c"><input type="checkbox" data-c="heat"><span class="q">Does it open on the heat?<span class="h">If paragraph 1's job is "announces the topic" or "gives background," your real opening is probably lower down. Move it up.</span></span></div>
+        <div class="c"><input type="checkbox" data-c="repeat"><span class="q">Do any two paragraphs do the same job?<span class="h">Two lines that say the same thing = repetition. Keep the stronger paragraph, cut or merge the other.</span></span></div>
+        <div class="c"><input type="checkbox" data-c="order"><span class="q">Is anything out of order?<span class="h">Does the skeleton read in an order that builds, or does a key moment land too early or too late?</span></span></div>
+        <div class="c"><input type="checkbox" data-c="buried"><span class="q">Is the real story buried?<span class="h">Which paragraph's job is the true heart of the essay? Does it get enough room, or is it one line in the middle?</span></span></div>
+      </div>
+      <label class="fld" for="notes">What will you change first? (your revision plan)</label>
+      <textarea id="notes" style="min-height:90px" placeholder="e.g., Cut ¶1, open on ¶3 (the trophy scene). Merge ¶4 and ¶5, they do the same job…"></textarea>
+      <div class="priv"><span class="saved" id="notesaved">Saved ✓</span></div>
+      <div class="row"><button type="button" id="dl">Download my skeleton + plan</button></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var K="protoRO:";
+  var draft=document.getElementById('draft');
+  try{ var d=localStorage.getItem(K+'draft'); if(d!==null) draft.value=d; }catch(e){}
+  draft.addEventListener('input', function(){ try{ localStorage.setItem(K+'draft', draft.value); }catch(e){} });
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  var paras=[];
+  function split(t){ var ps=t.split(/\n\s*\n/).map(function(x){return x.trim();}).filter(Boolean); if(ps.length<=1) ps=t.split(/\n/).map(function(x){return x.trim();}).filter(Boolean); return ps; }
+
+  document.getElementById('go').addEventListener('click', function(){
+    paras=split(draft.value);
+    if(paras.length<2){ alert('Paste a few paragraphs, with a blank line between them so it can split.'); return; }
+    document.getElementById('start').hidden=true; document.getElementById('stage').hidden=false;
+    var box=document.getElementById('paras'); box.innerHTML='';
+    paras.forEach(function(p, i){
+      var pre=p.replace(/\s+/g,' ').slice(0,110)+(p.length>110?'…':'');
+      var div=document.createElement('div'); div.className='para';
+      div.innerHTML='<div class="pn">Paragraph '+(i+1)+'</div><div class="pre">'+esc(pre)+'</div>'
+        +'<input type="text" data-j="'+i+'" placeholder="The job this paragraph does…">';
+      box.appendChild(div);
+    });
+    box.querySelectorAll('input[data-j]').forEach(function(inp){
+      var key=K+'job_'+inp.getAttribute('data-j');
+      try{ var v=localStorage.getItem(key); if(v!==null) inp.value=v; }catch(e){}
+      inp.addEventListener('input', function(){ try{ localStorage.setItem(key, inp.value); }catch(e){} });
+    });
+  });
+
+  document.getElementById('restart').addEventListener('click', function(){ document.getElementById('stage').hidden=true; document.getElementById('start').hidden=false; document.getElementById('result').hidden=true; });
+
+  document.getElementById('build').addEventListener('click', function(){
+    var skel=document.getElementById('skel'); skel.innerHTML='';
+    document.querySelectorAll('#paras input[data-j]').forEach(function(inp, i){
+      var j=inp.value.trim();
+      var row=document.createElement('div'); row.className='s';
+      row.innerHTML='<span class="k">'+(i+1)+'</span><span class="j'+(j?'':' empty')+'">'+(j?esc(j):'(no job written yet)')+'</span>';
+      skel.appendChild(row);
+    });
+    document.getElementById('result').hidden=false;
+    document.getElementById('result').scrollIntoView({behavior:'smooth'});
+  });
+
+  // checks + notes persistence
+  document.querySelectorAll('#checks input[data-c]').forEach(function(cb){
+    var key=K+'chk_'+cb.getAttribute('data-c');
+    try{ cb.checked = localStorage.getItem(key)==='1'; }catch(e){}
+    cb.addEventListener('change', function(){ try{ localStorage.setItem(key, cb.checked?'1':'0'); }catch(e){} });
+  });
+  var notes=document.getElementById('notes'), nf=document.getElementById('notesaved');
+  try{ var nv=localStorage.getItem(K+'notes'); if(nv!==null) notes.value=nv; }catch(e){}
+  notes.addEventListener('input', function(){ try{ localStorage.setItem(K+'notes', notes.value); }catch(e){} if(nf){ nf.classList.add('show'); clearTimeout(nf._t); nf._t=setTimeout(function(){nf.classList.remove('show');},1000);} });
+
+  document.getElementById('dl').addEventListener('click', function(){
+    var L=['MY REVERSE OUTLINE',''];
+    document.querySelectorAll('#skel .s').forEach(function(r,i){ L.push((i+1)+'. '+r.querySelector('.j').textContent); });
+    L.push(''); L.push('REVISION PLAN'); L.push(notes.value||'(none yet)');
+    var b=new Blob([L.join('\n')],{type:'text/plain'}), u=URL.createObjectURL(b), a=document.createElement('a');
+    a.href=u; a.download='my-reverse-outline.txt'; document.body.appendChild(a); a.click(); setTimeout(function(){URL.revokeObjectURL(u);a.remove();},100);
+  });
+})();
+</script>
+</body>
+</html>

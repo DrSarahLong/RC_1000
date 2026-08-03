@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Week 7 · From Experience to a Claim</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; --due:#7a3b1f; --duesoft:#f6ebe1; --reflect:#5a3b86; --reflectsoft:#efe9f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; --due:#e0a878; --duesoft:#2c2013; --reflect:#b3a4de; --reflectsoft:#1f1b2c; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #mod{max-width:760px; margin:0 auto; padding:28px 20px 90px}
+  #mod h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.9rem; margin:0; line-height:1.15}
+  #mod .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #mod .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:18px}
+  #mod .sub{color:var(--muted); margin:8px 0 0; font-size:1.05rem}
+  #mod .meta{color:var(--muted); font-size:.86rem; margin-top:8px}
+  #mod .part{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:30px 0 4px; padding-top:6px; border-top:1px solid var(--line)}
+  #mod h2{font-family:Georgia,"Iowan Old Style",serif; font-size:1.35rem; margin:2px 0 10px}
+  #mod p{margin:.6rem 0}
+  #mod .box{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:12px 0}
+  #mod .box.accent{border-left:5px solid var(--accent)}
+  #mod .mdl{margin:8px 0}
+  #mod .mdl .row{border-radius:10px; padding:10px 13px; margin:6px 0; font-size:.97rem; border:1px solid var(--line)}
+  #mod .mdl .row.b{background:var(--nosoft)} #mod .mdl .row.a{background:var(--goodsoft)}
+  #mod .mdl .lab{display:block; font-size:.64rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; margin-bottom:3px}
+  #mod .mdl .row.b .lab{color:var(--no)} #mod .mdl .row.a .lab{color:var(--good)}
+  #mod .ground{background:var(--reflectsoft); border:1px solid var(--line); border-left:5px solid var(--reflect); border-radius:12px; padding:14px 16px; margin:14px 0}
+  #mod .ground .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--reflect); display:block; margin-bottom:3px}
+  #mod .sci{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:13px 16px; margin:12px 0; font-size:.96rem}
+  #mod .sci .lab{font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  #mod ul{margin:.5rem 0; padding-left:1.2rem} #mod li{margin:.45rem 0}
+  #mod ol.steps{margin:.5rem 0; padding-left:1.3rem} #mod ol.steps li{margin:.6rem 0}
+  #mod a{color:var(--accent)}
+  #mod .read{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px}
+  #mod .read .r{border-top:1px solid var(--line); padding:11px 0} #mod .read .r:first-child{border-top:0}
+  #mod .read .r .t{font-weight:700} #mod .read .r .c{color:var(--muted); font-size:.88rem}
+  #mod .read .req{display:inline-block; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:0 8px; margin-left:6px; vertical-align:1px}
+  #mod .qc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px 4px; margin:10px 0}
+  #mod .qcitem{border-top:1px solid var(--line); padding:11px 0} #mod .qcitem:first-of-type{border-top:0}
+  #mod .qcitem .s{font-weight:600; margin:0 0 8px; font-style:italic}
+  #mod .qcitem .opts{display:flex; gap:8px; flex-wrap:wrap}
+  #mod .qcitem .opt{flex:1 1 30%; font:inherit; font-weight:700; font-size:.86rem; cursor:pointer; border-radius:8px; padding:8px 6px; border:1.5px solid var(--line); background:var(--field); color:var(--ink)}
+  #mod .qcitem .opt.pick{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #mod .qcitem.right .opt.pick{border-color:var(--good); background:var(--goodsoft); color:var(--good)}
+  #mod .qcitem.wrong .opt.pick{border-color:var(--no); background:var(--nosoft); color:var(--no)}
+  #mod .qcitem .fb{margin-top:8px; font-size:.9rem; color:var(--muted)} #mod .qcitem .fb[hidden]{display:none}
+  #mod .qcbtn{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:9px 15px; border:1px solid var(--accent); background:var(--accent); color:#fff; margin:8px 0}
+  #mod .qcres{font-weight:700; color:var(--accent); margin-left:10px}
+  #mod a.btn{display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font-weight:700; border-radius:9px; padding:12px 20px; margin:8px 0}
+  #mod .write{margin:10px 0}
+  #mod .write label{display:block; font-weight:600; margin-bottom:5px}
+  #mod textarea, #mod input.claim{width:100%; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6}
+  #mod textarea{min-height:100px; resize:vertical}
+  #mod textarea:focus, #mod input.claim:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mod .priv{font-size:.82rem; color:var(--muted); margin-top:4px}
+  #mod .saved{color:var(--good); font-size:.85rem; font-weight:700; opacity:0; transition:opacity .2s} #mod .saved.show{opacity:1}
+  #mod .duebox{background:var(--duesoft); border:1px solid var(--line); border-left:5px solid var(--due); border-radius:12px; padding:14px 16px; margin:16px 0}
+  #mod .duebox .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--due); display:block; margin-bottom:3px}
+  #mod .close{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-top:22px}
+  #mod .note{color:var(--muted); font-size:.9rem}
+  #mod .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="mod">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Week 7 · Module</p>
+    <h1>From Experience to a Claim</h1>
+    <p class="sub">New project. In the personal essay you told a true story. Now you'll make an argument, one you can defend, that grows out of something you've actually lived. Same honesty, new job: taking a position.</p>
+    <p class="meta">Week 1 of the argument project. This week you land on what you're arguing.</p>
+  </header>
+
+  <div class="ground">
+    <span class="lab">A quick orientation</span>
+    <p>An argument grounded in the personal often starts from something that cost you something, an unfair rule, a belief you've had to push back on, a system that failed someone you love. That's allowed to have feeling in it. You choose the ground you stand on, and you can pick a lower-stakes topic if you'd rather. There's no wrong choice here.</p>
+  </div>
+
+  <p class="part">Part 1 · Learn</p>
+  <h2>What makes something an argument</h2>
+  <p>An <button type="button" class="term" data-pop="argument">argument</button>, in writing, isn't a fight. It's a <button type="button" class="term" data-pop="claim">claim</button>: a position you take and then defend with reasons and evidence. The trick is telling a real claim apart from the things that look like one:</p>
+  <div class="box accent">
+    <ul>
+      <li><b>A topic</b> is just a subject. <i>"School start times."</i> It says nothing yet.</li>
+      <li><b>A fact</b> can be looked up and settled. <i>"My high school started at 7:20 a.m."</i> No one can argue it.</li>
+      <li><b>A claim</b> is a position a reasonable person could <button type="button" class="term" data-pop="debatable">disagree</button> with. <i>"High schools should start later."</i> Now you have something to defend.</li>
+    </ul>
+  </div>
+
+  <p>And here's the move that separates a strong claim from a shaky one: precision. A claim can fail two opposite ways, too timid to matter, or <button type="button" class="term" data-pop="overclaim">overclaimed</button> so sweeping you can't possibly back it up. The strong version sits between them, specific and carefully <button type="button" class="term" data-pop="qualifier">qualified</button>.</p>
+
+  <p style="font-weight:700; margin:12px 0 2px">Topic &rarr; claim:</p>
+  <div class="mdl">
+    <div class="row b"><span class="lab">Just a topic</span>This essay is about phones in school.</div>
+    <div class="row a"><span class="lab">A claim you can defend</span>My high school should have kept phones in lockers during class, because the year I kept mine on the desk "just in case," I lost more focus than I ever noticed I was spending.</div>
+  </div>
+  <p style="font-weight:700; margin:12px 0 2px">Overclaimed &rarr; qualified:</p>
+  <div class="mdl">
+    <div class="row b"><span class="lab">Overclaimed</span>Phones have completely destroyed this generation's ability to think.</div>
+    <div class="row a"><span class="lab">Qualified, and stronger</span>For students like me who treated a phone as a safety blanket, the constant checking quietly cost us focus we didn't know we had.</div>
+  </div>
+  <p class="note">The qualified version is <i>easier</i> to defend, not weaker. "Completely destroyed" invites one counterexample to sink it. "Students like me who…" claims exactly as much as your evidence can carry.</p>
+
+  <div class="sci">
+    <span class="lab">Why arguing the other side makes you stronger</span>
+    <p>It feels backward, but seeking out the best case <i>against</i> your claim sharpens it. In a classic study, Lord, Lepper, and Preston (1984) found that asking people to "<button type="button" class="term" data-pop="opposite">consider the opposite</button>" cut the bias in their reasoning. For you, that means a claim you've already stress-tested against its strongest objection is one a reader can trust. We'll build that habit in this week's writing.</p>
+  </div>
+
+  <p style="font-weight:700; margin-top:14px">Grounded in the personal.</p>
+  <p>Your lived experience is where this argument starts, and it's real evidence: you were there. Later in the project you'll add outside sources to widen the case beyond you. But the heat that makes an argument worth reading usually comes from a writer who has skin in it.</p>
+
+  <h2 style="margin-top:22px">Not the academic paper you're picturing</h2>
+  <p>When people hear "argumentative essay," they picture the formal <button type="button" class="term" data-pop="academicarg">academic argument</button>: third person, no "I," a thesis stated flatly up top, evidence stacked in tidy paragraphs, a cool and distant voice. That form is real and useful, and you'll write it in courses like RC 2001. Ours is a different animal. We're writing argument that borrows the tools of <button type="button" class="term" data-pop="cnf">creative nonfiction</button>, scene, concrete detail, voice, and your own "I" as evidence and authority. The rigor of a real, defensible claim, carried by the craft of story.</p>
+  <div class="box"><b>Standard academic version.</b> <i>"Research indicates that later school start times correlate with improved adolescent performance (Wahlstrom, 2014). This paper argues that districts should adjust their schedules accordingly."</i></div>
+  <div class="box"><b>Ours, the same claim built with craft.</b> <i>"I have slept through more first periods than I can count. It wasn't laziness. I was sixteen, it was 7 a.m., and my body simply was not there yet. That is the case I want to make: my district should start high school later, and I will show you what those lost mornings cost."</i></div>
+  <p class="note">Both make the identical claim. The second uses a scene, a voice, and a real person to make you feel the stakes before it reasons about them. That's the move this project teaches: argument's rigor, told with a writer's craft.</p>
+
+  <p class="part">Part 2 · Read (required)</p>
+  <div class="read">
+    <div class="r"><span class="t">Tightening Your Argument</span> <span class="req">Required</span><div class="c">Voices for Change, p. 63. Turning a rough position into a claim you can defend.</div></div>
+    <div class="r"><span class="t">Strengthening and Weakening Claims</span> <span class="req">Required</span><div class="c">Voices for Change, p. 94. How qualifying a claim (some, often, for students like me) makes it more defensible, not less.</div></div>
+  </div>
+
+  <p class="part">Part 3 · Practice</p>
+  <h2>The claim clinic</h2>
+  <p>For each statement, decide which it is: a <b>topic or fact</b> (nothing to argue), an <b>overclaim</b> (too sweeping to defend), or a <b>defensible claim</b> (a position, sized to its evidence). Commit, then <b>Check</b>.</p>
+  <div class="qc" id="qc">
+    <div class="qcitem" data-answer="over">
+      <p class="s">"Social media is bad for teenagers."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="fact">Topic / fact</button><button type="button" class="opt" data-pick="over">Overclaim</button><button type="button" class="opt" data-pick="claim">Defensible claim</button></div>
+      <div class="fb" hidden>Overclaim. "Bad," "teenagers," all of it, is too broad to defend. Which platform, which harm, for whom? Narrow it and it becomes arguable.</div>
+    </div>
+    <div class="qcitem" data-answer="fact">
+      <p class="s">"My old high school started first period at 7:20 a.m."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="fact">Topic / fact</button><button type="button" class="opt" data-pick="over">Overclaim</button><button type="button" class="opt" data-pick="claim">Defensible claim</button></div>
+      <div class="fb" hidden>A fact. It can be checked and settled, so there's nothing to argue. It could become the evidence <i>under</i> a claim, but it isn't one.</div>
+    </div>
+    <div class="qcitem" data-answer="claim">
+      <p class="s">"My district should push high school start times later, because the year I spent asleep in first period taught me a 7 a.m. teenager isn't learning, just attending."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="fact">Topic / fact</button><button type="button" class="opt" data-pick="over">Overclaim</button><button type="button" class="opt" data-pick="claim">Defensible claim</button></div>
+      <div class="fb" hidden>A defensible claim. It takes a position, gives a reason, and grounds it in lived experience, sized to what one writer can honestly back.</div>
+    </div>
+    <div class="qcitem" data-answer="over">
+      <p class="s">"Everyone would be happier if they just deleted their phones."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="fact">Topic / fact</button><button type="button" class="opt" data-pick="over">Overclaim</button><button type="button" class="opt" data-pick="claim">Defensible claim</button></div>
+      <div class="fb" hidden>Overclaim. "Everyone," "just," and "happier" promise far more than any evidence could deliver. One happy phone user disproves it.</div>
+    </div>
+    <button type="button" class="qcbtn" id="qcbtn">Check</button><span class="qcres" id="qcres"></span>
+  </div>
+
+  <p class="part">Part 4 · Do</p>
+  <h2>Find your claim</h2>
+
+  <p><b>Step 1: start from your life.</b> What's something you've lived that gave you a <i>position</i>, a rule you think is wrong, a belief you'd push back on, a system that helped or failed you or someone close? Freewrite until you find the one that still has heat.</p>
+  <div class="write">
+    <label for="w_ground">Something I've lived that I have an opinion about:</label>
+    <textarea id="w_ground" data-save placeholder="I still get worked up when I think about…"></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_ground">Saved ✓</span></div>
+  </div>
+
+  <p><b>Step 2: draft a working claim.</b> Turn that into one sentence that takes a position. Need help shaping it? Open the <a href="thesis-creator.html" target="_blank" rel="noopener">Thesis Creator</a> and pick <b>"Argument"</b>, it walks you through the claim + reason + objection frame with examples.</p>
+  <div class="write">
+    <label for="w_claim">My working claim (one sentence, a position I can defend):</label>
+    <input type="text" class="claim" id="w_claim" data-save placeholder="Because ___, ___ should ___.">
+    <div class="priv">Saves on your own computer. <span class="saved" data-for="w_claim">Saved ✓</span></div>
+  </div>
+
+  <p><b>Step 3: consider the opposite.</b> Write the single strongest objection to your claim, the point someone who disagrees would lead with. Then rewrite your claim so it's precise enough to survive that objection (qualify it: "for students like me," "in schools like mine," "often," "some").</p>
+  <div class="write">
+    <label for="w_opposite">The strongest objection, then my qualified claim:</label>
+    <textarea id="w_opposite" data-save placeholder="Someone could argue that… &#10;&#10;So my sharper claim is…"></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_opposite">Saved ✓</span></div>
+  </div>
+
+  <div class="close">
+    <p><b>You have a claim with skin in it.</b> That's the hardest part of an argument, and you did it. Next week we look at how arguments go wrong (and how to keep yours fair) before you start gathering sources.</p>
+  </div>
+
+  <div class="duebox">
+    <span class="lab">Due this week (Sunday)</span>
+    <p>Your <b>working claim</b> plus a short paragraph on the experience it grows from, submitted as a Google Doc so I can react before you build the case. (Your freewrites stay private in your notebook, collected at midterm and end of term.)</p>
+  </div>
+
+  <dialog class="pop" id="pop-argument"><h3>Argument</h3><p>In academic writing, an argument isn't a quarrel; it's a claim supported by reasons and evidence. The goal isn't to "win" or to be loudest, it's to make a case a fair-minded reader could follow and find reasonable, even if they start out disagreeing. Feeling is welcome; it just can't do the work of evidence. For example, "my campus should keep 24-hour library access" becomes an argument once you back it with reasons (students who work days can only study at night) and evidence, rather than just asserting it.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-claim"><h3>Claim</h3><p>The position your whole argument defends, the answer to "so what are you actually saying should be true?" A good claim is debatable (someone could disagree), specific (not vague), and sized to your evidence (you can actually back it up). Everything else in the essay exists to support it. For example, "the dining hall should stay open past 8" is a claim; "the dining hall" by itself is only a topic.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-debatable"><h3>Debatable</h3><p>The test for whether you have a claim: could a reasonable person disagree? "The library closes at 10" isn't debatable (it's a fact). "The library should stay open until midnight" is, so it can anchor an argument. If no one could disagree, you have a topic or a fact, not a claim yet.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-overclaim"><h3>Overclaiming</h3><p>Making a claim bigger than your evidence can support, usually with absolute words: <i>always, never, everyone, completely, proves, destroys.</i> Overclaiming feels bold but is actually fragile: a single counterexample knocks it over. The fix is to qualify, claim exactly as much as you can defend, and no more. For example, "phones destroyed our generation" overclaims; "the phone on my desk quietly cost me focus I didn't notice I was spending" claims only what you can show.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-qualifier"><h3>Qualifying a claim</h3><p>Adding the truthful limits to a claim so it fits your evidence: <i>often, in many cases, for students like me, in schools like mine, tends to.</i> The philosopher Stephen Toulmin called this the "qualifier," and it's a mark of a careful thinker, not a weak one. A qualified claim is harder to knock down because it never claimed more than it could hold.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-opposite"><h3>Consider the opposite</h3><p>A reasoning habit studied by Lord, Lepper &amp; Preston (1984): before you commit to a position, deliberately build the best case <i>against</i> it. Their subjects reasoned more fairly when asked to do this. For a writer, it does two things: it shows you where your claim is weak (so you can fix it), and it lets you answer objections before a reader raises them. For example, before arguing your town should ban gas leaf-blowers, spend five minutes building the landscaper's case, then write to answer it.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-academicarg"><h3>The academic argument</h3><p>The formal argumentative essay taught in most research and disciplinary writing: an impersonal, often third-person case that states its thesis up front and defends it with sources and data, keeping the writer's own voice in the background. Example opening: <i>"Studies indicate that food deserts contribute to poorer health outcomes; this paper argues that municipal zoning should incentivize grocery access."</i> Rigorous and useful, and the main event in a course like RC 2001. Here we borrow its rigor without its distance.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-cnf"><h3>Creative nonfiction (CNF)</h3><p>True writing that uses the techniques of fiction, scene, character, concrete sensory detail, voice, and narrative shape, to make real experience vivid on the page. A personal essay is creative nonfiction; so is a memoir or a literary op-ed. Example: instead of "the clinic was underfunded," a CNF writer shows "the waiting room had three chairs and a sign-in sheet on a clipboard chained to the wall." This project aims those tools at an argument.</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  var PREFIX="rc1000w7:";
+  document.querySelectorAll('#mod [data-save]').forEach(function(el){
+    try{ var v=localStorage.getItem(PREFIX+el.id); if(v!==null) el.value=v; }catch(e){}
+    var flag=document.querySelector('.saved[data-for="'+el.id+'"]');
+    el.addEventListener('input', function(){ try{ localStorage.setItem(PREFIX+el.id, el.value); }catch(e){} if(flag){ flag.classList.add('show'); clearTimeout(flag._t); flag._t=setTimeout(function(){flag.classList.remove('show');},1100);} });
+  });
+  var items=Array.prototype.slice.call(document.querySelectorAll('#qc .qcitem'));
+  items.forEach(function(it){
+    var opts=it.querySelectorAll('.opt');
+    opts.forEach(function(o){ o.addEventListener('click', function(){ opts.forEach(function(x){x.classList.remove('pick');}); o.classList.add('pick'); it.dataset.pick=o.getAttribute('data-pick'); it.classList.remove('right','wrong'); it.querySelector('.fb').hidden=true; document.getElementById('qcres').textContent=''; }); });
+  });
+  document.getElementById('qcbtn').addEventListener('click', function(){
+    var correct=0, all=true;
+    items.forEach(function(it){
+      it.classList.remove('right','wrong');
+      if(!it.dataset.pick){ all=false; return; }
+      var right = it.dataset.pick===it.getAttribute('data-answer');
+      it.classList.add(right?'right':'wrong'); it.querySelector('.fb').hidden=false; if(right) correct++;
+    });
+    document.getElementById('qcres').textContent = all ? ('You got '+correct+' of 4.') : 'Answer all four first.';
+  });
+  document.querySelectorAll('[data-pop]').forEach(function(b){ b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); }); });
+  document.querySelectorAll('dialog.pop').forEach(function(d){ d.addEventListener('click', function(e){ if(e.target===d) d.close(); }); });
+})();
+</script>
+</body>
+</html>

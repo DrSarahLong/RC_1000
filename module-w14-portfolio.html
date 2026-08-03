@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Week 14 · Build Your Portfolio</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; --due:#7a3b1f; --duesoft:#f6ebe1; --reflect:#5a3b86; --reflectsoft:#efe9f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; --due:#e0a878; --duesoft:#2c2013; --reflect:#b3a4de; --reflectsoft:#1f1b2c; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #mod{max-width:760px; margin:0 auto; padding:28px 20px 90px}
+  #mod h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.9rem; margin:0; line-height:1.15}
+  #mod .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #mod .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:18px}
+  #mod .sub{color:var(--muted); margin:8px 0 0; font-size:1.05rem}
+  #mod .meta{color:var(--muted); font-size:.86rem; margin-top:8px}
+  #mod .part{font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:30px 0 4px; padding-top:6px; border-top:1px solid var(--line)}
+  #mod h2{font-family:Georgia,"Iowan Old Style",serif; font-size:1.35rem; margin:2px 0 10px}
+  #mod h3{font-size:1.02rem; margin:14px 0 2px}
+  #mod p{margin:.6rem 0}
+  #mod .box{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:12px 0}
+  #mod .box.accent{border-left:5px solid var(--accent)}
+  #mod .ground{background:var(--reflectsoft); border:1px solid var(--line); border-left:5px solid var(--reflect); border-radius:12px; padding:14px 16px; margin:14px 0}
+  #mod .ground .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--reflect); display:block; margin-bottom:3px}
+  #mod .sci{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:13px 16px; margin:12px 0; font-size:.96rem}
+  #mod .sci .lab{font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; color:var(--accent)}
+  #mod ul{margin:.5rem 0; padding-left:1.2rem} #mod li{margin:.45rem 0}
+  #mod a{color:var(--accent)}
+  #mod .read{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px}
+  #mod .read .r{border-top:1px solid var(--line); padding:11px 0} #mod .read .r:first-child{border-top:0}
+  #mod .read .r .t{font-weight:700} #mod .read .r .c{color:var(--muted); font-size:.88rem}
+  #mod .read .req{display:inline-block; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:0 8px; margin-left:6px; vertical-align:1px}
+  #mod .qc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px 4px; margin:10px 0}
+  #mod .qcitem{border-top:1px solid var(--line); padding:11px 0} #mod .qcitem:first-of-type{border-top:0}
+  #mod .qcitem .s{font-weight:600; margin:0 0 8px; font-style:italic}
+  #mod .qcitem .opts{display:flex; gap:8px}
+  #mod .qcitem .opt{flex:1; font:inherit; font-weight:700; font-size:.9rem; cursor:pointer; border-radius:8px; padding:8px; border:1.5px solid var(--line); background:var(--field); color:var(--ink)}
+  #mod .qcitem .opt.pick{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #mod .qcitem.right .opt.pick{border-color:var(--good); background:var(--goodsoft); color:var(--good)}
+  #mod .qcitem.wrong .opt.pick{border-color:var(--no); background:var(--nosoft); color:var(--no)}
+  #mod .qcitem .fb{margin-top:8px; font-size:.9rem; color:var(--muted)} #mod .qcitem .fb[hidden]{display:none}
+  #mod .qcbtn{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:9px 15px; border:1px solid var(--accent); background:var(--accent); color:#fff; margin:8px 0}
+  #mod .qcres{font-weight:700; color:var(--accent); margin-left:10px}
+  #mod .steps{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px; margin:12px 0}
+  #mod .steps .st{border-top:1px solid var(--line); padding:13px 0; display:flex; gap:12px; align-items:flex-start} #mod .steps .st:first-child{border-top:0}
+  #mod .steps .st input{width:20px; height:20px; margin-top:3px; accent-color:var(--accent); flex:none}
+  #mod .steps .st .b{flex:1}
+  #mod .steps .st .n{font-weight:800; color:var(--accent); margin-right:4px}
+  #mod .steps .st .t{font-weight:700}
+  #mod .steps .st .d{color:var(--muted); font-size:.92rem; margin-top:2px}
+  #mod .urlrow{margin:12px 0}
+  #mod .urlrow label{display:block; font-weight:600; margin-bottom:5px}
+  #mod .urlrow input{width:100%; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:9px; padding:10px 12px; font:inherit}
+  #mod .urlrow input:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mod .saved{color:var(--good); font-size:.82rem; font-weight:700; opacity:0; transition:opacity .2s} #mod .saved.show{opacity:1}
+  #mod .write{margin:12px 0}
+  #mod .write label{display:block; font-weight:600; margin-bottom:5px}
+  #mod textarea{width:100%; min-height:90px; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6; resize:vertical}
+  #mod textarea.big{min-height:150px}
+  #mod textarea:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #mod .priv{font-size:.82rem; color:var(--muted); margin-top:4px}
+  #mod .voices li{margin:.5rem 0}
+  #mod a.btn{display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font-weight:700; border-radius:9px; padding:12px 20px; margin:8px 0}
+  #mod .duebox{background:var(--duesoft); border:1px solid var(--line); border-left:5px solid var(--due); border-radius:12px; padding:14px 16px; margin:16px 0}
+  #mod .duebox .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--due); display:block; margin-bottom:3px}
+  #mod .close{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-top:22px}
+  #mod .note{color:var(--muted); font-size:.9rem}
+  #mod .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="mod">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Week 14 · Module</p>
+    <h1>Build Your Portfolio</h1>
+    <p class="sub">Your writing has lived in private Google Docs all semester. Now it gets a home: a real, shareable website you build yourself, for free, with no code. This week you set it up, write two new pages, and move your work in.</p>
+    <p class="meta">First of three portfolio weeks. This week: build the shell and load your essays.</p>
+  </header>
+
+  <div class="ground">
+    <span class="lab">You can do this</span>
+    <p>If "build a website" makes your stomach drop, breathe. Google Sites is drag-and-drop, closer to making a slide deck than to coding. If you can type and click, you can build this. And the payoff is real: a link you can put on a resume, a job application, or a grad-school form.</p>
+  </div>
+
+  <p class="part">Part 1 · Learn</p>
+  <h2>What a portfolio is, and why it's worth it</h2>
+  <p>A <button type="button" class="term" data-pop="portfolio">digital portfolio</button> is a small website that collects your best work and presents you as a writer. Yours will hold your three revised pieces plus a short reflection on how you grew. It does two jobs: it shows your <i>range</i> (a personal essay, an argument, an op-ed), and it gives you one link to hand anyone who asks "can you write?"</p>
+
+  <h2>Design serves reading</h2>
+  <p>A portfolio is <button type="button" class="term" data-pop="multimodal">multimodal</button>: words, layout, images, and color make meaning together. You don't need to be a designer. You need a few habits that keep the focus on your writing:</p>
+  <div class="box accent">
+    <ul>
+      <li><b><button type="button" class="term" data-pop="hierarchy">Hierarchy.</button></b> Use headings and spacing so a reader can scan. Big title, clear section headings, readable body text.</li>
+      <li><b>Restraint.</b> One theme, one or two fonts, a small color palette. Busy looks amateur; clean looks confident.</li>
+      <li><b><button type="button" class="term" data-pop="contrast">Contrast and legibility.</button></b> Dark text on a light background (or the reverse). Never light gray on white.</li>
+      <li><b><button type="button" class="term" data-pop="whitespace">Whitespace.</button></b> Empty space isn't wasted; it's what makes a page feel calm and readable. Don't cram.</li>
+      <li><b><button type="button" class="term" data-pop="alt">Accessible images.</button></b> Any image gets <button type="button" class="term" data-pop="alt">alt text</button> so screen-reader users (and search engines) know what it shows.</li>
+    </ul>
+  </div>
+  <div class="sci">
+    <span class="lab">Why design does real work</span>
+    <p>Stanford's Web Credibility research (Fogg et al., 2002) asked thousands of people how they judge whether a website is trustworthy. The single most-cited factor was <i>visual design</i>, ahead of the actual information. Fair or not, a clean, careful-looking site makes a reader trust the writing inside it. Your design is part of your argument for yourself.</p>
+  </div>
+
+  <p class="part">Part 2 · Read (required)</p>
+  <div class="read">
+    <div class="r"><span class="t">Writing in the Digital Age</span> <span class="req">Required</span><div class="c">Voices for Change, p. 204.</div></div>
+    <div class="r"><span class="t">Composing Multimodal Projects</span> <span class="req">Required</span><div class="c">Voices for Change, p. 164.</div></div>
+    <div class="r"><span class="t">New Media and Multimodal Arguments</span> <span class="req">Required</span><div class="c">Voices for Change, p. 182. How layout and image make meaning alongside the words.</div></div>
+  </div>
+
+  <p class="part">Part 3 · Practice</p>
+  <h2>Good design or bad design?</h2>
+  <p>Before you build, tune your eye. For each choice, decide: does it help a reader, or hurt them? Commit, then <b>Check</b>.</p>
+  <div class="qc" id="qc">
+    <div class="qcitem" data-answer="bad">
+      <p class="s">Using five different fonts and three bright background colors so the site "pops."</p>
+      <div class="opts"><button type="button" class="opt" data-pick="good">Helps</button><button type="button" class="opt" data-pick="bad">Hurts</button></div>
+      <div class="fb" hidden>Hurts. Visual noise makes a reader work harder and trust you less. One or two fonts and a small palette read as confident, not boring.</div>
+    </div>
+    <div class="qcitem" data-answer="good">
+      <p class="s">Picking one clean theme and using headings to break each page into clear sections.</p>
+      <div class="opts"><button type="button" class="opt" data-pick="good">Helps</button><button type="button" class="opt" data-pick="bad">Hurts</button></div>
+      <div class="fb" hidden>Helps. Consistency plus a clear hierarchy lets a reader scan and find what they want. This is most of good web design.</div>
+    </div>
+    <div class="qcitem" data-answer="bad">
+      <p class="s">Dark gray text on a black background because it looks sleek and moody.</p>
+      <div class="opts"><button type="button" class="opt" data-pick="good">Helps</button><button type="button" class="opt" data-pick="bad">Hurts</button></div>
+      <div class="fb" hidden>Hurts. Low contrast is hard for everyone to read and impossible for some. Legibility beats mood every time; keep text and background far apart in brightness.</div>
+    </div>
+    <div class="qcitem" data-answer="good">
+      <p class="s">Writing a short alt-text description for the photo on your home page.</p>
+      <div class="opts"><button type="button" class="opt" data-pick="good">Helps</button><button type="button" class="opt" data-pick="bad">Hurts</button></div>
+      <div class="fb" hidden>Helps. Alt text makes your site usable for people with screen readers, and it's a mark of a thoughtful builder. It takes ten seconds and it's the right thing to do.</div>
+    </div>
+    <button type="button" class="qcbtn" id="qcbtn">Check</button><span class="qcres" id="qcres"></span>
+  </div>
+
+  <p class="part">Part 4 · Compose your two written pages</p>
+  <h2>Your Bio and your Philosophy of Writing</h2>
+  <p>Two pages hold writing you compose fresh, not your essays. Draft them here first (private, on your computer), then move them onto your site.</p>
+
+  <h3>1. Your Bio</h3>
+  <p>A short paragraph introducing you as a writer and a person: where you're from, what you care about, what you find yourself writing toward. Warm and specific reads better than formal and vague. A few sentences is plenty.</p>
+  <div class="write">
+    <label for="w_bio">Draft your bio:</label>
+    <textarea id="w_bio" data-save placeholder="I'm a first-year student from… What I keep coming back to when I write is…"></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_bio">Saved ✓</span></div>
+  </div>
+
+  <h3>2. Your Philosophy of Writing</h3>
+  <p>This is the heart of your portfolio: a short piece (a few paragraphs) on what you believe writing <i>is</i> and what it can <i>do</i>, especially its power to reach across difference, tell the truth, and change something in the world. You've spent a semester watching writing heal, argue, and reach a public. Now say what you make of it.</p>
+
+  <div class="box accent">
+    <p><b>Voices to think with.</b> For as long as people have written, they've argued that writing is a force for good, for justice, for our shared humanity. Read these, then answer them with your own view.</p>
+    <ul class="voices">
+      <li><b>James Baldwin</b> (novelist and civil-rights essayist): "You write in order to change the world… If you alter, even by a millimeter, the way people look at reality, then you can change it."</li>
+      <li><b>Toni Morrison</b> (Nobel-winning novelist): "This is precisely the time when artists go to work… We speak, we write, we do language. That is how civilizations heal."</li>
+      <li><b>Frederick Douglass</b> (abolitionist who taught himself to read while enslaved): learning to read and write was, he wrote, "the pathway from slavery to freedom."</li>
+      <li><b>Audre Lorde</b> (poet and activist): "Your silence will not protect you." Language, she argued, is how the unheard claim their power.</li>
+      <li><b>Maya Angelou</b> (poet and memoirist): "There is no greater agony than bearing an untold story inside you."</li>
+      <li><b>Anne Frank</b> (diarist, writing in hiding): "I can shake off everything as I write; my sorrows disappear, my courage is reborn."</li>
+    </ul>
+  </div>
+
+  <p>Use these prompts to find your own position. You don't have to answer all of them, follow the ones with heat:</p>
+  <div class="box">
+    <ul>
+      <li>Finish the sentence: "Writing is…" What is it <i>for</i>?</li>
+      <li>Name one time writing changed something, for you, or for the world.</li>
+      <li>Which voice above do you agree with, or argue against, and why?</li>
+      <li>What can writing do about the things that are wrong, injustice, silence, being unseen or misunderstood?</li>
+      <li>End on your own one-line credo: what you believe writing can do.</li>
+    </ul>
+  </div>
+  <div class="write">
+    <label for="w_philosophy">Draft your philosophy of writing:</label>
+    <textarea id="w_philosophy" class="big" data-save placeholder="Writing is… I believe it can…"></textarea>
+    <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_philosophy">Saved ✓</span></div>
+  </div>
+
+  <p class="part">Part 5 · Build &amp; publish</p>
+  <h2>Build your portfolio shell, step by step</h2>
+  <p>Work through these on <a href="https://sites.google.com" target="_blank" rel="noopener">Google Sites</a> (free, and your App State Google account already has it). Tick each as you finish, this saves on your computer.</p>
+  <div class="steps" id="steps">
+    <div class="st"><input type="checkbox" data-s="1"><div class="b"><span class="n">1.</span><span class="t">Create the site.</span><div class="d">Go to sites.google.com, sign in, and click the blank "+" to start a new site. Give it a name in the top-left, and type a title into the banner (for example, "The Writing of [Your Name]").</div></div></div>
+    <div class="st"><input type="checkbox" data-s="2"><div class="b"><span class="n">2.</span><span class="t">Add your pages.</span><div class="d">In the <b>Pages</b> panel on the right, add a page for each part of your portfolio: Home, Bio, Personal Essay, Argument, Op-Ed, Philosophy of Writing, and Reflection (you'll write the reflection next week). The top navigation menu builds itself from your pages.</div></div></div>
+    <div class="st"><input type="checkbox" data-s="3"><div class="b"><span class="n">3.</span><span class="t">Move your writing in.</span><div class="d">On each essay page, use the <b>Insert</b> panel. Easiest options: paste the text and format it with the Heading and Normal-text styles, or use Insert &rarr; From Drive to embed the Google Doc, or upload a PDF. Paste your Bio and Philosophy of Writing drafts (from Part 4) onto their pages too. Keep the formatting simple and consistent.</div></div></div>
+    <div class="st"><input type="checkbox" data-s="4"><div class="b"><span class="n">4.</span><span class="t">Design it.</span><div class="d">Open the <b>Themes</b> panel, pick one clean theme, choose a font style, and set a simple color. Use Heading styles for structure and leave generous whitespace. If you add an image, give it <button type="button" class="term" data-pop="alt">alt text</button> (right-click the image &rarr; Add alt text).</div></div></div>
+    <div class="st"><input type="checkbox" data-s="5"><div class="b"><span class="n">5.</span><span class="t">Write a one-line Home intro.</span><div class="d">On the Home page, add a sentence or two: who you are and what this site is. The full reflective introduction comes next week; this is just a placeholder greeting.</div></div></div>
+    <div class="st"><input type="checkbox" data-s="6"><div class="b"><span class="n">6.</span><span class="t">Publish and get your link.</span><div class="d">Click <button type="button" class="term" data-pop="publish">Publish</button> (top-right), choose a web address, and set who can view it to "Anyone with the link." Copy that link, that's your portfolio, live on the internet.</div></div></div>
+    <div class="st"><input type="checkbox" data-s="7"><div class="b"><span class="n">7.</span><span class="t">Triple-check the link works, for other people.</span><div class="d">This is the step everyone skips and regrets. Copy your published link and open it in a <b>private / incognito window</b> (or text it to a friend and ask if it opens). If it demands a login or says "access denied," your site isn't really public yet, fix the sharing to "Anyone with the link," re-publish, and check again. <b>Only submit the link to me on AsULearn once you've seen it load for someone who isn't signed in as you.</b> A link I can't open is a portfolio I can't grade.</div></div></div>
+  </div>
+
+  <div class="urlrow">
+    <label for="w_url">Paste your published portfolio link here so you have it for submission:</label>
+    <input type="text" id="w_url" data-save placeholder="https://sites.google.com/view/…">
+    <div class="note" style="margin-top:4px">Saves on your own computer. <span class="saved" data-for="w_url">Saved ✓</span></div>
+  </div>
+
+  <p><a class="btn" href="https://sites.google.com" target="_blank" rel="noopener">Open Google Sites &rarr;</a></p>
+
+  <div class="close">
+    <p><b>You have a website.</b> Not a folder of documents, an actual place on the internet with your name and your work on it. And it's built to keep growing: think of it as a <b>living document</b>. As you move through college, you'll add work you're proud of, research from your major, an internship project, writing from a field you haven't even picked yet, until, by graduation, it's a full record of what you can do. It's the link you send a prospective employer as proof you can think and write, so they don't have to take your word for it. And maybe it does one more thing: reminds you that your voice belongs in public, and nudges you to keep writing in other spaces and share what you know. Next week you make it shine: revise your strongest piece one more time and write the reflective introduction that ties the whole portfolio together.</p>
+  </div>
+
+  <div class="duebox">
+    <span class="lab">Due this week (Sunday)</span>
+    <p>Your <b>portfolio shell</b>: a published Google Site with Home, Bio, a page for each of your three essays (drafts loaded in), and your Philosophy of Writing page, everything readable. <b>Before you submit,</b> open your published link in a private window to confirm it loads for someone who isn't you. Then submit that verified <b>published link</b> on AsULearn. It doesn't need to be perfect yet; it needs to exist, hold your work, and actually open.</p>
+  </div>
+
+  <dialog class="pop" id="pop-portfolio"><h3>Digital portfolio</h3><p>A small website that gathers your best work in one place to show what you can do. Writers, designers, and students all keep them. Example: a link on your resume that opens to your three polished essays and a short intro, instead of a professor having to take your word for it. It turns "I can write" into "here, see for yourself."</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-multimodal"><h3>Multimodal</h3><p>Communicating through more than one "mode" at once, words plus images, layout, color, and sometimes sound or video. A printed essay is one mode (text); a web page is multimodal. Example: on your op-ed page, the headline's size, a relevant photo, and the spacing all shape how a reader takes in your words. Design becomes part of the meaning.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-hierarchy"><h3>Visual hierarchy</h3><p>Arranging a page so the eye knows what's most important and in what order, usually through size and spacing. Example: a big page title, medium section headings, and normal body text tell a reader "start here, then here." Without hierarchy, everything looks equally important, which means nothing stands out. Headings are your main tool.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-contrast"><h3>Contrast (legibility)</h3><p>The difference in brightness between text and its background. High contrast (dark text on light, or light on dark) is easy to read; low contrast (gray on white, dark gray on black) strains the eyes and fails for readers with low vision. Example: black text on white passes; light-gray text on a white background does not. When unsure, make the difference bigger.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-whitespace"><h3>Whitespace</h3><p>The empty space around and between elements on a page. It isn't wasted room; it's what lets content breathe and reads as calm and professional. Example: a page with wide margins and space between sections feels easy; the same text crammed edge to edge feels stressful. When a page looks busy, the fix is usually more space, not more stuff.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-alt"><h3>Alt text</h3><p>A short written description of an image, read aloud by screen readers and shown if the image fails to load. Example: for a photo of your grandmother's kitchen, the alt text might be "a small kitchen with mismatched mugs on open shelves." It makes your site usable for people who can't see the image, and it takes seconds. In Google Sites: right-click the image, choose Add alt text.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-publish"><h3>Publishing (Google Sites)</h3><p>Making your site live on the internet at a real web address. In Google Sites, "Publish" is a separate step from editing, your edits don't go public until you click it. Example: you build and rearrange privately, then Publish when it's ready, and choose "Anyone with the link" so the people you share it with can view it. Re-click Publish each time you want new changes to go live.</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  var PREFIX="rc1000w14:";
+  document.querySelectorAll('#mod [data-save]').forEach(function(el){
+    try{ var v=localStorage.getItem(PREFIX+el.id); if(v!==null) el.value=v; }catch(e){}
+    var flag=document.querySelector('.saved[data-for="'+el.id+'"]');
+    el.addEventListener('input', function(){ try{ localStorage.setItem(PREFIX+el.id, el.value); }catch(e){} if(flag){ flag.classList.add('show'); clearTimeout(flag._t); flag._t=setTimeout(function(){flag.classList.remove('show');},1100);} });
+  });
+  document.querySelectorAll('#steps input[data-s]').forEach(function(cb){
+    var key=PREFIX+'step_'+cb.getAttribute('data-s');
+    try{ cb.checked = localStorage.getItem(key)==='1'; }catch(e){}
+    cb.addEventListener('change', function(){ try{ localStorage.setItem(key, cb.checked?'1':'0'); }catch(e){} });
+  });
+  var items=Array.prototype.slice.call(document.querySelectorAll('#qc .qcitem'));
+  items.forEach(function(it){
+    var opts=it.querySelectorAll('.opt');
+    opts.forEach(function(o){ o.addEventListener('click', function(){ opts.forEach(function(x){x.classList.remove('pick');}); o.classList.add('pick'); it.dataset.pick=o.getAttribute('data-pick'); it.classList.remove('right','wrong'); it.querySelector('.fb').hidden=true; document.getElementById('qcres').textContent=''; }); });
+  });
+  document.getElementById('qcbtn').addEventListener('click', function(){
+    var correct=0, all=true;
+    items.forEach(function(it){
+      it.classList.remove('right','wrong');
+      if(!it.dataset.pick){ all=false; return; }
+      var right = it.dataset.pick===it.getAttribute('data-answer');
+      it.classList.add(right?'right':'wrong'); it.querySelector('.fb').hidden=false; if(right) correct++;
+    });
+    document.getElementById('qcres').textContent = all ? ('You got '+correct+' of '+items.length+'.') : 'Answer all '+items.length+' first.';
+  });
+  document.querySelectorAll('[data-pop]').forEach(function(b){ b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); }); });
+  document.querySelectorAll('dialog.pop').forEach(function(d){ d.addEventListener('click', function(e){ if(e.target===d) d.close(); }); });
+})();
+</script>
+</body>
+</html>

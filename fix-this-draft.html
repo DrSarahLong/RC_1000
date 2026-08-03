@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Fix This Draft</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; --gold:#a3771f;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; --gold:#d8b168; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #fx{max-width:760px; margin:0 auto; padding:28px 20px 90px}
+  #fx h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.8rem; margin:0}
+  #fx .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #fx .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:16px}
+  #fx .sub{color:var(--muted); margin:6px 0 0}
+  #fx .how{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:13px 16px; margin-bottom:12px; font-size:.95rem}
+  #fx .how b{color:var(--accent)}
+
+  #fx .bankwrap{position:sticky; top:0; z-index:5; background:var(--paper); padding:10px 0 6px; margin-bottom:2px}
+  #fx .banklab{font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; font-weight:800; color:var(--accent); margin-bottom:6px}
+  #fx .bank{display:flex; flex-wrap:wrap; gap:8px; min-height:20px}
+  #fx .chip{display:inline-block; background:var(--field); border:1.5px solid var(--accent); color:var(--ink); border-radius:999px; padding:7px 13px; font-size:.9rem; font-weight:600; cursor:grab; user-select:none; touch-action:manipulation}
+  #fx .chip:active{cursor:grabbing}
+  #fx .chip.sel{background:var(--accent); color:#fff; box-shadow:0 0 0 3px var(--accent-soft)}
+
+  #fx .manuscript{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:8px 18px 14px; margin:10px 0}
+  #fx .manuscript .title{font-family:Georgia,serif; font-weight:700; font-size:1.15rem; margin:12px 0 4px; text-align:center}
+  #fx .para{border-top:1px dashed var(--line); padding:12px 0 14px; border-left:4px solid transparent; padding-left:10px; margin-left:-10px; border-radius:6px}
+  #fx .para:first-of-type{border-top:0}
+  #fx .para.right{border-left-color:var(--good); background:var(--goodsoft)}
+  #fx .para.wrong{border-left-color:var(--no); background:var(--nosoft)}
+  #fx .num{font-size:.72rem; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); font-weight:800}
+  #fx .ptext{font-family:Georgia,"Iowan Old Style",serif; font-size:1.05rem; line-height:1.7; margin:4px 0 8px}
+  #fx .slot{min-height:42px; border:1.5px dashed var(--line); border-radius:9px; padding:6px 8px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; background:var(--field)}
+  #fx .slot.over{border-color:var(--accent); background:var(--accent-soft)}
+  #fx .slot.filled{border-style:solid}
+  #fx .slot .hint{color:var(--muted); font-size:.85rem}
+  #fx .mark{font-weight:800; font-size:.85rem}
+  #fx .para.right .mark{color:var(--good)} #fx .para.wrong .mark{color:var(--no)}
+  #fx .diag{margin-top:9px; border-radius:8px; padding:11px 13px; font-size:.94rem; background:var(--card); border:1px solid var(--line)}
+  #fx .diag[hidden]{display:none}
+  #fx .diag .lab{font-weight:800; text-transform:uppercase; letter-spacing:.04em; font-size:.72rem; color:var(--accent)}
+  #fx .diag .fixline{margin-top:5px} #fx .diag .fixline b{color:var(--accent)}
+  #fx .controls{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:14px 0}
+  #fx button.act{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:11px 18px; border:1px solid var(--accent); background:var(--accent); color:#fff}
+  #fx button.act.ghost{background:transparent; color:var(--accent); font-weight:600}
+  #fx button.act:focus-visible{outline:3px solid var(--accent); outline-offset:2px}
+  #fx #result{font-weight:700}
+  #fx .done{margin-top:22px; background:var(--card); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:12px; padding:16px 18px}
+  #fx .done b{color:var(--accent)}
+  #fx .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  #fx .term:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:4px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0}
+  dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="fx">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Week 5 · Practice</p>
+    <h1>Fix This Draft</h1>
+    <p class="sub">Revising your own writing is hard because you're too close to it. So first, sharpen your eye on someone else's. Below is a real-ish first draft of a personal essay, "My Trip."</p>
+  </header>
+
+  <div class="how">
+    <p><b>You diagnose it.</b> Drag each label from the bank onto the paragraph you think it describes (on a phone, tap a label, then tap a paragraph's slot). Place all five, then hit <b>Check</b>. The goal isn't fixing commas, it's <button type="button" class="term" data-pop="reseeing">re-seeing the whole essay</button>: what's it about, what's buried, what should go.</p>
+  </div>
+
+  <div class="bankwrap">
+    <div class="banklab">The problems (drag onto a paragraph)</div>
+    <div class="bank" id="bank">
+      <span class="chip" id="chip-open" data-key="open" draggable="true">Announces the topic (+ clichés)</span>
+      <span class="chip" id="chip-summary" data-key="summary" draggable="true">Plot summary: "and then… and then"</span>
+      <span class="chip" id="chip-vague" data-key="vague" draggable="true">Vague words + a comma splice</span>
+      <span class="chip" id="chip-heart" data-key="heart" draggable="true">The real story, buried in a run-on</span>
+      <span class="chip" id="chip-conclusion" data-key="conclusion" draggable="true">Formulaic, clichéd ending</span>
+    </div>
+  </div>
+
+  <div class="manuscript">
+    <p class="title">My Trip</p>
+
+    <div class="para" data-para data-answer="open">
+      <p class="num">Paragraph 1</p>
+      <p class="ptext">This essay is going to be about the summer I spent at my grandma's house and how it really changed me as a person and taught me some important lessons about life and family.</p>
+      <div class="slot" data-slot><span class="hint">drop a label here</span></div>
+      <div class="diag" hidden><span class="lab">Announces the topic (+ clichés)</span> It states the subject ("This essay is going to be about…") instead of dropping us into a moment, and leans on <button type="button" class="term" data-pop="cliche">clichés</button> ("changed me as a person," "important lessons about life and family").<div class="fixline"><b>Fix:</b> Cut the <button type="button" class="term" data-pop="throatclearing">throat-clearing</button> and open in a <button type="button" class="term" data-pop="scene">scene</button>.</div></div>
+    </div>
+
+    <div class="para" data-para data-answer="summary">
+      <p class="num">Paragraph 2</p>
+      <p class="ptext">First we drove there, which took about five hours. We stopped at a gas station on the way and I got some snacks. When we finally arrived we unpacked the car and then we ate dinner and went to bed.</p>
+      <div class="slot" data-slot><span class="hint">drop a label here</span></div>
+      <div class="diag" hidden><span class="lab">Plot summary</span> An "and then… and then…" schedule of the day with no point. None of it matters to the real story.<div class="fixline"><b>Fix:</b> Cut it, or compress to one line. Ask: what is this paragraph <i>for</i>?</div></div>
+    </div>
+
+    <div class="para" data-para data-answer="vague">
+      <p class="num">Paragraph 3</p>
+      <p class="ptext">My grandma was really nice and we did a lot of fun things together, it was a great time and I learned a lot from her.</p>
+      <div class="slot" data-slot><span class="hint">drop a label here</span></div>
+      <div class="diag" hidden><span class="lab">Vague words + a comma splice</span> Abstractions ("nice," "fun things," "a lot") <button type="button" class="term" data-pop="showtell">tell instead of show</button>, and there's a <button type="button" class="term" data-pop="splice">comma splice</button> ("together, it was a great time").<div class="fixline"><b>Fix:</b> Replace with one concrete scene; split the spliced sentence.</div></div>
+    </div>
+
+    <div class="para" data-para data-answer="heart">
+      <p class="num">Paragraph 4</p>
+      <p class="ptext">One morning we went fishing at the lake right as the sun was coming up and the water was really still and my grandma started telling me a story about my mom from when she was a little girl that I had never heard before about a time she ran away from home and it honestly made me see my whole family in a different way.</p>
+      <div class="slot" data-slot><span class="hint">drop a label here</span></div>
+      <div class="diag" hidden><span class="lab">The real story, buried in a run-on</span> Here is the <button type="button" class="term" data-pop="buried">actual essay</button>, the mom story, the fishing morning, but it's trapped in one breathless <button type="button" class="term" data-pop="runon">run-on</button> and stuck at the bottom.<div class="fixline"><b>Fix:</b> Open <i>here</i>. Slow it down, give it room, and build the whole essay toward it.</div></div>
+    </div>
+
+    <div class="para" data-para data-answer="conclusion">
+      <p class="num">Paragraph 5</p>
+      <p class="ptext">In conclusion, my summer at my grandma's was a very memorable experience that I will never forget and it taught me the importance of family.</p>
+      <div class="slot" data-slot><span class="hint">drop a label here</span></div>
+      <div class="diag" hidden><span class="lab">Formulaic, clichéd ending</span> A canned "In conclusion" plus clichés ("memorable experience I'll never forget," "the importance of family") that restate instead of landing.<div class="fixline"><b>Fix:</b> End on a specific image only your fishing-morning story could earn.</div></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button type="button" class="act" id="check">Check my answers</button>
+    <button type="button" class="act ghost" id="reset">Reset</button>
+    <span id="result"></span>
+  </div>
+
+  <div class="done" id="done" hidden>
+    <p><b>The big move isn't fixing these sentences one at a time.</b> It's re-seeing the whole draft. Cut the drive and the day's schedule, open on the lake at sunrise, and make the buried story about your mom the heart. That's what the researcher <button type="button" class="term" data-pop="sommers">Nancy Sommers</button> found separates experienced writers from beginners: beginners swap words, experienced writers <b>re-see and restructure</b>. Now take that same eye to your own draft.</p>
+  </div>
+
+  <dialog class="pop" id="pop-reseeing"><h3>Re-seeing (what revision means)</h3><p>"Revision" literally means <i>seeing again</i>. It's not proofreading. Donald Murray said writing <i>is</i> rewriting: a first draft is how you find out what you have to say, and revision is where you actually say it. Re-seeing means looking at the whole, its point, shape, and order, before you touch a comma.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-sommers"><h3>Nancy Sommers on revision</h3><p>In her classic study "Revision Strategies of Student Writers and Experienced Adult Writers" (your reading this week), Sommers found beginners tidy up words on the surface, while experienced writers revise for <i>meaning</i>, cutting, reordering, discovering what they didn't know they thought. The lesson: revise the whole before the words.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-throatclearing"><h3>Throat-clearing</h3><p>The warm-up sentences at the start of a draft before the writer gets to the real thing, "This essay is about…," "Ever since I was little…." They announce a topic instead of starting it. The first strong sentence is usually the second or third one; cut everything before it.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-scene"><h3>Open in a scene</h3><p>A scene is a specific moment shown in real time, a place, a person, an action, so the reader is <i>there</i>. Compare "This essay is about my grandma" with "The lake was still and gray when my grandma cut the engine." Strong personal essays drop you into a moment instead of introducing the topic.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-cliche"><h3>Clichés</h3><p>Phrases so worn they've stopped meaning anything: "changed me as a person," "memorable experience I'll never forget," "the importance of family." They feel like writing but say nothing specific. Replace them with the actual concrete thing that happened to <i>you</i>.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-showtell"><h3>Show, don't (only) tell</h3><p>"Telling" states a conclusion ("my grandma was nice"). "Showing" gives the evidence and lets the reader conclude it ("she saved the crossword for us to do together"). A personal essay lives on shown, specific moments. When you catch a vague summary, ask: what's the scene underneath it?</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-splice"><h3>Comma splice</h3><p>Two complete sentences joined by only a comma: "we did fun things together<b>,</b> it was a great time." Fix three ways: a period, a semicolon, or a joining word ("…together, <i>and</i> it was…"). We drill sentence fixes like this next week; this week stays on the big picture.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-buried"><h3>The buried lead</h3><p>Often the real essay is hiding near the end, in the one paragraph that suddenly has heat. Writers "warm up" for a page before they reach what they came to say. The move: find that buried moment and rebuild the essay around it, up front. It's the most common, most powerful personal-essay fix.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-runon"><h3>Run-on sentence</h3><p>A sentence that keeps adding "and… and… and…" until it can't breathe, like paragraph 4's single 60-word sentence. Fine in a first draft (you rushing to get it down). In revision you break it up and let the important beats land.</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  var bank = document.getElementById('bank');
+  var slots = Array.prototype.slice.call(document.querySelectorAll('#fx [data-slot]'));
+  var paras = Array.prototype.slice.call(document.querySelectorAll('#fx [data-para]'));
+  var result = document.getElementById('result');
+  var done = document.getElementById('done');
+  var selected = null, dragging = null;
+
+  function clearResult(){
+    result.textContent = '';
+    done.hidden = true;
+    paras.forEach(function(p){ p.classList.remove('right','wrong'); var m=p.querySelector('.mark'); if(m) m.remove(); var d=p.querySelector('.diag'); if(d) d.hidden=true; });
+  }
+  function updateHint(slot){
+    var hint = slot.querySelector('.hint');
+    var hasChip = slot.querySelector('.chip');
+    if(hint) hint.style.display = hasChip ? 'none' : '';
+    slot.classList.toggle('filled', !!hasChip);
+  }
+  function select(chip){
+    if(selected===chip){ chip.classList.remove('sel'); selected=null; return; }
+    if(selected) selected.classList.remove('sel');
+    selected = chip; chip.classList.add('sel');
+  }
+  function place(chip, slot){
+    var existing = slot.querySelector('.chip');
+    if(existing && existing!==chip) bank.appendChild(existing);
+    var prevSlot = chip.closest('[data-slot]');
+    slot.insertBefore(chip, slot.firstChild);
+    chip.classList.remove('sel'); if(selected===chip) selected=null;
+    if(prevSlot) updateHint(prevSlot);
+    slots.forEach(updateHint);
+    clearResult();
+  }
+  function toBank(chip){
+    var prevSlot = chip.closest('[data-slot]');
+    bank.appendChild(chip); chip.classList.remove('sel'); if(selected===chip) selected=null;
+    if(prevSlot) updateHint(prevSlot);
+    clearResult();
+  }
+
+  document.querySelectorAll('#fx .chip').forEach(function(chip){
+    chip.addEventListener('dragstart', function(e){ dragging=chip; try{ e.dataTransfer.setData('text/plain', chip.id); }catch(err){} });
+    chip.addEventListener('dragend', function(){ dragging=null; });
+    chip.addEventListener('click', function(){
+      if(chip.closest('[data-slot]')) toBank(chip); else select(chip);
+    });
+  });
+  slots.forEach(function(slot){
+    slot.addEventListener('dragover', function(e){ e.preventDefault(); slot.classList.add('over'); });
+    slot.addEventListener('dragleave', function(){ slot.classList.remove('over'); });
+    slot.addEventListener('drop', function(e){ e.preventDefault(); slot.classList.remove('over'); if(dragging) place(dragging, slot); dragging=null; });
+    slot.addEventListener('click', function(e){ if(e.target.classList.contains('chip')) return; if(selected) place(selected, slot); });
+  });
+
+  document.getElementById('check').addEventListener('click', function(){
+    var correct=0, placedAll=true;
+    paras.forEach(function(p){
+      var slot=p.querySelector('[data-slot]'); var chip=slot.querySelector('.chip'); var diag=p.querySelector('.diag');
+      p.classList.remove('right','wrong'); var m=p.querySelector('.mark'); if(m) m.remove();
+      if(!chip){ placedAll=false; return; }
+      var right = chip.getAttribute('data-key')===p.getAttribute('data-answer');
+      p.classList.add(right?'right':'wrong');
+      var span=document.createElement('span'); span.className='mark'; span.textContent = right?' ✓ good catch':' ✗ not this one';
+      slot.appendChild(span);
+      if(diag) diag.hidden=false;
+      if(right) correct++;
+    });
+    if(!placedAll){ result.textContent='Place a label on every paragraph first.'; done.hidden=true; return; }
+    result.textContent = 'You matched '+correct+' of 5.' + (correct===5 ? ' Nice diagnosing.' : ' Read the notes on the red ones and see if you can spot why.');
+    done.hidden = false;
+  });
+  document.getElementById('reset').addEventListener('click', function(){
+    document.querySelectorAll('#fx .chip').forEach(function(c){ bank.appendChild(c); c.classList.remove('sel'); });
+    selected=null; slots.forEach(updateHint); clearResult();
+  });
+
+  document.querySelectorAll('[data-pop]').forEach(function(b){
+    b.addEventListener('click', function(){ var el=document.getElementById('pop-'+b.getAttribute('data-pop')); if(el&&el.showModal) el.showModal(); });
+  });
+  document.querySelectorAll('dialog.pop').forEach(function(d){
+    d.addEventListener('click', function(e){ if(e.target===d) d.close(); });
+  });
+
+  slots.forEach(updateHint);
+})();
+</script>
+</body>
+</html>
