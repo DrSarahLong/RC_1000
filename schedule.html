@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Schedule · RC 1000 Expository Writing</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --gold:#a3771f; --good:#2f7d54; --due:#7a3b1f; --duesoft:#f6ebe1; --navbg:#fbf9f8ee;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --gold:#d8b168; --good:#7ac598; --due:#e0a878; --duesoft:#2c2013; --navbg:#15111aee; }
+  }
+  *{box-sizing:border-box} html,body{margin:0} html{scroll-behavior:smooth}
+  body{background:var(--paper); color:var(--ink); font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  a{color:var(--accent)}
+  .nav{position:sticky; top:0; z-index:20; background:var(--navbg); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
+  .nav .inner{max-width:1000px; margin:0 auto; padding:10px 20px; display:flex; align-items:center; gap:8px 18px; flex-wrap:wrap}
+  .nav .brand{font-family:Georgia,"Iowan Old Style",serif; font-weight:700; font-size:1.05rem; color:var(--ink); text-decoration:none; margin-right:auto}
+  .nav .brand small{display:block; font-family:system-ui,sans-serif; font-weight:600; font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent)}
+  .nav a.lnk{color:var(--ink); text-decoration:none; font-weight:600; font-size:.93rem; padding:4px 2px; border-bottom:2px solid transparent}
+  .nav a.lnk:hover{border-bottom-color:var(--accent); color:var(--accent)}
+  .nav a.lnk[aria-current="page"]{color:var(--accent); border-bottom-color:var(--accent)}
+  .nav a.lms{background:var(--accent); color:#fff; text-decoration:none; font-weight:700; font-size:.9rem; border-radius:8px; padding:8px 14px; white-space:nowrap}
+  .wrap{max-width:900px; margin:0 auto; padding:0 20px 70px}
+  .masthead{padding:36px 0 16px; border-bottom:2px solid var(--ink); margin-bottom:16px}
+  .masthead .kick{font-size:.78rem; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:0 0 6px}
+  .masthead h1{font-family:Georgia,"Iowan Old Style",serif; font-size:2rem; margin:0 0 6px; line-height:1.12}
+  .masthead p{color:var(--muted); margin:6px 0 0; max-width:64ch}
+  .keybox{background:var(--duesoft); border:1px solid var(--line); border-left:5px solid var(--due); border-radius:12px; padding:14px 18px; margin:18px 0}
+  .keybox h2{margin:0 0 6px; font-size:1.05rem; color:var(--due); font-family:system-ui,sans-serif; text-transform:uppercase; letter-spacing:.06em}
+  .keybox ol{margin:.3rem 0 0; padding-left:1.3rem} .keybox li{margin:.3rem 0}
+  .keybox b{color:var(--ink)}
+  .projhead{font-family:Georgia,serif; font-size:1.25rem; margin:28px 0 2px}
+  .projhead .rng{color:var(--muted); font-size:.9rem; font-family:system-ui,sans-serif; font-weight:600}
+  .grid{column-count:2; column-gap:12px; margin-top:10px}
+  @media (max-width:640px){ .grid{column-count:1} }
+  .wk{display:block; break-inside:avoid; margin-bottom:12px; text-decoration:none; color:var(--ink); background:var(--card); border:1px solid var(--line); border-radius:12px; padding:13px 15px; transition:border-color .15s, transform .15s}
+  .wk:hover{border-color:var(--accent); transform:translateY(-1px)}
+  .wk .n{font-size:.68rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--accent)}
+  .wk .t{font-weight:700; margin:2px 0 4px}
+  .wk .d{font-size:.86rem; color:var(--muted)}
+  .wk.due{border-left:4px solid var(--due)}
+  .wk.due .d b{color:var(--due)}
+  .wk .tag{display:inline-block; font-size:.64rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--gold); border:1px solid var(--gold); border-radius:999px; padding:0 7px; margin-left:6px; vertical-align:1px}
+  footer{color:var(--muted); font-size:.9rem; margin-top:34px; padding-top:16px; border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="inner">
+      <a class="brand" href="index.html">RC 1000<small>Expository Writing</small></a>
+      <a class="lnk" href="index.html">Home</a>
+      <a class="lnk" href="syllabus.html">Syllabus</a>
+      <a class="lnk" href="schedule.html" aria-current="page">Schedule</a>
+      <a class="lnk" href="projects.html">Major Projects</a>
+      <a class="lms" href="https://asulearn.appstate.edu/" target="_blank" rel="noopener">AsULearn &rarr;</a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+
+    <header class="masthead">
+      <p class="kick">Appalachian State University · Fall 2026</p>
+      <h1>Schedule &amp; Weekly Work</h1>
+      <p>Sixteen self-contained weekly modules, done on your own schedule. Everything for a week is due that <b>Sunday</b>. Click any week to open its module. Exact calendar dates live on AsULearn.</p>
+    </header>
+
+    <div class="keybox">
+      <h2>Key deadlines</h2>
+      <ol>
+        <li><b>Week 1</b>: First-Day Writing <b>(due Tuesday by noon on AsULearn, required)</b></li>
+        <li><b>Week 3</b>: Working thesis (Personal Essay)</li>
+        <li><b>Week 6</b>: <b>Personal Essay due</b></li>
+        <li><b>Week 7</b>: Working claim (Argument)</li>
+        <li><b>Week 9</b>: Working source set</li>
+        <li><b>Week 11</b>: <b>Argument Essay due</b></li>
+        <li><b>Week 12</b>: Op-Ed pitch + outline</li>
+        <li><b>Week 13</b>: <b>Op-Ed due</b></li>
+        <li><b>Week 14</b>: Portfolio shell (published link)</li>
+        <li><b>Week 16</b>: <b>Digital Portfolio due</b> (culminating)</li>
+      </ol>
+      <p style="margin:.5rem 0 0; font-size:.92rem">Your <b>Writer's Notebook</b> is collected twice for a completion grade: once at <b>midterm</b> and once at the <b>end of term</b>.</p>
+    </div>
+
+    <div class="projhead">Project 1 · Personal Essay <span class="rng">Weeks 1&ndash;6</span></div>
+    <div class="grid">
+      <a class="wk due" href="module-w1-welcome.html"><div class="n">Week 1</div><div class="t">Welcome: Writing to Discover</div><div class="d"><b>Due Tuesday, noon:</b> First-Day Writing (on AsULearn)</div></a>
+      <a class="wk" href="module-w2-invention.html"><div class="n">Week 2</div><div class="t">Finding Your Material</div><div class="d">Invention &amp; expressive writing (notebook)</div></a>
+      <a class="wk" href="module-w3-focus.html"><div class="n">Week 3</div><div class="t">Finding the Heat</div><div class="d"><b>Due:</b> working thesis</div></a>
+      <a class="wk" href="module-w4-drafting.html"><div class="n">Week 4</div><div class="t">The Shitty First Draft</div><div class="d"><b>Due:</b> full rough draft</div></a>
+      <a class="wk" href="module-w5-revision.html"><div class="n">Week 5</div><div class="t">Revision I: Re-Seeing Your Essay</div><div class="d"><b>Due:</b> revised draft</div></a>
+      <a class="wk due" href="module-w6-polish.html"><div class="n">Week 6</div><div class="t">Sentences, Polish &amp; Turning It In</div><div class="d"><b>Personal Essay due</b></div></a>
+    </div>
+
+    <div class="projhead">Project 2 · Argument Grounded in the Personal <span class="rng">Weeks 7&ndash;11</span></div>
+    <div class="grid">
+      <a class="wk" href="module-w7-claim.html"><div class="n">Week 7</div><div class="t">From Experience to a Claim</div><div class="d"><b>Due:</b> working claim</div></a>
+      <a class="wk" href="module-w8-fallacies.html"><div class="n">Week 8</div><div class="t">Fair Argument &amp; Fallacies <span class="tag">Fall Break</span></div><div class="d">Fallacy audit (notebook), lighter week</div></a>
+      <a class="wk" href="module-w9-sources.html"><div class="n">Week 9</div><div class="t">Sources: Think Like a Researcher</div><div class="d"><b>Due:</b> working source set</div></a>
+      <a class="wk" href="module-w10-synthesis.html"><div class="n">Week 10</div><div class="t">Writing Yourself Into the Conversation</div><div class="d"><b>Due:</b> rough draft with sources</div></a>
+      <a class="wk due" href="module-w11-revise-argument.html"><div class="n">Week 11</div><div class="t">Revise the Argument</div><div class="d"><b>Argument Essay due</b></div></a>
+    </div>
+
+    <div class="projhead">Project 3 · Public Op-Ed <span class="rng">Weeks 12&ndash;13</span></div>
+    <div class="grid">
+      <a class="wk" href="module-w12-oped.html"><div class="n">Week 12</div><div class="t">Reading Op-Eds Like a Writer</div><div class="d"><b>Due:</b> pitch + outline</div></a>
+      <a class="wk due" href="module-w13-oped-draft.html"><div class="n">Week 13</div><div class="t">Draft &amp; Revise the Op-Ed</div><div class="d"><b>Op-Ed due</b></div></a>
+    </div>
+
+    <div class="projhead">Digital Portfolio <span class="rng">Weeks 14&ndash;16</span></div>
+    <div class="grid">
+      <a class="wk" href="module-w14-portfolio.html"><div class="n">Week 14</div><div class="t">Build Your Portfolio</div><div class="d"><b>Due:</b> published portfolio shell (link)</div></a>
+      <a class="wk" href="module-w15-revise-reflect.html"><div class="n">Week 15</div><div class="t">Revise &amp; Reflect <span class="tag">Thanksgiving</span></div><div class="d">Revise best piece + reflective intro, lighter week</div></a>
+      <a class="wk due" href="module-w16-finalize.html"><div class="n">Week 16</div><div class="t">Finalize &amp; Submit</div><div class="d"><b>Digital Portfolio due</b> (culminating)</div></a>
+    </div>
+
+    <footer>
+      RC 1000 · Expository Writing · Dr. Sarah Long · Appalachian State University · Fall 2026<br>
+      Schedule subject to reasonable change; changes announced via email. Exact calendar dates are posted on AsULearn.
+    </footer>
+
+  </div>
+</body>
+</html>

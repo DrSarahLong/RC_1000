@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Craft Self-Review</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3;
+    --h-op:rgba(190,60,45,.24); --h-op-b:#b8452d;
+    --h-te:rgba(205,125,30,.26); --h-te-b:#a3541f;
+    --h-sh:rgba(55,150,90,.26); --h-sh-b:#2f7d54;
+    --h-ti:rgba(120,80,165,.28); --h-ti-b:#6b4aa0;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815;
+      --h-op:rgba(224,138,122,.30); --h-op-b:#e08a7a; --h-te:rgba(224,168,120,.30); --h-te-b:#e0a878; --h-sh:rgba(122,197,152,.28); --h-sh-b:#7ac598; --h-ti:rgba(179,164,222,.30); --h-ti-b:#b3a4de; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #csr{max-width:780px; margin:0 auto; padding:28px 20px 90px}
+  #csr h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.95rem; margin:0; line-height:1.15}
+  #csr .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #csr .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:16px}
+  #csr .sub{color:var(--muted); margin:8px 0 0; font-size:1.05rem}
+  #csr h2{font-family:Georgia,"Iowan Old Style",serif; font-size:1.4rem; margin:8px 0 8px}
+  #csr p{margin:.6rem 0}
+  #csr .honest{background:var(--accent-soft); border:1px solid var(--line); border-radius:10px; padding:12px 15px; font-size:.94rem; margin:12px 0 16px}
+  #csr .honest b{color:var(--accent)}
+  #csr label.fld{font-weight:600; display:block; margin-bottom:6px}
+  #csr textarea{width:100%; min-height:200px; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:12px 14px; font:inherit; line-height:1.6; resize:vertical}
+  #csr textarea:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #csr .row{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:10px}
+  #csr button{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:11px 18px; border:1px solid var(--accent); background:var(--accent); color:#fff}
+  #csr button.ghost{background:transparent; color:var(--accent); font-weight:600}
+  #csr .priv{font-size:.82rem; color:var(--muted); margin-top:6px}
+  #csr .out{margin-top:22px}
+  #csr .legend{display:flex; flex-wrap:wrap; gap:8px; margin:6px 0 12px}
+  #csr .chip{font-size:.82rem; font-weight:700; border-radius:999px; padding:3px 11px; border:1px solid var(--line)}
+  #csr .chip .n{opacity:.7; font-weight:800; margin-left:4px}
+  #csr .chip.op{background:var(--h-op)} #csr .chip.te{background:var(--h-te)} #csr .chip.sh{background:var(--h-sh)} #csr .chip.ti{background:var(--h-ti)}
+  #csr .xray{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 18px; max-height:340px; overflow:auto; line-height:1.9}
+  #csr .xray p{margin:.5rem 0}
+  #csr .hl{border-radius:3px; padding:1px 2px; border-bottom:2px solid transparent}
+  #csr .hl-op{background:var(--h-op); border-bottom-color:var(--h-op-b)}
+  #csr .hl-te{background:var(--h-te); border-bottom-color:var(--h-te-b)}
+  #csr .hl-sh{background:var(--h-sh); border-bottom-color:var(--h-sh-b)}
+  #csr .hl-ti{background:var(--h-ti); border-bottom-color:var(--h-ti-b)}
+  #csr .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:15px 18px; margin:12px 0}
+  #csr .card.op{border-left:5px solid var(--h-op-b)} #csr .card.te{border-left:5px solid var(--h-te-b)} #csr .card.sh{border-left:5px solid var(--h-sh-b)} #csr .card.ti{border-left:5px solid var(--h-ti-b)} #csr .card.re{border-left:5px solid var(--accent)}
+  #csr .card h3{margin:0 0 6px; font-size:1.08rem; font-family:Georgia,serif}
+  #csr .quote{background:var(--field); border:1px solid var(--line); border-radius:8px; padding:9px 12px; font-style:italic; margin:8px 0; color:var(--ink)}
+  #csr .judge{display:flex; gap:8px; flex-wrap:wrap; margin:8px 0}
+  #csr .judge button{flex:1 1 auto; background:var(--field); color:var(--ink); border:1.5px solid var(--line); font-weight:700; font-size:.92rem; padding:9px 12px}
+  #csr .judge button.sel{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #csr .tip{margin:8px 0; font-size:.93rem; color:var(--muted)} #csr .tip[hidden]{display:none}
+  #csr .card textarea{min-height:80px}
+  #csr .saved{color:var(--good); font-size:.82rem; font-weight:700; opacity:0; transition:opacity .2s} #csr .saved.show{opacity:1}
+  #csr .note{color:var(--muted); font-size:.9rem}
+  #csr a{color:var(--accent)}
+  #csr .term{background:none;border:0;padding:0;font:inherit;color:var(--accent);font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+  dialog.pop{max-width:540px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);padding:22px 24px;box-shadow:0 24px 60px rgba(20,12,22,.4);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  dialog.pop::backdrop{background:rgba(20,12,22,.55)}
+  dialog.pop h3{font-family:Georgia,"Iowan Old Style",serif;margin:0 0 8px;font-size:1.2rem}
+  dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
+  dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
+</style>
+</head>
+<body>
+<div id="csr">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Craft Self-Review</p>
+    <h1>Read Your Own Draft Like an Editor</h1>
+    <p class="sub">Paste your draft and this will x-ray it, coloring the moves that tend to help or hurt a personal essay. Then it walks you through the calls only you can make. It runs on your computer, and it never leaves it.</p>
+  </header>
+
+  <div class="honest">
+    <b>What this is, and isn't.</b> This can't tell you whether your essay is <i>good</i>. No tool can; that takes a real reader (me, and your own trained eye). What it does is hold up a mirror: it marks the spots that are usually worth a second look, an announcing opener, a feeling told instead of shown, a tidy bow of an ending, so <i>you</i> can decide. The highlights are educated guesses, not verdicts. You're the judge. Nothing you paste is uploaded or saved anywhere but your own browser.
+  </div>
+
+  <label class="fld" for="draft">Paste your draft</label>
+  <textarea id="draft" placeholder="Paste your whole personal essay here…"></textarea>
+  <div class="row">
+    <button type="button" id="go">X-Ray my draft</button>
+    <button type="button" class="ghost" id="clear">Clear</button>
+  </div>
+  <div class="priv">Private, saves only in your own browser.</div>
+
+  <div class="out" id="out" aria-live="polite"></div>
+
+  <dialog class="pop" id="pop-throat"><h3>Throat-clearing</h3><p>The warm-up sentences that announce an essay instead of starting it: "A meaningful experience I had was…," "Ever since I was little…," "This essay is about…." Almost always, your real first sentence is two or three lines down, where something actually happens. Find it and start there.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-showtell"><h3>Showing vs. telling</h3><p>"Telling" states a feeling or conclusion ("I was nervous," "it was amazing"). "Showing" gives the moment, the body, the detail, and lets the reader feel it ("my hands wouldn't hold the cup still"). You need some telling to move and reflect, but the moments that matter should be shown. When the tool marks a "telling" spot, ask: what's the scene underneath it?</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-tidy"><h3>The tidy bow</h3><p>The neat life-lesson at the end ("I learned that everything happens for a reason," "it made me a stronger person"). It's the most common way a personal essay goes false. When you feel a bow forming, question it instead: is that lesson actually true? Always? The honest, unfinished thought is stronger than the tidy one.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-guess"><h3>Why "educated guesses"?</h3><p>This tool matches patterns in your words; it can't understand your meaning. So it will sometimes mark a line that's actually fine, or miss one that isn't. That's expected. Treat every highlight as a nudge to look again, then trust your own judgment. Being able to overrule the tool <i>is</i> the skill you're building.</p><form method="dialog"><button>Got it</button></form></dialog>
+
+</div>
+
+<script>
+(function(){
+  var PREFIX="rc1000csr:";
+  var draft=document.getElementById('draft'), out=document.getElementById('out');
+
+  // restore
+  try{ var d=localStorage.getItem(PREFIX+'draft'); if(d!==null) draft.value=d; }catch(e){}
+  draft.addEventListener('input', function(){ try{ localStorage.setItem(PREFIX+'draft', draft.value); }catch(e){} });
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  var STOP={};"the a an and or but so of to in on at for with as is are was were be been being it its that this these those i my me we our you your he she they them his her their had have has do does did not no if then than about over into out up down just really very much many more most some any all one".split(" ").forEach(function(w){STOP[w]=1;});
+
+  var OPENER=[
+    /^\s*["“]?(a|an|one)\s+(meaningful|memorable|significant|important|impactful|life-?changing|unforgettable|defining)\s+(experience|moment|memory|time|event|day|thing)/i,
+    /^\s*(ever since i was|for as long as i can remember|since the (dawn|beginning) of time|throughout (history|time)|in (today'?s|modern) (society|world)|this (essay|paper|story) is (about|going to)|growing up[,\s]|when i was (little|young|a kid)|from a (young|early) age|all my life|my whole life)/i,
+    /\b(experience|moment|memory|time|event)\s+(that|which)\s+(really\s+)?(changed|shaped|taught|made|defined)\s+me\b/i
+  ];
+  var TIDY=/\b(in (the )?end\b|in conclusion|to sum up|all in all|looking back|i (learned|realized|came to (realize|understand)|now (realize|understand|know))|taught me (that|to|how)|made me (a (stronger|better)|who i am|realize|the person)|everything happens for a reason|hard work (always )?pays off|cherish every|the (real|true)? ?lesson|what i (learned|took away)|(a|the|much) (stronger|better) person|and that('?s| is) how i)/i;
+  var TELL=/\b(felt|feeling|was|were|is|am|seemed|became|got)\b[^.?!]{0,24}\b(happy|sad|angry|mad|scared|afraid|terrified|nervous|anxious|excited|thrilled|devastated|heartbroken|overwhelmed|amazing|incredible|awesome|terrible|awful|great|wonderful|special|magical|electric|intense|emotional|hard|difficult|important|proud|embarrassed|ashamed|lonely|depressed|stressed|hurt|joyful|grateful|upset|frustrated|shocked|surprised|confused|numb)\b/i;
+  var TELL2=/\b(it was (so |very |really )?(hard|difficult|amazing|special|great|the best|the worst)|changed my life|meant (a lot|so much|the world)|i('| wi)ll never forget|one of the (hardest|best|worst)|words can'?t describe)\b/i;
+  var SHOW=/["“”]|\b(hand|hands|knee|knees|chest|throat|stomach|gut|breath|breathe|breathing|sweat|sweaty|shaking|shook|trembl|grip|gripped|clench|cold|warm|hot|cool|damp|smell|smelled|scent|floor|door|hallway|window|wind|rain|snow|sun|light|shadow|dark|loud|quiet|silence|whisper|slam|slammed|footsteps|tears|cried|crying|fingers|shoulder|jaw|knuckles|nod|nodded|leaned|bounced|folded|creak|engine|gravel|kitchen|counter|porch|blanket|goggles|receipt|steering)\b/i;
+
+  function analyze(text){
+    var paras=text.split(/\n\s*\n/).map(function(t){return t.trim();}).filter(Boolean);
+    if(paras.length<=1) paras=text.split(/\n/).map(function(t){return t.trim();}).filter(Boolean);
+    var counts={op:0,te:0,sh:0,ti:0};
+    var flaggedTell=[], openerSentence='', tidySentence='', firstDone=false;
+    var htmlParas=[], words=0;
+    paras.forEach(function(p, pi){
+      var isLast = pi===paras.length-1;
+      var sents = p.match(/[^.!?]+[.!?]*/g) || [p];
+      var out='';
+      sents.forEach(function(sRaw){
+        var s=sRaw.trim(); if(!s){ out+=esc(sRaw); return; }
+        words += (s.match(/[A-Za-z0-9'’-]+/g)||[]).length;
+        var cls='', isFirst=!firstDone;
+        var isOpener = isFirst && OPENER.some(function(r){return r.test(s);});
+        if(isOpener){ cls='op'; counts.op++; openerSentence=s; }
+        else if(isLast && TIDY.test(s)){ cls='ti'; counts.ti++; if(!tidySentence) tidySentence=s; }
+        else if(SHOW.test(s)){ cls='sh'; counts.sh++; }
+        else if(TELL.test(s) || TELL2.test(s)){ cls='te'; counts.te++; if(flaggedTell.length<3) flaggedTell.push(s); }
+        out += '<span class="hl'+(cls?(' hl-'+cls):'')+'">'+esc(sRaw)+'</span>';
+        firstDone=true;
+      });
+      htmlParas.push('<p>'+out+'</p>');
+    });
+    // word lean (light repetition signal)
+    var freq={}, repeats=[];
+    (text.toLowerCase().match(/[a-z']+/g)||[]).forEach(function(w){ if(w.length>=5 && !STOP[w]){ freq[w]=(freq[w]||0)+1; } });
+    var leaned=Object.keys(freq).filter(function(w){return freq[w]>=4;}).sort(function(a,b){return freq[b]-freq[a];}).slice(0,3);
+    if(leaned.length) repeats.push(leaned.map(function(w){return '"'+w+'" ('+freq[w]+'×)';}).join(', '));
+    return {html:htmlParas.join(''), counts:counts, flaggedTell:flaggedTell, openerSentence:openerSentence, tidySentence:tidySentence, repeats:repeats, paras:paras.length, words:words};
+  }
+
+  var A=null; // last analysis
+
+  function saveField(el, key){
+    try{ var v=localStorage.getItem(PREFIX+key); if(v!==null) el.value=v; }catch(e){}
+    var flag=el.parentNode.querySelector('.saved');
+    el.addEventListener('input', function(){ try{ localStorage.setItem(PREFIX+key, el.value); }catch(e){} if(flag){ flag.classList.add('show'); clearTimeout(flag._t); flag._t=setTimeout(function(){flag.classList.remove('show');},1100);} });
+  }
+
+  function rewriteBox(key, label){
+    return '<label class="fld" style="font-weight:600;font-size:.92rem;margin-top:6px">'+label+'</label>'
+      +'<textarea data-key="'+key+'" placeholder="Your rewrite…"></textarea>'
+      +'<div class="priv"><span class="saved">Saved ✓</span></div>';
+  }
+
+  function render(){
+    var a=analyze(draft.value.trim());
+    A=a;
+    if(a.words<40){ out.innerHTML='<p class="note">Paste a real chunk of your draft (a few paragraphs), then x-ray it.</p>'; return; }
+    var c=a.counts;
+    var html='';
+    html+='<h2>Your draft, x-rayed</h2>';
+    html+='<p class="note">Hover-free color map of your own words. Every mark is a <button type="button" class="term" data-pop="guess">nudge to look again</button>, not a verdict.</p>';
+    html+='<div class="legend">'
+      +'<span class="chip op">announcing opener<span class="n">'+c.op+'</span></span>'
+      +'<span class="chip te">telling<span class="n">'+c.te+'</span></span>'
+      +'<span class="chip sh">showing<span class="n">'+c.sh+'</span></span>'
+      +'<span class="chip ti">tidy ending<span class="n">'+c.ti+'</span></span>'
+      +'</div>';
+    html+='<div class="xray">'+a.html+'</div>';
+
+    html+='<h2 style="margin-top:22px">Now the calls only you can make</h2>';
+
+    // OPENER
+    if(a.openerSentence){
+      html+='<div class="card op" data-fix="opener"><h3>Your opening</h3>'
+        +'<p class="note">A strong personal essay usually starts <i>in</i> a moment, not with an announcement of the topic (that\'s <button type="button" class="term" data-pop="throat">throat-clearing</button>).</p>'
+        +'<div class="quote">'+esc(a.openerSentence)+'</div>'
+        +'<p style="font-weight:600;margin-bottom:4px">Your call: scene, or throat-clearing?</p>'
+        +'<div class="judge"><button type="button" data-v="scene">It\'s a scene</button><button type="button" data-v="throat">It\'s throat-clearing</button></div>'
+        +'<div class="tip" data-v="scene" hidden>If you\'re sure, keep it, just double-check it drops us into a specific moment (a place, an action) rather than summarizing.</div>'
+        +'<div class="tip" data-v="throat" hidden>Good eye. Find the first line where something actually happens (often 2–3 sentences down) and start there. Rewrite your opening as a moment:</div>'
+        +rewriteBox('rw_open','Rewrite your opening as a scene:')
+        +'</div>';
+    }
+    // TELLING
+    if(a.flaggedTell.length){
+      html+='<div class="card te" data-fix="tell"><h3>'+a.flaggedTell.length+' spot'+(a.flaggedTell.length>1?'s':'')+' that may <button type="button" class="term" data-pop="showtell">tell</button> instead of show</h3>'
+        +'<p class="note">Naming a feeling ("I was nervous") is weaker than showing it ("my hands wouldn\'t hold the cup still"). Pick the one that matters most and put us inside the moment.</p>';
+      a.flaggedTell.forEach(function(s){ html+='<div class="quote">'+esc(s)+'</div>'; });
+      html+=rewriteBox('rw_tell','Take one of these and rewrite it as a shown moment:')
+        +'</div>';
+    }
+    // TIDY
+    if(a.tidySentence){
+      html+='<div class="card ti" data-fix="tidy"><h3>Your ending</h3>'
+        +'<p class="note">This looks like it may wrap up in a <button type="button" class="term" data-pop="tidy">tidy lesson</button>. The truer, unfinished thought is usually stronger.</p>'
+        +'<div class="quote">'+esc(a.tidySentence)+'</div>'
+        +'<p style="font-weight:600;margin-bottom:4px">Your call: earned, or a tidy bow?</p>'
+        +'<div class="judge"><button type="button" data-v="earned">Earned</button><button type="button" data-v="bow">Tidy bow</button></div>'
+        +'<div class="tip" data-v="earned" hidden>If it\'s truly earned by the essay, keep it, just make sure it isn\'t a slogan ("everything happens for a reason") standing in for a real thought.</div>'
+        +'<div class="tip" data-v="bow" hidden>Interrogate it. Is that lesson actually true? Always? What\'s the messier version you half-believe? Write into that:</div>'
+        +rewriteBox('rw_tidy','Rewrite your ending to stay in the real, unfinished question:')
+        +'</div>';
+    }
+    // SHOWING (positive)
+    if(c.sh){
+      html+='<div class="card sh"><h3>Where you\'re already showing ('+c.sh+')</h3>'
+        +'<p class="note">These are the green marks above, the moments where you put the reader in the scene. This is your strength. Find your most important beat and give it this same treatment.</p></div>';
+    }
+    // REPEATS
+    if(a.repeats.length){
+      html+='<div class="card re"><h3>Words you lean on</h3>'
+        +'<p class="note">You use these a lot: '+esc(a.repeats[0])+'. Not wrong, but check that each use earns its place, and watch for two sentences making the same point (keep one, cut the other).</p></div>';
+    }
+    // clean
+    if(!a.openerSentence && !a.flaggedTell.length && !a.tidySentence){
+      html+='<div class="card sh"><h3>Nothing jumped out</h3>'
+        +'<p class="note">The usual traps (announcing opener, told feelings, tidy ending) didn\'t trip here. That doesn\'t mean the essay is finished, only that the surface craft looks clean. Read it aloud, and ask the deeper questions: does it build to something? Does the ending stay honest? Bring it to me for the real read.</p></div>';
+    }
+
+    html+='<div class="row"><button type="button" id="dl">Download my review + rewrites</button></div>';
+
+    out.innerHTML=html;
+
+    // wire rewrite boxes
+    out.querySelectorAll('textarea[data-key]').forEach(function(t){ saveField(t, t.getAttribute('data-key')); });
+    // wire judge buttons
+    out.querySelectorAll('.card').forEach(function(card){
+      var btns=card.querySelectorAll('.judge button');
+      btns.forEach(function(b){ b.addEventListener('click', function(){
+        btns.forEach(function(x){x.classList.remove('sel');}); b.classList.add('sel');
+        var v=b.getAttribute('data-v');
+        try{ localStorage.setItem(PREFIX+'judge_'+card.getAttribute('data-fix'), v); }catch(e){}
+        card.querySelectorAll('.tip').forEach(function(t){ t.hidden = t.getAttribute('data-v')!==v; });
+      }); });
+      // restore judge
+      try{ var jv=localStorage.getItem(PREFIX+'judge_'+card.getAttribute('data-fix')); if(jv){ btns.forEach(function(b){ if(b.getAttribute('data-v')===jv){ b.classList.add('sel'); } }); card.querySelectorAll('.tip').forEach(function(t){ t.hidden=t.getAttribute('data-v')!==jv; }); } }catch(e){}
+    });
+    // popups
+    out.querySelectorAll('[data-pop]').forEach(function(b){ b.addEventListener('click', function(){ var d=document.getElementById('pop-'+b.getAttribute('data-pop')); if(d&&d.showModal) d.showModal(); }); });
+    // download
+    var dl=document.getElementById('dl');
+    if(dl) dl.addEventListener('click', function(){ downloadReview(a); });
+  }
+
+  function val(key){ var el=out.querySelector('textarea[data-key="'+key+'"]'); return el?el.value.trim():''; }
+  function judge(fix){ try{ return localStorage.getItem(PREFIX+'judge_'+fix)||''; }catch(e){ return ''; } }
+
+  function downloadReview(a){
+    var L=[]; L.push('MY CRAFT SELF-REVIEW'); L.push('('+a.words+' words · '+a.paras+' paragraphs)'); L.push('');
+    L.push('X-RAY TALLY'); L.push('  announcing opener: '+a.counts.op); L.push('  telling spots: '+a.counts.te); L.push('  showing moments: '+a.counts.sh); L.push('  tidy ending: '+a.counts.ti); L.push('');
+    if(a.openerSentence){ L.push('OPENING'); L.push('  Original: '+a.openerSentence); L.push('  My call: '+(judge('opener')||'(not marked)')); if(val('rw_open')){ L.push('  My rewrite: '+val('rw_open')); } L.push(''); }
+    if(a.flaggedTell.length){ L.push('TELLING → SHOWING'); a.flaggedTell.forEach(function(s){ L.push('  Flagged: '+s); }); if(val('rw_tell')){ L.push('  My rewrite: '+val('rw_tell')); } L.push(''); }
+    if(a.tidySentence){ L.push('ENDING'); L.push('  Original: '+a.tidySentence); L.push('  My call: '+(judge('tidy')||'(not marked)')); if(val('rw_tidy')){ L.push('  My rewrite: '+val('rw_tidy')); } L.push(''); }
+    L.push('Next: carry these rewrites into your Google Doc.');
+    var blob=new Blob([L.join('\n')],{type:'text/plain'});
+    var url=URL.createObjectURL(blob); var link=document.createElement('a');
+    link.href=url; link.download='my-craft-self-review.txt'; document.body.appendChild(link); link.click();
+    setTimeout(function(){ URL.revokeObjectURL(url); link.remove(); },100);
+  }
+
+  document.getElementById('go').addEventListener('click', render);
+  document.getElementById('clear').addEventListener('click', function(){ draft.value=''; out.innerHTML=''; try{ localStorage.removeItem(PREFIX+'draft'); }catch(e){} draft.focus(); });
+  document.querySelectorAll('dialog.pop').forEach(function(d){ d.addEventListener('click', function(e){ if(e.target===d) d.close(); }); });
+})();
+</script>
+</body>
+</html>

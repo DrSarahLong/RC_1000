@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Major Projects · RC 1000 Expository Writing</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --gold:#a3771f; --good:#2f7d54; --no:#a13a2d; --navbg:#fbf9f8ee;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --gold:#d8b168; --good:#7ac598; --no:#e08a7a; --navbg:#15111aee; }
+  }
+  *{box-sizing:border-box} html,body{margin:0} html{scroll-behavior:smooth}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  a{color:var(--accent)}
+  .nav{position:sticky; top:0; z-index:20; background:var(--navbg); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
+  .nav .inner{max-width:1000px; margin:0 auto; padding:10px 20px; display:flex; align-items:center; gap:8px 18px; flex-wrap:wrap}
+  .nav .brand{font-family:Georgia,"Iowan Old Style",serif; font-weight:700; font-size:1.05rem; color:var(--ink); text-decoration:none; margin-right:auto}
+  .nav .brand small{display:block; font-family:system-ui,sans-serif; font-weight:600; font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent)}
+  .nav a.lnk{color:var(--ink); text-decoration:none; font-weight:600; font-size:.93rem; padding:4px 2px; border-bottom:2px solid transparent}
+  .nav a.lnk:hover{border-bottom-color:var(--accent); color:var(--accent)}
+  .nav a.lnk[aria-current="page"]{color:var(--accent); border-bottom-color:var(--accent)}
+  .nav a.lms{background:var(--accent); color:#fff; text-decoration:none; font-weight:700; font-size:.9rem; border-radius:8px; padding:8px 14px; white-space:nowrap}
+  .wrap{max-width:860px; margin:0 auto; padding:0 20px 70px}
+  .masthead{padding:36px 0 16px; border-bottom:2px solid var(--ink); margin-bottom:10px}
+  .masthead .kick{font-size:.78rem; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:0 0 6px}
+  .masthead h1{font-family:Georgia,"Iowan Old Style",serif; font-size:2rem; margin:0 0 6px; line-height:1.12}
+  .masthead p{color:var(--muted); margin:6px 0 0; max-width:72ch}
+  .howto{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:16px 0}
+  .howto b{color:var(--accent)}
+  .keyrow{display:flex; flex-wrap:wrap; gap:8px 14px; margin-top:8px; font-size:.86rem}
+  .keyrow span{font-weight:700}
+  .k-ex{color:var(--good)} .k-me{color:var(--accent)} .k-de{color:var(--gold)} .k-no{color:var(--no)}
+  .proj{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 20px; margin:16px 0; border-left:5px solid var(--accent)}
+  .proj .top{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
+  .proj .tag{font-size:.68rem; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--accent)}
+  .proj .wt{margin-left:auto; font-weight:800; color:var(--accent); font-variant-numeric:tabular-nums}
+  .proj h2{font-family:Georgia,"Iowan Old Style",serif; font-size:1.3rem; margin:2px 0 2px}
+  .proj .fmt{color:var(--muted); font-size:.86rem; margin:0 0 8px}
+  .proj p{margin:.5rem 0}
+  .sublab{font-size:.72rem; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); font-weight:800; margin:16px 0 6px}
+  .crit{border:1px solid var(--line); border-radius:10px; padding:11px 13px; margin:9px 0; background:var(--field)}
+  .cname{font-weight:700; color:var(--accent); margin-bottom:8px}
+  .levels{display:grid; grid-template-columns:repeat(4,1fr); gap:8px}
+  @media (max-width:720px){ .levels{grid-template-columns:1fr 1fr} }
+  @media (max-width:460px){ .levels{grid-template-columns:1fr} }
+  .lvl{border:1px solid var(--line); border-top-width:3px; border-radius:8px; padding:8px 10px; font-size:.85rem; background:var(--card)}
+  .lvl .t{display:block; font-size:.66rem; text-transform:uppercase; letter-spacing:.05em; font-weight:800; margin-bottom:3px}
+  .lvl.exceeds{border-top-color:var(--good)} .lvl.exceeds .t{color:var(--good)}
+  .lvl.meets{border-top-color:var(--accent)} .lvl.meets .t{color:var(--accent)}
+  .lvl.dev{border-top-color:var(--gold)} .lvl.dev .t{color:var(--gold)}
+  .lvl.not{border-top-color:var(--no)} .lvl.not .t{color:var(--no)}
+  .cta{display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font-weight:700; border-radius:9px; padding:11px 18px; margin:10px 8px 6px 0}
+  .cta.ghost{background:transparent; color:var(--accent); border:1.5px solid var(--accent)}
+  .note{color:var(--muted); font-size:.92rem}
+  footer{color:var(--muted); font-size:.9rem; margin-top:30px; padding-top:16px; border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="inner">
+      <a class="brand" href="index.html">RC 1000<small>Expository Writing</small></a>
+      <a class="lnk" href="index.html">Home</a>
+      <a class="lnk" href="syllabus.html">Syllabus</a>
+      <a class="lnk" href="schedule.html">Schedule</a>
+      <a class="lnk" href="projects.html" aria-current="page">Major Projects</a>
+      <a class="lms" href="https://asulearn.appstate.edu/" target="_blank" rel="noopener">AsULearn &rarr;</a>
+    </div>
+  </nav>
+
+  <div class="wrap">
+
+    <header class="masthead">
+      <p class="kick">Appalachian State University · Fall 2026</p>
+      <h1>Major Projects</h1>
+      <p>You'll write in three genres and gather your best work into a portfolio. Each project is scored on a handful of criteria, and the weekly modules walk you through building each one, step by step.</p>
+    </header>
+
+    <div class="howto">
+      <b>How to read a rubric.</b> Each criterion is scored on one of four levels. <b>Meets</b> is the target: solid, full-credit work. Read the Meets column first, that's what you're aiming for on every line.
+      <div class="keyrow">
+        <span class="k-ex">Exceeds</span> goes beyond the target
+        <span class="k-me">Meets</span> the target (your goal)
+        <span class="k-de">Developing</span> partway there
+        <span class="k-no">Not yet</span> not present yet
+      </div>
+    </div>
+
+    <div class="proj">
+      <div class="top"><span class="tag">Project 1 · Weeks 1&ndash;6</span><span class="wt">20%</span></div>
+      <h2>Personal Essay</h2>
+      <p class="fmt">Narrative nonfiction · submitted as a Google Doc</p>
+      <p>A true story from your own life, found through expressive writing and shaped with real craft. You carry one meaningful experience all the way through invention, drafting, and revision.</p>
+      <p class="sublab">The rubric</p>
+      <div class="crit"><div class="cname">Scene &amp; concrete detail</div><div class="levels">
+        <div class="lvl exceeds"><span class="t">Exceeds</span>Vivid, precise scenes throughout; images do the work</div>
+        <div class="lvl meets"><span class="t">Meets</span>Opens in a scene; key moments shown with sensory detail</div>
+        <div class="lvl dev"><span class="t">Developing</span>Some scene, a lot of summary</div>
+        <div class="lvl not"><span class="t">Not yet</span>Mostly abstract telling</div>
+      </div></div>
+      <div class="crit"><div class="cname">Controlling idea (show and tell)</div><div class="levels">
+        <div class="lvl exceeds"><span class="t">Exceeds</span>A resonant insight that deepens; scene and reflection in partnership</div>
+        <div class="lvl meets"><span class="t">Meets</span>A clear "so what," revealed through the story, not announced</div>
+        <div class="lvl dev"><span class="t">Developing</span>An idea, but vague or stated flatly</div>
+        <div class="lvl not"><span class="t">Not yet</span>Events with no discernible point</div>
+      </div></div>
+      <div class="crit"><div class="cname">Arc &amp; earned ending</div><div class="levels">
+        <div class="lvl exceeds"><span class="t">Exceeds</span>Real tension builds; ending is earned and resists the tidy bow</div>
+        <div class="lvl meets"><span class="t">Meets</span>Has an arc; the ending lands and feels earned</div>
+        <div class="lvl dev"><span class="t">Developing</span>Flat or list-like; ending too neat</div>
+        <div class="lvl not"><span class="t">Not yet</span>No arc; formulaic or missing ending</div>
+      </div></div>
+      <div class="crit"><div class="cname">Craft &amp; clean surface</div><div class="levels">
+        <div class="lvl exceeds"><span class="t">Exceeds</span>Polished, varied sentences; essentially clean</div>
+        <div class="lvl meets"><span class="t">Meets</span>Clear prose; few surface errors</div>
+        <div class="lvl dev"><span class="t">Developing</span>Some lapses in clarity or mechanics</div>
+        <div class="lvl not"><span class="t">Not yet</span>Frequent errors distract</div>
+      </div></div>
+    </div>
+
+    <div class="proj">
+      <div class="top"><span class="tag">Project 2 · Weeks 7&ndash;11</span><span class="wt">20%</span></div>
+      <h2>Argument Grounded in the Personal</h2>
+      <p class="fmt">Research-based argument · MLA · submitted as a Google Doc</p>
+      <p>A claim that grows from something you've lived, then widened with credible outside sources. Same honesty as the personal essay, new job: taking a defensible position and backing it.</p>
+      <p class="sublab">The rubric</p>
+      <div class="crit"><div class="cname">Claim</div><div class="levels">
+        <div class="lvl exceeds"><span class="t">Exceeds</span>Precise, debatable, well-qualified; genuinely at stake</div>
+        <div class="lvl meets"><span class="t">Meets</span>A clear, debatable claim, sized to the evidence</div>
+        <div class="lvl dev"><span class="t">Developing</span>A position, but vague or overclaimed</div>
+        <div class="lvl not"><span class="t">Not yet</span>A topic or fact, not an arguable claim</div>
+      </div></div>
+      <div class="crit"><div class="cname">Evidence &amp; sources (MLA)</div><div class="levels">
+        <div class="lvl exceeds"><span class="t">Exceeds</span>Well-chosen sources woven in; flawless MLA</div>
+        <div class="lvl meets"><span class="t">Meets</span>Credible sources in quote sandwiches; consistent MLA</div>
+        <div class="lvl dev"><span class="t">Developing</span>Some evidence; dumped quotes or shaky citation</div>
+        <div class="lvl not"><span class="t">Not yet</span>Little evidence, or uncited</div>
+      </div></div>
+      <div class="crit"><div class="cname">Counterargument</div><div class="levels">
+        <div class="lvl exceeds"><span class="t">Exceeds</span>Anticipates and answers the strongest objection, fairly</div>
+        <div class="lvl meets"><span class="t">Meets</span>Names and answers a real counterargument</div>
+        <div class="lvl dev"><span class="t">Developing</span>Mentions the other side but doesn't engage it</div>
+        <div class="lvl not"><span class="t">Not yet</span>One-sided; ignores objections</div>
+      </div></div>
+      <div class="crit"><div class="cname">Voice &amp; organization</div><div class="levels">
+        <div class="lvl exceeds"><span class="t">Exceeds</span>Your voice leads throughout; structure builds tightly</div>
+        <div class="lvl meets"><span class="t">Meets</span>Clear structure; voice survives the sources</div>
+        <div class="lvl dev"><span class="t">Developing</span>Loose order, or voice buried under quotes</div>
+        <div class="lvl not"><span class="t">Not yet</span>Disorganized; no clear line</div>
+      </div></div>
+    </div>
+
+    <div class="proj">
+      <div class="top"><span class="tag">Project 3 · Weeks 12&ndash;13</span><span class="wt">20%</span></div>
+      <h2>Public Op-Ed</h2>
+      <p class="fmt">About 600&ndash;800 words · hyperlinked sources · submitted as a Google Doc</p>
+      <p>Your argument, compressed and aimed at a real reader on an editorial site your generation actually reads, someone busy and skeptical. Short, sharp, and timely, a piece you could pitch for publication.</p>
+      <p class="sublab">The rubric</p>
+      <div class="crit"><div class="cname">Hook &amp; nut graf</div><div class="levels">
+        <div class="lvl exceeds"><span class="t">Exceeds</span>Irresistible hook; claim and "why now" land in seconds</div>
+        <div class="lvl meets"><span class="t">Meets</span>A strong hook; clear nut graf with a news peg</div>
+        <div class="lvl dev"><span class="t">Developing</span>Slow open, or missing the news peg</div>
+        <div class="lvl not"><span class="t">Not yet</span>No hook; unclear what or why</div>
+      </div></div>
+      <div class="crit"><div class="cname">Concision &amp; public voice</div><div class="levels">
+        <div class="lvl exceeds"><span class="t">Exceeds</span>Every word earns its place; unmistakably human voice</div>
+        <div class="lvl meets"><span class="t">Meets</span>Tight, plain, in a real public voice</div>
+        <div class="lvl dev"><span class="t">Developing</span>Wordy or stiff in spots</div>
+        <div class="lvl not"><span class="t">Not yet</span>Padded, hedged, or academic</div>
+      </div></div>
+      <div class="crit"><div class="cname">Evidence (hyperlinked, fair)</div><div class="levels">
+        <div class="lvl exceeds"><span class="t">Exceeds</span>Apt evidence, cleanly linked; scrupulously fair</div>
+        <div class="lvl meets"><span class="t">Meets</span>Claims backed and hyperlinked; no cheap shots</div>
+        <div class="lvl dev"><span class="t">Developing</span>Thin evidence, or missing links</div>
+        <div class="lvl not"><span class="t">Not yet</span>Unsupported or misleading</div>
+      </div></div>
+      <div class="crit"><div class="cname">Kicker &amp; shape</div><div class="levels">
+        <div class="lvl exceeds"><span class="t">Exceeds</span>One idea, perfectly shaped; kicker sticks</div>
+        <div class="lvl meets"><span class="t">Meets</span>Focused; lands a real closing line</div>
+        <div class="lvl dev"><span class="t">Developing</span>Wanders, or trails off at the end</div>
+        <div class="lvl not"><span class="t">Not yet</span>Shapeless; no ending</div>
+      </div></div>
+    </div>
+
+    <div class="proj">
+      <div class="top"><span class="tag">Project 4 · Weeks 14&ndash;16</span><span class="wt">25%</span></div>
+      <h2>Digital Portfolio</h2>
+      <p class="fmt">A published Google Site (free, no code) · submitted as a link</p>
+      <p>The culminating project: a small website that gathers your revised essays and presents you as a writer. It holds your three pieces, a bio, a philosophy of writing, and a reflective introduction on how you grew.</p>
+      <p class="sublab">The rubric</p>
+      <div class="crit"><div class="cname">Completeness</div><div class="levels">
+        <div class="lvl exceeds"><span class="t">Exceeds</span>All pages present and thoughtfully arranged</div>
+        <div class="lvl meets"><span class="t">Meets</span>Home, Bio, three essays, Philosophy, and Reflection all present</div>
+        <div class="lvl dev"><span class="t">Developing</span>A page or two missing or thin</div>
+        <div class="lvl not"><span class="t">Not yet</span>Major pieces missing</div>
+      </div></div>
+      <div class="crit"><div class="cname">Revision</div><div class="levels">
+        <div class="lvl exceeds"><span class="t">Exceeds</span>Strongest piece markedly better than its draft</div>
+        <div class="lvl meets"><span class="t">Meets</span>Real revision visible on the chosen piece</div>
+        <div class="lvl dev"><span class="t">Developing</span>Light edits only</div>
+        <div class="lvl not"><span class="t">Not yet</span>Drafts uploaded unchanged</div>
+      </div></div>
+      <div class="crit"><div class="cname">Reflection</div><div class="levels">
+        <div class="lvl exceeds"><span class="t">Exceeds</span>Specific, honest metacognition; names growth and transfer</div>
+        <div class="lvl meets"><span class="t">Meets</span>Reflects specifically on how you grew as a writer</div>
+        <div class="lvl dev"><span class="t">Developing</span>General or vague ("I learned a lot")</div>
+        <div class="lvl not"><span class="t">Not yet</span>Missing, or purely a course review</div>
+      </div></div>
+      <div class="crit"><div class="cname">Design, accessibility &amp; link</div><div class="levels">
+        <div class="lvl exceeds"><span class="t">Exceeds</span>Clean, accessible, polished; link works for everyone</div>
+        <div class="lvl meets"><span class="t">Meets</span>Readable, alt text, real headings; public link opens</div>
+        <div class="lvl dev"><span class="t">Developing</span>Some design or accessibility gaps</div>
+        <div class="lvl not"><span class="t">Not yet</span>Hard to read, or the link doesn't open</div>
+      </div></div>
+    </div>
+
+    <div class="proj" style="border-left-color:var(--gold)">
+      <div class="top"><span class="tag" style="color:var(--gold)">Ongoing · completion</span><span class="wt" style="color:var(--gold)">15%</span></div>
+      <h2>Writer's Notebook</h2>
+      <p class="fmt">Private, on-device · turned in twice</p>
+      <p>Your weekly module work, freewrites, invention, and reflection, lives here and saves on your own computer. It's graded on <b>completion</b>, not quality: full credit for doing the thinking. You turn the whole notebook in at midterm and again at the end of term.</p>
+    </div>
+
+    <p class="note">Where and when each piece is due is on the <a href="schedule.html">Schedule</a>. How the course runs and the full grading breakdown are in the <a href="syllabus.html">Syllabus</a>.</p>
+    <p>
+      <a class="cta" href="schedule.html">See the Schedule &rarr;</a>
+      <a class="cta ghost" href="syllabus.html">Read the Syllabus</a>
+    </p>
+
+    <footer>
+      RC 1000 · Expository Writing · Dr. Sarah Long · Appalachian State University · Fall 2026
+    </footer>
+
+  </div>
+</body>
+</html>

@@ -57,8 +57,32 @@
   dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
   dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
 </style>
+<style>
+.rcnav{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--line);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.rcnav .in{max-width:900px;margin:0 auto;padding:9px 18px;display:flex;align-items:center;gap:5px 15px;flex-wrap:wrap}
+.rcnav .bd{font-family:Georgia,"Iowan Old Style",serif;font-weight:700;color:var(--ink);text-decoration:none;margin-right:auto;font-size:1rem}
+.rcnav .bd small{display:block;font-family:system-ui,sans-serif;font-weight:600;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--accent)}
+.rcnav a.l{color:var(--ink);text-decoration:none;font-weight:600;font-size:.88rem;border-bottom:2px solid transparent;padding:2px 0}
+.rcnav a.l:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.rcnav a.lms{background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:.82rem;border-radius:8px;padding:6px 12px}
+.rcpn{max-width:760px;margin:20px auto 44px;padding:0 20px;display:flex;gap:10px;align-items:stretch;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.rcpn a{flex:1;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;color:var(--ink);font-weight:700;font-size:.9rem;display:flex;flex-direction:column;justify-content:center}
+.rcpn a:hover{border-color:var(--accent);color:var(--accent)}
+.rcpn a.nx{text-align:right}
+.rcpn a.hm{flex:0 0 auto;text-align:center;color:var(--accent);justify-content:center}
+.rcpn a .s{font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800}
+</style>
 </head>
 <body>
+<nav class="rcnav"><div class="in">
+<a class="bd" href="index.html">RC 1000<small>Expository Writing</small></a>
+<a class="l" href="index.html">Home</a>
+<a class="l" href="syllabus.html">Syllabus</a>
+<a class="l" href="schedule.html">Schedule</a>
+<a class="l" href="projects.html">Major Projects</a>
+<a class="lms" href="https://asulearn.appstate.edu/" target="_blank" rel="noopener">AsULearn &rarr;</a>
+</div></nav>
+
 <div id="mod">
 
   <header class="masthead">
@@ -73,6 +97,8 @@
     <p>This is an online class, but it isn't a lonely one, I'm here, and I read everything you turn in and give you real feedback. You don't have to be a "good writer" to do well here. You have to be willing to write, mess up, and revise. If you can do that, you're exactly where you belong.</p>
   </div>
 
+  <p style="color:var(--muted);font-size:.92rem">Take the quick <a href="syllabus-scavenger.html" target="_blank" rel="noopener">Syllabus Scavenger Hunt</a> to make sure you know what's expected, where to turn things in, and when they're due.</p>
+
   <p class="part">Part 1 · Learn</p>
   <h2>What this class believes about writing</h2>
   <p>Most people carry around a few ideas about writing that quietly hold them back, that good writers get it right the first time, that you're either born with it or not, that you should know what you'll say before you start. All false. This course runs on the opposite:</p>
@@ -80,7 +106,7 @@
     <ul>
       <li><b>Writing is <button type="button" class="term" data-pop="discovery">discovery</button>.</b> You write to find out what you think, not to type up something you already finished in your head.</li>
       <li><b>Writing is <button type="button" class="term" data-pop="learnable">learnable</button>.</b> It's a skill, like an instrument. It answers to practice and feedback, both of which you'll get here.</li>
-      <li><b>Writing is <button type="button" class="term" data-pop="social">for a reader</button>.</b> Even personal writing makes choices for someone else. It's a social, rhetorical act, not just venting.</li>
+      <li><b>Writing is <button type="button" class="term" data-pop="social">for a reader</button>.</b> Even personal writing makes choices for someone else. It's a social, rhetorical act, not private venting.</li>
     </ul>
   </div>
   <div class="sci">
@@ -126,15 +152,15 @@
     </div>
   </div>
 
-  <p><b>3. First-Day Writing (this one you turn in).</b> Take the two writes above and shape a short reflection (a page or so) on your past experiences with writing and how you feel about it now, where you're confident, where you're not, what you hope to get better at. This is how I get to know you as a writer, and it's not graded on polish. Turn it in as a Google Doc.</p>
+  <p><b>3. First-Day Writing (this one you turn in, and it's required).</b> Take the two writes above and shape a short reflection (a page or so) on your past experiences with writing and how you feel about it now, where you're confident, where you're not, what you hope to get better at. This is how I get to know you as a writer, and it's not graded on polish. <b>Turn it in on AsULearn by Tuesday at 12:00 p.m.</b> This is the one assignment all term that isn't due on a Sunday, and it's how I confirm you're actually in the class.</p>
 
   <div class="close">
     <p><b>That's Week 1.</b> You cleared out some myths and put real words on the page, both. Next week we start finding the material for your first essay. Glad you're here.</p>
   </div>
 
   <div class="duebox">
-    <span class="lab">Due this week (Sunday)</span>
-    <p>Your <b>First-Day Writing</b> (the reflection on your history and feelings about writing), submitted as a Google Doc. Your notebook writes above stay private on your computer for now, you'll turn the whole notebook in at midterm and again at the end of term as a completion check.</p>
+    <span class="lab">Due Tuesday by 12:00 p.m. (required)</span>
+    <p>Your <b>First-Day Writing</b> (the reflection on your history and feelings about writing), turned in <b>on AsULearn by Tuesday at noon</b>. This is the one assignment all term that isn't due on a Sunday, and it is <b>not optional</b>: it's how I confirm who's in the course. <b>If I don't receive it, I'll assume you've dropped the class.</b> Your notebook writes above stay private on your computer; you'll turn the whole notebook in at midterm and again at the end of term as a completion check.</p>
   </div>
 
   <dialog class="pop" id="pop-discovery"><h3>Writing is discovery</h3><p>Donald Murray and Peter Elbow taught that you write to find out what you think, the draft is the thinking itself, not a report of thinking you already did. That's why "just start" beats "plan it all first." Your ideas take their real shape on the page, not before it.</p><form method="dialog"><button>Got it</button></form></dialog>
@@ -166,5 +192,10 @@
   });
 })();
 </script>
+
+<nav class="rcpn">
+<a class="hm" href="schedule.html"><span class="s">Menu</span>All weeks</a>
+<a class="nx" href="module-w2-invention.html"><span class="s">Week 2 &rarr;</span>Finding Your Material</a>
+</nav>
 </body>
 </html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Draft Check</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --fix:#a3541f; --fixsoft:#f6ebe1; --tip:#5a3b86; --tipsoft:#efe9f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --fix:#e0a878; --fixsoft:#2c2013; --tip:#b3a4de; --tipsoft:#1f1b2c; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #dc{max-width:780px; margin:0 auto; padding:28px 20px 90px}
+  #dc h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.8rem; margin:0}
+  #dc .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #dc .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:16px}
+  #dc .sub{color:var(--muted); margin:6px 0 0}
+  #dc .honest{background:var(--accent-soft); border:1px solid var(--line); border-radius:10px; padding:11px 14px; font-size:.92rem; margin:14px 0 16px}
+  #dc .honest b{color:var(--accent)}
+  #dc textarea{width:100%; min-height:220px; background:var(--field); color:var(--ink); border:1px solid var(--line); border-radius:10px; padding:12px 14px; font:inherit; line-height:1.6; resize:vertical}
+  #dc textarea:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #dc .row{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:10px}
+  #dc button{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:11px 18px; border:1px solid var(--accent); background:var(--accent); color:#fff}
+  #dc button.ghost{background:transparent; color:var(--accent); font-weight:600}
+  #dc .stats{color:var(--muted); font-size:.9rem}
+  #dc .result{margin-top:22px}
+  #dc .verdict{border-radius:12px; padding:14px 16px; font-weight:700; border:1px solid var(--line); margin-bottom:14px}
+  #dc .verdict.clean{background:var(--goodsoft); color:var(--good)} #dc .verdict.work{background:var(--fixsoft); color:var(--fix)}
+  #dc .grp{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:12px 0}
+  #dc .grp h3{margin:0 0 8px; font-size:1.02rem} #dc .grp h3 .c{font-size:.8rem; color:var(--muted); font-weight:600}
+  #dc .item{border-top:1px solid var(--line); padding:9px 0} #dc .item:first-of-type{border-top:0}
+  #dc .item .k{font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; font-weight:800; border-radius:999px; padding:1px 8px; margin-right:6px}
+  #dc .item.fix .k{background:var(--fixsoft); color:var(--fix)} #dc .item.tip .k{background:var(--tipsoft); color:var(--tip)}
+  #dc .item .msg{font-weight:600} #dc .item .msg b{color:var(--accent)}
+  #dc .item .eg{color:var(--muted); font-size:.9rem; margin-top:3px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  #dc .clean-grp{color:var(--good); font-size:.9rem; font-weight:600}
+</style>
+</head>
+<body>
+<div id="dc">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Tool</p>
+    <h1>Draft Check</h1>
+    <p class="sub">Paste your draft. It flags the fixable stuff a reader trips on, so you can clean it up before I ever see it.</p>
+  </header>
+
+  <div class="honest">
+    <b>This is a first-pass editor that runs on your computer.</b> It catches common, fixable problems and known weak moves, typos and spacing, comma trouble, tired openers and clichés, vague filler, sweeping claims, quotes dropped in without a lead-in, and MLA slips. It will <i>not</i> scold your voice or your contractions, those belong in personal writing. What it <i>can't</i> do is tell whether your essay is <em>good</em>, has a real point, or moves a reader, so if it finds nothing, that means the surface is clean, not that the essay works. That judgment is still yours and mine. Fix what it flags, read it aloud, and make every paragraph earn its place. Nothing you paste leaves this computer.
+  </div>
+
+  <label for="draft" style="font-weight:600; display:block; margin-bottom:6px">Your draft</label>
+  <textarea id="draft" placeholder="Paste your whole draft here…"></textarea>
+  <div class="row">
+    <button type="button" id="check">Check my draft</button>
+    <button type="button" class="ghost" id="clear">Clear</button>
+    <span class="stats" id="stats"></span>
+  </div>
+
+  <div class="result" id="result" aria-live="polite"></div>
+
+</div>
+
+<script>
+(function(){
+  var draft=document.getElementById('draft'), result=document.getElementById('result'), statsEl=document.getElementById('stats');
+  var SIGNALS=/\b(say|says|said|write|writes|wrote|argue|argues|note|notes|according|report|reports|explain|explains|describe|describes|put it|puts it|point out|points out|observe|observes|recall|recalls|tell|tells|told)\b/i;
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+  function words(s){ return (s.match(/[A-Za-z0-9'’-]+/g)||[]).length; }
+  function uniq(a){ var s={},o=[]; a.forEach(function(x){var k=x.toLowerCase(); if(!s[k]){s[k]=1;o.push(k);}}); return o; }
+
+  function analyze(t){
+    var mech=[], coh=[], tired=[], word=[], src=[], fmt=[];
+    var sentences=t.replace(/\n/g,' ').split(/(?<=[.!?])\s+/).map(function(s){return s.trim();}).filter(Boolean);
+    var paras=t.split(/\n\s*\n/).map(function(s){return s.trim();}).filter(Boolean);
+    if(paras.length<=1) paras=t.split(/\n/).map(function(s){return s.trim();}).filter(Boolean);
+
+    // MECHANICS
+    var sbp=(t.match(/[A-Za-z0-9] [,.;:]/g)||[]);
+    if(sbp.length) mech.push({k:'fix', msg:'Space before a comma or period ('+sbp.length+'). Delete the space.', eg:sbp.slice(0,3).map(esc).join('   ')});
+    var dbl=(t.match(/[^\n] {2,}[^\n]/g)||[]);
+    if(dbl.length>2) mech.push({k:'tip', msg:'Double spaces ('+dbl.length+'). One space between words is standard.', eg:''});
+    var rep=[],m,re=/\b([A-Za-z']+)\s+\1\b/gi; while((m=re.exec(t))){ rep.push(m[0]); }
+    if(rep.length) mech.push({k:'fix', msg:'Repeated word ('+rep.length+').', eg:rep.slice(0,3).map(esc).join('   ')});
+    var longS=sentences.filter(function(s){return words(s)>42;});
+    if(longS.length) mech.push({k:'tip', msg:longS.length+' very long sentence'+(longS.length>1?'s':'')+' (42+ words), possible run-on'+(longS.length>1?'s':'')+'. Read each aloud; if you run out of breath, break it up.', eg:esc(longS[0].slice(0,90))+'…'});
+    var bang=(t.match(/!/g)||[]).length;
+    if(bang>2) mech.push({k:'tip', msg:'Exclamation points ('+bang+'). Let the writing carry the feeling; a few go a long way.', eg:''});
+    var its=(t.match(/\bit'?s\b/gi)||[]).length, thr=(t.match(/\b(their|there|they'?re)\b/gi)||[]).length;
+    if(its||thr) mech.push({k:'tip', msg:"Double-check the easy-to-confuse ones: its/it's ("+its+"), their/there/they're ("+thr+").", eg:''});
+
+    // COHERENCE
+    var CONNECT=/^(but|and|so|then|later|after|before|meanwhile|however|still|yet|because|since|now|that|when|by the time|for years|at first|in the end|eventually|finally|once|soon|the next|that night|that summer|this|these|those|it)\b/i;
+    var body=paras.filter(function(p){return words(p)>=40;});
+    if(body.length>=3){
+      var cold=0; body.forEach(function(p){ var o=p.replace(/^[“"'(]+/,'').slice(0,50); if(!CONNECT.test(o)) cold++; });
+      if(cold>Math.ceil(body.length*0.7)) coh.push({k:'tip', msg:cold+' of '+body.length+' paragraphs jump in with no bridge from the one before. A few connecting words ("But…", "Later…", "That summer…") help a reader follow the story.', eg:''});
+    }
+    var vagueRe=/(?:^|[.!?]\s+)(This|These|It)\s+(is|was|shows?|means?|made|makes?|meant|proves?)\b/g, vn=0;
+    while(vagueRe.exec(t)){ vn++; }
+    if(vn>=2) coh.push({k:'tip', msg:vn+' sentences start with a bare "This," "These," or "It." Add the noun so we know what you mean: "This memory…," "This moment…."', eg:''});
+
+    // TIRED MOVES & CLICHÉS (high-precision known-weak patterns)
+    if(/\b(since|from) the (dawn|beginning) of time\b/i.test(t) || /\bthroughout (history|time)\b/i.test(t) || /\bin (today'?s|modern) (society|world)\b/i.test(t))
+      tired.push({k:'fix', msg:'Tired opener ("Since the dawn of time…," "In today\'s society…," "Throughout history…"). Cut it and start with your actual, specific point.', eg:''});
+    if(/\bever since i was (a )?(little |young )?(kid|child|girl|boy|little)\b/i.test(t) || /\bfor as long as i can remember\b/i.test(t) || /\bwhen i was (little|young|a kid)\b/i.test(t))
+      tired.push({k:'fix', msg:'"Ever since I was little…" is a warm-up opener. Start in the real moment instead.', eg:''});
+    if(/\b(according to (the )?dictionary|the dictionary (defines|says|means)|webster'?s?|merriam-?webster|dictionary\.com)\b/i.test(t))
+      tired.push({k:'fix', msg:'The dictionary-definition opener is a cliché move. Cut it; only define a word in your own terms if the reader truly needs it.', eg:''});
+    if(/\b(in conclusion|in summary|to sum up|to conclude|all in all|as you can see|this just goes to show)\b/i.test(t))
+      tired.push({k:'fix', msg:'Formulaic signpost ("In conclusion…," "As you can see…"). In a short essay you don\'t need it; end on a specific, earned thought.', eg:''});
+    var cliche=(t.match(/\b(changed me as a person|the importance of family|made me who i am|opened my eyes|life-?changing|at the end of the day|everything happens for a reason|a better person|a stronger person|comfort zone|little did i know|the big blue sky|only time will tell)\b/gi)||[]);
+    if(cliche.length) tired.push({k:'fix', msg:'Clichés ('+cliche.length+'): '+uniq(cliche).slice(0,3).map(esc).join(', ')+'. Trade each for the specific, true thing that happened to you.', eg:''});
+    var sweep=(t.match(/\b(everyone|everybody|nobody|no one|all people|the whole world|people today|society today|man has|mankind|everyone should|you should)\b/gi)||[]);
+    if(sweep.length) tired.push({k:'tip', msg:'Sweeping or preachy generalizations ('+sweep.length+'): '+uniq(sweep).slice(0,3).map(esc).join(', ')+'. Speak for what you actually saw or think, not for everyone or the whole world.', eg:''});
+
+    // WORD CHOICE
+    var vague=(t.match(/\b(a lot|really|very|so much|things|stuff|kind of|sort of|good|bad|nice|interesting|amazing|important)\b/gi)||[]);
+    if(vague.length>3) word.push({k:'tip', msg:'Vague / filler words ('+vague.length+'): a lot, really, very, things, important. They dilute strong writing. Cut most, or replace with the specific.', eg:''});
+    var wordy=[];
+    [[/in order to/i,'to'],[/due to the fact that/i,'because'],[/the fact that/i,'that'],[/at this point in time/i,'now']].forEach(function(w){ var mm=t.match(new RegExp(w[0].source,'gi')); if(mm) wordy.push(mm[0].toLowerCase()+' → '+w[1]); });
+    if(wordy.length) word.push({k:'tip', msg:'Wordy phrasing you can tighten: '+wordy.slice(0,4).map(esc).join('; ')+'.', eg:''});
+
+    // QUOTES & SOURCES (only fire if quotes exist)
+    var quotes=[],qm,qre=/[“"]([^“”"]{4,600})[”"]/g;
+    while((qm=qre.exec(t))){ quotes.push({text:qm[1], index:qm.index, len:words(qm[1])}); }
+    if(quotes.length){
+      var hasCite=/\([A-Z][A-Za-z]+ \d+\)|\([A-Z][A-Za-z]+\)|[A-Z][A-Za-z]+ \(\d+\)/.test(t);
+      var dumps=0,longq=0;
+      quotes.forEach(function(q){ if(q.len<4) return; var win=t.slice(Math.max(0,q.index-90),q.index); if(!SIGNALS.test(win)) dumps++; if(q.len>40) longq++; });
+      if(dumps) src.push({k:'fix', msg:dumps+' quote'+(dumps>1?'s':'')+' dropped in with no lead-in. Introduce each one ("As Lamott writes,…") so it doesn\'t just land on the reader.', eg:''});
+      if(longq) src.push({k:'tip', msg:longq+' long quote'+(longq>1?'s':'')+' (40+ words). Trim to the words that matter, or paraphrase.', eg:''});
+      if(!hasCite) src.push({k:'fix', msg:'There are quotes but no citations. In MLA, cite with the author and page in parentheses: (Lamott 22).', eg:''});
+    }
+
+    // FORMATTING
+    var straight=/"/.test(t), curly=/[“”]/.test(t);
+    if(straight&&curly) fmt.push({k:'tip', msg:'Mixed quotation marks (some straight ", some curly “”). Pick one and use it throughout.', eg:''});
+    var mlaComma=/\([A-Z][A-Za-z]+, \d+\)/.test(t);
+    if(mlaComma) fmt.push({k:'fix', msg:'MLA in-text citations have no comma: it\'s <b>(Author page)</b>, like (Lamott 22), not (Lamott, 22).', eg:''});
+    var single=/[.?!] [A-Z]/.test(t), dbls=/[.?!]  [A-Z]/.test(t);
+    if(single&&dbls) fmt.push({k:'tip', msg:'You mix one and two spaces after sentences. Pick one (one is standard).', eg:''});
+
+    return {mech:mech, coh:coh, tired:tired, word:word, src:src, fmt:fmt, stats:{words:words(t), sentences:sentences.length, paras:paras.length}};
+  }
+
+  function grp(title, items){
+    var html='<div class="grp"><h3>'+title+' <span class="c">'+(items.length?('· '+items.length+' note'+(items.length>1?'s':'')):'· all clear')+'</span></h3>';
+    if(!items.length) return html+'<div class="clean-grp">Nothing flagged here. Nice.</div></div>';
+    items.forEach(function(i){ html+='<div class="item '+i.k+'"><span class="k">'+(i.k==='fix'?'Fix':'Consider')+'</span><span class="msg">'+i.msg+'</span>'+(i.eg?'<div class="eg">'+i.eg+'</div>':'')+'</div>'; });
+    return html+'</div>';
+  }
+
+  function check(){
+    var text=draft.value.trim();
+    if(text.length<40){ result.innerHTML='<div class="verdict work">Paste a real chunk of your draft (a few paragraphs), then hit Check.</div>'; return; }
+    var a=analyze(text);
+    var all=a.mech.concat(a.coh,a.tired,a.word,a.src,a.fmt);
+    var fixN=all.filter(function(i){return i.k==='fix';}).length, tipN=all.filter(function(i){return i.k==='tip';}).length;
+    var v = !all.length
+      ? '<div class="verdict clean">Nothing on my checklist turned up, the surface is clean. That is not the same as good, though: I can\'t see whether your essay has a real point or lands, only whether it trips known traps. Read it aloud, and make sure every paragraph earns its place.</div>'
+      : '<div class="verdict work">'+fixN+' thing'+(fixN===1?'':'s')+' to fix, '+tipN+' to consider. Work through them, then run it again.</div>';
+    result.innerHTML=v+grp('Mechanics &amp; typos',a.mech)+grp('Coherence &amp; flow',a.coh)+grp('Tired moves &amp; clichés',a.tired)+grp('Word choice',a.word)+grp('Quotes &amp; sources (MLA)',a.src)+grp('Formatting',a.fmt);
+    statsEl.textContent=a.stats.words+' words · '+a.stats.sentences+' sentences · '+a.stats.paras+' paragraphs';
+  }
+  document.getElementById('check').addEventListener('click', check);
+  document.getElementById('clear').addEventListener('click', function(){ draft.value=''; result.innerHTML=''; statsEl.textContent=''; draft.focus(); });
+})();
+</script>
+</body>
+</html>

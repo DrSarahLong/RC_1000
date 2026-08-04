@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Thesis Strengthener</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --fix:#a3541f; --fixsoft:#f6ebe1; --tip:#5a3b86; --tipsoft:#efe9f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --fix:#e0a878; --fixsoft:#2c2013; --tip:#b3a4de; --tipsoft:#1f1b2c; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  #ts{max-width:720px; margin:0 auto; padding:28px 20px 90px}
+  #ts h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.8rem; margin:0}
+  #ts .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #ts .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:16px}
+  #ts .sub{color:var(--muted); margin:6px 0 0}
+  #ts .honest{background:var(--accent-soft); border:1px solid var(--line); border-radius:10px; padding:11px 14px; font-size:.92rem; margin:14px 0 16px}
+  #ts .honest b{color:var(--accent)}
+  #ts label.fld{font-weight:600; display:block; margin-bottom:6px}
+  #ts input.thesis{width:100%; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:12px 14px; font:inherit}
+  #ts input.thesis:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  #ts .row{display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:10px}
+  #ts button{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:11px 18px; border:1px solid var(--accent); background:var(--accent); color:#fff}
+  #ts button.ghost{background:transparent; color:var(--accent); font-weight:600}
+  #ts .result{margin-top:22px}
+  #ts .verdict{border-radius:12px; padding:14px 16px; font-weight:700; border:1px solid var(--line); margin-bottom:14px}
+  #ts .verdict.good{background:var(--goodsoft); color:var(--good)} #ts .verdict.work{background:var(--fixsoft); color:var(--fix)}
+  #ts .note{border:1px solid var(--line); border-radius:10px; padding:11px 14px; margin:9px 0; background:var(--card)}
+  #ts .note .k{font-size:.66rem; letter-spacing:.06em; text-transform:uppercase; font-weight:800; border-radius:999px; padding:1px 9px; margin-right:6px}
+  #ts .note.fix .k{background:var(--fixsoft); color:var(--fix)} #ts .note.tip .k{background:var(--tipsoft); color:var(--tip)} #ts .note.good .k{background:var(--goodsoft); color:var(--good)}
+  #ts .note .msg{font-weight:600} #ts .note .msg b{color:var(--accent)}
+  #ts .note .eg{color:var(--muted); font-size:.9rem; margin-top:3px}
+  #ts .recap{background:var(--card); border:1px solid var(--line); border-left:5px solid var(--accent); border-radius:12px; padding:14px 16px; margin-top:16px; font-size:.95rem}
+  #ts .recap b{color:var(--accent)} #ts .recap ul{margin:.4rem 0; padding-left:1.2rem} #ts .recap li{margin:.3rem 0}
+</style>
+</head>
+<body>
+<div id="ts">
+
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Tool</p>
+    <h1>Thesis Strengthener</h1>
+    <p class="sub">Most writers get tripped up right here, at the working thesis. Paste yours and this will point out the common weak spots so you can sharpen it before you draft.</p>
+  </header>
+
+  <div class="honest">
+    <b>This is a first-pass thesis coach that runs on your computer.</b> It flags common weaknesses, vagueness, announcing, clichés, no real tension, so you can fix them yourself. It <i>can't</i> tell whether your idea is true, or the right one for your essay; that's your call and mine. Paste, read the notes, revise, run it again. Nothing you type here leaves your computer.
+  </div>
+
+  <label class="fld" for="thesis">Your working thesis (one sentence)</label>
+  <input type="text" class="thesis" id="thesis" placeholder="Type the one thing you came to understand…">
+  <div class="row">
+    <button type="button" id="check">Check my thesis</button>
+    <button type="button" class="ghost" id="clear">Clear</button>
+  </div>
+
+  <div class="result" id="result" aria-live="polite"></div>
+
+</div>
+
+<script>
+(function(){
+  var input = document.getElementById('thesis');
+  var result = document.getElementById('result');
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+  function words(s){ return (s.match(/[A-Za-z0-9'’-]+/g)||[]).length; }
+
+  function analyze(t){
+    var notes = [];
+    var low = ' ' + t.toLowerCase() + ' ';
+    var wc = words(t);
+
+    // announcing
+    if(/\b(this essay|this paper|in this essay|in this paper|i will (discuss|talk about|explore|argue|show)|i am going to|i'?m going to|the purpose of this)\b/i.test(t)){
+      notes.push({k:'fix', msg:'Cut the announcement. Delete "This essay is about…" / "I will discuss…" and just make the point itself.', eg:'"This essay is about how my grandma…" → "My grandma taught me that…"'});
+    }
+    // clichés
+    var cliche = (low.match(/\b(changed me as a person|the importance of family|made me who i am|opened my eyes|life-?changing|at the end of the day|everything happens for a reason|a better person|a stronger person|never give up|out of my comfort zone)\b/gi)||[]);
+    if(cliche.length){
+      notes.push({k:'fix', msg:'Cliché ('+cliche.length+'): '+cliche.slice(0,3).map(esc).join(', ')+'. Swap it for the specific, true thing that happened to <i>you</i>, no one else could write it.', eg:''});
+    }
+    // "taught me a lot" style near-miss
+    if(/\b(taught me a lot|learned a lot|learned so much|means a lot|a big impact|impacted me|influenced me|shaped who i am)\b/i.test(t)){
+      notes.push({k:'fix', msg:'This has thesis <i>shape</i> but doesn\'t say anything specific yet. "Taught me a lot" hides the point.', eg:'Finish this instead: "…and what it taught me was ___" with the exact realization.'});
+    }
+    // vague words
+    var vague = (low.match(/\b(a lot|important|really important|interesting|special|amazing|good|bad|things|stuff|many things|different things|meaningful|impactful)\b/gi)||[]);
+    if(vague.length >= 2 || (vague.length===1 && !cliche.length)){
+      notes.push({k:'fix', msg:'Vague words ('+vague.length+'): '+vague.slice(0,4).map(esc).join(', ')+'. They sound like meaning but carry none. Replace each with something concrete.', eg:''});
+    }
+    // hedging
+    var hedge = (low.match(/\b(maybe|i think|i guess|kind of|sort of|probably|i feel like|perhaps)\b/gi)||[]);
+    if(hedge.length){
+      notes.push({k:'tip', msg:'Own it ('+hedge.slice(0,3).map(esc).join(', ')+'). A working thesis can still change, but state it plainly, drop "I think" and "kind of."', eg:''});
+    }
+    // too short / topic-ish
+    if(wc < 5){
+      notes.push({k:'fix', msg:'This reads more like a <b>topic</b> than a point. It names a subject but doesn\'t say what you came to understand about it.', eg:'Ask: what did this <i>mean</i>? What did I realize?'});
+    }
+    // too long
+    if(wc > 45){
+      notes.push({k:'tip', msg:'That\'s long ('+wc+' words), maybe two ideas fighting for the spot. A working thesis is usually one clear sentence. Keep the half with the most heat.', eg:''});
+    }
+
+    return notes;
+  }
+
+  function check(){
+    var t = input.value.trim();
+    if(t.length < 4){ result.innerHTML = '<div class="verdict work">Type or paste your working thesis, then hit Check.</div>'; return; }
+    var notes = analyze(t);
+    var fixN = notes.filter(function(n){return n.k==='fix';}).length;
+    var html;
+    if(!notes.length){
+      html = '<div class="verdict good">This is doing real work: a specific subject and a genuine point. Now test it against your draft, if the essay drifts away from it, change one of them.</div>';
+    } else {
+      html = '<div class="verdict work">'+notes.length+' thing'+(notes.length===1?'':'s')+' to look at ('+fixN+' worth fixing). Work through them and run it again.</div>';
+    }
+    notes.forEach(function(n){
+      html += '<div class="note '+n.k+'"><span class="k">'+(n.k==='fix'?'Fix':(n.k==='good'?'Good':'Consider'))+'</span><span class="msg">'+n.msg+'</span>'+(n.eg?'<div class="eg">'+n.eg+'</div>':'')+'</div>';
+    });
+    html += '<div class="recap"><b>A strong working thesis usually has:</b><ul>'
+      + '<li>a <b>specific</b> subject (not "family," but the exact thing)</li>'
+      + '<li>a <b>point</b> (something you came to understand, not just a topic)</li>'
+      + '<li>a <b>turn or tension</b> (a "but," a surprise, a cost)</li>'
+      + '<li>your <b>own</b> stamp (only you could have written it)</li></ul></div>';
+    result.innerHTML = html;
+  }
+
+  document.getElementById('check').addEventListener('click', check);
+  input.addEventListener('keydown', function(e){ if(e.key==='Enter') check(); });
+  document.getElementById('clear').addEventListener('click', function(){ input.value=''; result.innerHTML=''; input.focus(); });
+})();
+</script>
+</body>
+</html>

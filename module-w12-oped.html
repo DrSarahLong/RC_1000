@@ -82,8 +82,32 @@
   dialog.pop p{margin:.4rem 0} dialog.pop form{margin-top:16px;text-align:right}
   dialog.pop button{font:inherit;font-weight:600;cursor:pointer;border-radius:9px;padding:9px 16px;border:1px solid var(--accent);background:var(--accent);color:#fff}
 </style>
+<style>
+.rcnav{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--line);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.rcnav .in{max-width:900px;margin:0 auto;padding:9px 18px;display:flex;align-items:center;gap:5px 15px;flex-wrap:wrap}
+.rcnav .bd{font-family:Georgia,"Iowan Old Style",serif;font-weight:700;color:var(--ink);text-decoration:none;margin-right:auto;font-size:1rem}
+.rcnav .bd small{display:block;font-family:system-ui,sans-serif;font-weight:600;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--accent)}
+.rcnav a.l{color:var(--ink);text-decoration:none;font-weight:600;font-size:.88rem;border-bottom:2px solid transparent;padding:2px 0}
+.rcnav a.l:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.rcnav a.lms{background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:.82rem;border-radius:8px;padding:6px 12px}
+.rcpn{max-width:760px;margin:20px auto 44px;padding:0 20px;display:flex;gap:10px;align-items:stretch;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.rcpn a{flex:1;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;color:var(--ink);font-weight:700;font-size:.9rem;display:flex;flex-direction:column;justify-content:center}
+.rcpn a:hover{border-color:var(--accent);color:var(--accent)}
+.rcpn a.nx{text-align:right}
+.rcpn a.hm{flex:0 0 auto;text-align:center;color:var(--accent);justify-content:center}
+.rcpn a .s{font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:800}
+</style>
 </head>
 <body>
+<nav class="rcnav"><div class="in">
+<a class="bd" href="index.html">RC 1000<small>Expository Writing</small></a>
+<a class="l" href="index.html">Home</a>
+<a class="l" href="syllabus.html">Syllabus</a>
+<a class="l" href="schedule.html">Schedule</a>
+<a class="l" href="projects.html">Major Projects</a>
+<a class="lms" href="https://asulearn.appstate.edu/" target="_blank" rel="noopener">AsULearn &rarr;</a>
+</div></nav>
+
 <div id="mod">
 
   <header class="masthead">
@@ -250,5 +274,11 @@
   document.querySelectorAll('dialog.pop').forEach(function(d){ d.addEventListener('click', function(e){ if(e.target===d) d.close(); }); });
 })();
 </script>
+
+<nav class="rcpn">
+<a class="pv" href="module-w11-revise-argument.html"><span class="s">&larr; Week 11</span>Revise the Argument</a>
+<a class="hm" href="schedule.html"><span class="s">Menu</span>All weeks</a>
+<a class="nx" href="module-w13-oped-draft.html"><span class="s">Week 13 &rarr;</span>Draft the Op-Ed</a>
+</nav>
 </body>
 </html>

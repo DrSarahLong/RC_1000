@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RC 1000 · Syllabus Scavenger Hunt</title>
+<style>
+  :root{
+    --paper:#fbf9f8; --card:#ffffff; --ink:#211a24; --muted:#66596a;
+    --accent:#8a4b7d; --accent-soft:#f4eaf1; --line:#e8e0e6; --field:#fffdfe;
+    --good:#2f7d54; --goodsoft:#e4f1e8; --no:#a13a2d; --nosoft:#f6e6e3; --reflect:#5a3b86; --reflectsoft:#efe9f6;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#15111a; --card:#1e1922; --ink:#ece7ee; --muted:#a294a4; --accent:#cf9ac4; --accent-soft:#2c1f2b; --line:#332b37; --field:#211b26; --good:#7ac598; --goodsoft:#14301f; --no:#e08a7a; --nosoft:#2c1815; --reflect:#b3a4de; --reflectsoft:#1f1b2c; }
+  }
+  *{box-sizing:border-box} html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  .rcnav{position:sticky;top:0;z-index:50;background:var(--paper);border-bottom:1px solid var(--line);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+  .rcnav .in{max-width:900px;margin:0 auto;padding:9px 18px;display:flex;align-items:center;gap:5px 15px;flex-wrap:wrap}
+  .rcnav .bd{font-family:Georgia,"Iowan Old Style",serif;font-weight:700;color:var(--ink);text-decoration:none;margin-right:auto;font-size:1rem}
+  .rcnav .bd small{display:block;font-family:system-ui,sans-serif;font-weight:600;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;color:var(--accent)}
+  .rcnav a.l{color:var(--ink);text-decoration:none;font-weight:600;font-size:.88rem;border-bottom:2px solid transparent;padding:2px 0}
+  .rcnav a.l:hover{color:var(--accent);border-bottom-color:var(--accent)}
+  .rcnav a.lms{background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:.82rem;border-radius:8px;padding:6px 12px}
+  #mod{max-width:760px; margin:0 auto; padding:26px 20px 90px}
+  #mod h1{font-family:Georgia,"Iowan Old Style",serif; font-size:1.9rem; margin:0; line-height:1.15}
+  #mod .kicker{font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:0 0 4px}
+  #mod .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:18px}
+  #mod .sub{color:var(--muted); margin:8px 0 0; font-size:1.05rem}
+  #mod p{margin:.6rem 0}
+  #mod .ground{background:var(--reflectsoft); border:1px solid var(--line); border-left:5px solid var(--reflect); border-radius:12px; padding:14px 16px; margin:14px 0}
+  #mod .ground .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--reflect); display:block; margin-bottom:3px}
+  #mod a{color:var(--accent)}
+  #mod a.btn{display:inline-block; background:var(--accent); color:#fff; text-decoration:none; font-weight:700; border-radius:9px; padding:10px 16px; margin:6px 0}
+  #mod .qc{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px 4px; margin:14px 0}
+  #mod .qcitem{border-top:1px solid var(--line); padding:12px 0} #mod .qcitem:first-of-type{border-top:0}
+  #mod .qcitem .s{font-weight:700; margin:0 0 8px}
+  #mod .qcitem .opts{display:flex; flex-direction:column; gap:7px}
+  #mod .qcitem .opt{text-align:left; font:inherit; font-weight:600; font-size:.93rem; cursor:pointer; border-radius:8px; padding:9px 12px; border:1.5px solid var(--line); background:var(--field); color:var(--ink)}
+  #mod .qcitem .opt.pick{border-color:var(--accent); background:var(--accent-soft); color:var(--accent)}
+  #mod .qcitem.right .opt.pick{border-color:var(--good); background:var(--goodsoft); color:var(--good)}
+  #mod .qcitem.wrong .opt.pick{border-color:var(--no); background:var(--nosoft); color:var(--no)}
+  #mod .qcitem .fb{margin-top:8px; font-size:.9rem; color:var(--muted)} #mod .qcitem .fb[hidden]{display:none}
+  #mod .qcbtn{font:inherit; font-weight:700; cursor:pointer; border-radius:9px; padding:11px 18px; border:1px solid var(--accent); background:var(--accent); color:#fff; margin:10px 0}
+  #mod .qcres{font-weight:800; color:var(--accent); margin-left:10px}
+  #mod .close{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-top:22px}
+  #mod .note{color:var(--muted); font-size:.9rem}
+</style>
+</head>
+<body>
+<nav class="rcnav"><div class="in">
+<a class="bd" href="index.html">RC 1000<small>Expository Writing</small></a>
+<a class="l" href="index.html">Home</a>
+<a class="l" href="syllabus.html">Syllabus</a>
+<a class="l" href="schedule.html">Schedule</a>
+<a class="l" href="projects.html">Major Projects</a>
+<a class="lms" href="https://asulearn.appstate.edu/" target="_blank" rel="noopener">AsULearn &rarr;</a>
+</div></nav>
+
+<div id="mod">
+  <header class="masthead">
+    <p class="kicker">RC 1000 · Orientation</p>
+    <h1>Syllabus Scavenger Hunt</h1>
+    <p class="sub">A five-minute check to make sure you know how this course actually works. Online, asynchronous classes go sideways fast when you're unsure where to turn things in or when they're due, so let's lock that in before Week 1 gets rolling.</p>
+  </header>
+
+  <div class="ground">
+    <span class="lab">How to play</span>
+    <p>Open the <a href="syllabus.html" target="_blank" rel="noopener">Syllabus</a> and <a href="schedule.html" target="_blank" rel="noopener">Schedule</a> in new tabs and hunt for the answers. Pick one for each, then hit <b>Check</b>. Getting these right now saves you a world of confusion later.</p>
+    <p><a class="btn" href="syllabus.html" target="_blank" rel="noopener">Open the Syllabus &rarr;</a></p>
+  </div>
+
+  <div class="qc" id="qc">
+    <div class="qcitem" data-answer="a">
+      <p class="s">1. Where do you submit assignments and check your grades?</p>
+      <div class="opts">
+        <button type="button" class="opt" data-pick="a">On AsULearn</button>
+        <button type="button" class="opt" data-pick="b">By emailing them to Dr. Long</button>
+        <button type="button" class="opt" data-pick="c">On this course website</button>
+      </div>
+      <div class="fb" hidden><b>AsULearn.</b> Everything is turned in there, and every grade is posted there. The AsULearn button is on the menu bar at the top of every page.</div>
+    </div>
+    <div class="qcitem" data-answer="b">
+      <p class="s">2. When is your very first assignment, the First-Day Writing, due?</p>
+      <div class="opts">
+        <button type="button" class="opt" data-pick="a">Sunday, like everything else</button>
+        <button type="button" class="opt" data-pick="b">Tuesday by 12:00 p.m., and it's required</button>
+        <button type="button" class="opt" data-pick="c">It's optional, whenever</button>
+      </div>
+      <div class="fb" hidden><b>Tuesday by noon, on AsULearn.</b> It's the one assignment all term that isn't due on a Sunday, it is not optional, and if Dr. Long doesn't receive it she'll assume you've dropped the class.</div>
+    </div>
+    <div class="qcitem" data-answer="c">
+      <p class="s">3. When is your weekly work due after that?</p>
+      <div class="opts">
+        <button type="button" class="opt" data-pick="a">Friday</button>
+        <button type="button" class="opt" data-pick="b">Whenever you feel like it</button>
+        <button type="button" class="opt" data-pick="c">Sunday of that week</button>
+      </div>
+      <div class="fb" hidden><b>Sunday.</b> Each week's module is due the Sunday of that week. Check in with the course several times a week, a crammed week shows.</div>
+    </div>
+    <div class="qcitem" data-answer="c">
+      <p class="s">4. How does this class meet?</p>
+      <div class="opts">
+        <button type="button" class="opt" data-pick="a">Tuesdays and Thursdays, in person</button>
+        <button type="button" class="opt" data-pick="b">Once a week on Zoom</button>
+        <button type="button" class="opt" data-pick="c">It doesn't, it's fully asynchronous and online</button>
+      </div>
+      <div class="fb" hidden><b>Fully asynchronous.</b> There are no class meetings. You work each module on your own schedule (by the Sunday deadline).</div>
+    </div>
+    <div class="qcitem" data-answer="b">
+      <p class="s">5. What's the required textbook?</p>
+      <div class="opts">
+        <button type="button" class="opt" data-pick="a">There's a book you buy at the bookstore</button>
+        <button type="button" class="opt" data-pick="b"><i>Voices for Change</i>, a rental e-book on AsULearn</button>
+        <button type="button" class="opt" data-pick="c">There are no readings at all</button>
+      </div>
+      <div class="fb" hidden><b><i>Voices for Change</i></b>, a rental e-book through AsULearn. Everything else you read is free and linked right in each module.</div>
+    </div>
+    <div class="qcitem" data-answer="a">
+      <p class="s">6. How is your grade mostly determined?</p>
+      <div class="opts">
+        <button type="button" class="opt" data-pick="a">The quality of your three essays and portfolio, plus notebook completion</button>
+        <button type="button" class="opt" data-pick="b">Attendance</button>
+        <button type="button" class="opt" data-pick="c">One big final exam</button>
+      </div>
+      <div class="fb" hidden>Your <b>three essays and the digital portfolio</b> (scored on rubrics), plus your Writer's Notebook (completion). The full breakdown is on the Syllabus.</div>
+    </div>
+    <div class="qcitem" data-answer="b">
+      <p class="s">7. Is the private writing in your Writer's Notebook shared with classmates?</p>
+      <div class="opts">
+        <button type="button" class="opt" data-pick="a">Yes, everything gets posted in forums</button>
+        <button type="button" class="opt" data-pick="b">No, it stays private; you turn the whole notebook in twice for a completion check</button>
+        <button type="button" class="opt" data-pick="c">Only if you win a prize</button>
+      </div>
+      <div class="fb" hidden><b>No.</b> It saves on your own computer and is never shared with classmates. You turn the whole notebook in twice (midterm and end of term) as a completion check.</div>
+    </div>
+    <div class="qcitem" data-answer="c">
+      <p class="s">8. How do you use Dr. Long's office hours?</p>
+      <div class="opts">
+        <button type="button" class="opt" data-pick="a">Just drop into her Zoom anytime</button>
+        <button type="button" class="opt" data-pick="b">You can't, there aren't any</button>
+        <button type="button" class="opt" data-pick="c">Email her first to set a time, then meet on campus or in her Zoom Room</button>
+      </div>
+      <div class="fb" hidden><b>Email first to set a time,</b> then you meet on campus or in her Zoom Room. Her Zoom link is on the Syllabus.</div>
+    </div>
+    <div class="qcitem" data-answer="a">
+      <p class="s">9. What three things will you write this semester?</p>
+      <div class="opts">
+        <button type="button" class="opt" data-pick="a">A personal essay, an argument, and a public op-ed</button>
+        <button type="button" class="opt" data-pick="b">Three research papers</button>
+        <button type="button" class="opt" data-pick="c">Lab reports</button>
+      </div>
+      <div class="fb" hidden>A <b>personal essay</b>, an <b>argument</b> grounded in your own life, and a public <b>op-ed</b>, which you'll gather into a digital portfolio built free on Google Sites.</div>
+    </div>
+    <button type="button" class="qcbtn" id="qcbtn">Check my answers</button><span class="qcres" id="qcres"></span>
+  </div>
+
+  <div class="close">
+    <p><b>Now you know how this works.</b> Where to turn things in, when things are due, and how to reach me. Keep this site's menu handy, the Syllabus and Schedule answer almost anything, and I'm an email away. On to Week 1.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var items=Array.prototype.slice.call(document.querySelectorAll('#qc .qcitem'));
+  items.forEach(function(it){
+    var opts=it.querySelectorAll('.opt');
+    opts.forEach(function(o){ o.addEventListener('click', function(){ opts.forEach(function(x){x.classList.remove('pick');}); o.classList.add('pick'); it.dataset.pick=o.getAttribute('data-pick'); it.classList.remove('right','wrong'); it.querySelector('.fb').hidden=true; document.getElementById('qcres').textContent=''; }); });
+  });
+  document.getElementById('qcbtn').addEventListener('click', function(){
+    var correct=0, all=true;
+    items.forEach(function(it){
+      it.classList.remove('right','wrong');
+      if(!it.dataset.pick){ all=false; return; }
+      var right = it.dataset.pick===it.getAttribute('data-answer');
+      it.classList.add(right?'right':'wrong'); it.querySelector('.fb').hidden=false; if(right) correct++;
+    });
+    document.getElementById('qcres').textContent = all ? ('You got '+correct+' of '+items.length+'. '+(correct===items.length?'You\'re oriented!':'Check the ones in red and try again.')) : 'Answer all '+items.length+' first.';
+  });
+})();
+</script>
+</body>
+</html>
