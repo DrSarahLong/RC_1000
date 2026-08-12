@@ -36,7 +36,7 @@
   #mod .sci{background:var(--accent-soft); border:1px solid var(--line); border-radius:12px; padding:13px 16px; margin:12px 0; font-size:.96rem}
   #mod .sci .lab{font-size:.7rem; letter-spacing:.09em; text-transform:uppercase; font-weight:800; color:var(--accent)}
   #mod ul{margin:.5rem 0; padding-left:1.2rem} #mod li{margin:.45rem 0}
-  #mod ol.steps{margin:.5rem 0; padding-left:1.3rem} #mod ol.steps li{margin:.6rem 0}
+  #mod ol.steps,#mod ul.steps{margin:.5rem 0; padding-left:1.3rem} #mod ol.steps li,#mod ul.steps li{margin:.6rem 0}
   #mod a{color:var(--accent)}
   #mod .read{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:6px 16px}
   #mod .read .r{border-top:1px solid var(--line); padding:11px 0} #mod .read .r:first-child{border-top:0}
@@ -61,7 +61,7 @@
   #mod textarea:focus{outline:3px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
   #mod .priv{font-size:.82rem; color:var(--muted); margin-top:4px}
   #mod .saved{color:var(--good); font-size:.85rem; font-weight:700; opacity:0; transition:opacity .2s} #mod .saved.show{opacity:1}
-  #mod .mla{font-family:"Times New Roman",Georgia,serif; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:10px 0; line-height:2; font-size:.95rem}
+  #mod .mla{font-family:"Times New Roman",Georgia,serif; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:10px 0; line-height:1.4; font-size:.95rem}
   #mod .mla .ctr{text-align:center}
   #mod .duebox{background:var(--duesoft); border:1px solid var(--line); border-left:5px solid var(--due); border-radius:12px; padding:14px 16px; margin:16px 0}
   #mod .duebox .lab{font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; font-weight:800; color:var(--due); display:block; margin-bottom:3px}
@@ -92,7 +92,7 @@
 </head>
 <body>
 <nav class="rcnav"><div class="in">
-<a class="bd" href="index.html">RC 1000<small>Expository Writing</small></a>
+<a class="bd" href="index.html">RC 1000<small>Introduction to Writing and Inquiry</small></a>
 <a class="l" href="index.html">Home</a>
 <a class="l" href="syllabus.html">Syllabus</a>
 <a class="l" href="schedule.html">Schedule</a>
@@ -198,7 +198,7 @@
     <li><b>Read it out loud.</b> Every place you stumble is a place your reader will too. Mark them.</li>
     <li><b>Run the <a href="editors-passes.html" target="_blank" rel="noopener">Editor's Passes</a>.</b> It walks you through your opening, your ending, your peak moment, the arc, and one darling to cut, one pass at a time, on your own draft. You make every call. Everything stays on your computer.</li>
     <li><b>Kill one darling.</b> Find one spot where you make the same point twice. Cut the weaker one.</li>
-    <li><b>Format it in MLA</b> (below), then submit as your Google Doc.</li>
+    <li><b>Format it</b> (below), then submit as your Google Doc.</li>
   </ol>
 
   <div class="write">
@@ -207,17 +207,22 @@
     <div class="priv">Private, saves on your own computer only. <span class="saved" data-for="w_darling">Saved ✓</span></div>
   </div>
 
-  <h2>MLA format, in 20 seconds</h2>
-  <p>Your personal essay may not cite any sources, but it still uses <button type="button" class="term" data-pop="mla">MLA document format</button>: double-spaced, readable 12-point font, one-inch margins, and this header in the top-left of page one.</p>
+  <h2>How your essay should look on the page</h2>
+  <p>Formatting counts, because how a piece looks changes how it reads. A wall of gray text pushes a reader away before they read a word. Use the course house style on every essay:</p>
+  <ul class="steps">
+    <li><b>Single-spaced, 12-point,</b> in a readable serif (<b>Goudy Old Style</b> or <b>Times New Roman</b>), with one-inch margins.</li>
+    <li><b>Real paragraphs.</b> One line break between them, never a double hard return that leaves a big gap, and never one giant block of text. If a paragraph runs past half a page, it is probably two ideas. Break it.</li>
+    <li>An <button type="button" class="term" data-pop="mla">MLA heading</button> in the top-left of page one, a centered title, and your last name plus page number in the top-right (in Google Docs: Insert &rarr; Page numbers).</li>
+    <li><b>Name your file</b> like this: <b>LASTNAME_FIRST INITIAL_Project Description</b>, for example <b>Long_S_Revised Essay #1</b>. Use that format on every draft and final version.</li>
+  </ul>
   <div class="mla">
     Your Name<br>
     Dr. Long<br>
     RC 1000<br>
     7 September 2026<br>
     <span class="ctr">The Title of Your Essay</span>
-    The first paragraph of your essay begins here, indented, double-spaced, and dropping the reader straight into a scene&hellip;
+    The first paragraph of your essay begins here, single-spaced, dropping the reader straight into a scene&hellip;
   </div>
-  <p class="note">Add a header with your last name and page number in the top-right corner (your Google Doc can do this under Insert &rarr; Page numbers). That's it, that's MLA for this essay.</p>
 
   <div class="close">
     <p><b>You finished your first essay.</b> You found honest material, drafted it badly on purpose, re-saw it, and sharpened it into something a reader can move through. That's the whole cycle, and you'll run it again on the next two projects, faster each time. Take a breath. You earned it.</p>
@@ -234,7 +239,7 @@
   <dialog class="pop" id="pop-dialogue"><h3>Punctuating dialogue</h3><p>When a tag like "she said" follows the quote, the comma (or ? or !) goes <i>inside</i> the quotation marks: <i>"We should go," she said.</i> Never let the closing quote bump straight into the tag (<i>"We should go" she said</i>). New speaker, new paragraph. These small rules are how a reader can tell you've read a lot of dialogue.</p><form method="dialog"><button>Got it</button></form></dialog>
   <dialog class="pop" id="pop-knownnew"><h3>The given-new contract</h3><p>Haviland &amp; Clark (1974) showed readers process a sentence fastest when it starts with something already familiar (the "given") and puts the new information at the end. Practically: link each sentence to the one before it, and land the fresh idea last. It's why "flow" isn't magic, it's a pattern you can build on purpose.</p><form method="dialog"><button>Got it</button></form></dialog>
   <dialog class="pop" id="pop-aloud"><h3>Read it out loud</h3><p>The single most effective proofreading move. Your eyes autocorrect what you meant to write; your ears don't. Reading aloud (or letting your device read it to you) surfaces run-ons, missing words, clunky rhythm, and repetition. Every spot you trip over is a spot your reader will trip too. Do this last, right before you submit.</p><form method="dialog"><button>Got it</button></form></dialog>
-  <dialog class="pop" id="pop-mla"><h3>MLA document format</h3><p>A standard way to format an academic paper (Modern Language Association style). The basics: double-spaced throughout, a readable 12-point font, one-inch margins, a four-line header (your name, instructor, course, date) in the top-left of page one, a centered title, indented paragraphs, and your last name plus page number in the top-right of every page. If your essay quotes sources, MLA also governs the in-text citations and Works Cited, you'll use that fully in the next project.</p><form method="dialog"><button>Got it</button></form></dialog>
+  <dialog class="pop" id="pop-mla"><h3>MLA heading &amp; format</h3><p>A standard way to format an academic paper (Modern Language Association style): a four-line header (your name, instructor, course, date) in the top-left of page one, a centered title, and your last name plus page number in the top-right of every page. <b>One house-style tweak for this class:</b> we single-space (standard MLA is double-spaced), but everything else holds. If your essay quotes sources, MLA also governs the in-text citations and Works Cited, and you'll use that fully in the next project.</p><form method="dialog"><button>Got it</button></form></dialog>
 
 </div>
 
