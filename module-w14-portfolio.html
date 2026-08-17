@@ -294,5 +294,83 @@
 <a class="hm" href="schedule.html"><span class="s">Menu</span>All weeks</a>
 <a class="nx" href="module-w15-revise-reflect.html"><span class="s">Week 15 &rarr;</span>Revise &amp; Reflect</a>
 </nav>
+<!-- RC1000 writing export + resize hint -->
+<style>
+  #mod .rc-export{background:var(--field); border:1.5px solid var(--line); border-left:5px solid var(--accent); border-radius:12px; padding:15px 17px; margin:24px 0}
+  #mod .rc-export .tip{font-size:.94rem; color:var(--soft,#5b6673); margin:0 0 11px}
+  #mod .rc-export .tip b{color:var(--ink)}
+  #mod .rc-export .btns{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+  #mod .rc-export button{background:var(--accent); color:#fff; border:none; border-radius:8px; padding:10px 16px; font:600 .93rem inherit; cursor:pointer}
+  #mod .rc-export button.ghost{background:transparent; color:var(--accent); border:1.5px solid var(--accent)}
+  #mod .rc-export .msg{font-size:.85rem; color:var(--accent); font-weight:600}
+  #mod .rc-grow{color:var(--soft,#5b6673); font-size:.82rem}
+</style>
+<script>
+(function(){
+  var mod = document.getElementById('mod') || document.body;
+  var tas = Array.prototype.slice.call(mod.querySelectorAll('textarea[data-save]'));
+  if(!tas.length) return;
+
+  tas.forEach(function(ta){
+    var priv = ta.parentNode.querySelector('.priv');
+    var hint = document.createElement('span');
+    hint.className = 'rc-grow';
+    hint.textContent = ' · drag the bottom-right corner to make this box bigger';
+    if(priv){ priv.appendChild(hint); } else { ta.insertAdjacentElement('afterend', hint); }
+  });
+
+  function labelFor(ta){
+    var l = ta.id && mod.querySelector('label[for="'+ta.id+'"]');
+    if(l) return l.textContent.replace(/\s+/g,' ').trim();
+    var ph = ta.getAttribute('placeholder');
+    return ph ? ph.replace(/\s+/g,' ').trim() : 'Response';
+  }
+  function build(){
+    var h1 = mod.querySelector('h1');
+    var out = (h1 ? h1.textContent.trim() : 'My RC 1000 writing') + '\n\n';
+    tas.forEach(function(ta){
+      out += labelFor(ta) + '\n' + ((ta.value||'').trim() || '[left blank]') + '\n\n----------\n\n';
+    });
+    return out;
+  }
+  function slug(){
+    var h1 = mod.querySelector('h1');
+    return h1 ? h1.textContent.trim().replace(/[^\w]+/g,'-').replace(/^-+|-+$/g,'') : 'writing';
+  }
+
+  var bar = document.createElement('div');
+  bar.className = 'rc-export';
+  bar.innerHTML = '<p class="tip"><b>Done writing?</b> Your work autosaves on this computer. Save a copy to turn in, or move it to a Google Doc to keep writing there.</p>'
+    + '<div class="btns"><button type="button" id="rcDl">Download my writing</button>'
+    + '<button type="button" id="rcGd" class="ghost">Copy for a Google Doc</button>'
+    + '<span class="msg" id="rcMsg"></span></div>';
+
+  var closeEl = mod.querySelector('.close');
+  if(closeEl){ closeEl.parentNode.insertBefore(bar, closeEl); }
+  else { var lb = tas[tas.length-1].closest('.write') || tas[tas.length-1].parentNode; lb.parentNode.insertBefore(bar, lb.nextSibling); }
+
+  document.getElementById('rcDl').addEventListener('click', function(){
+    var blob = new Blob([build()], {type:'text/plain;charset=utf-8'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'RC1000-' + slug() + '.txt';
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ a.remove(); URL.revokeObjectURL(a.href); }, 120);
+  });
+  document.getElementById('rcGd').addEventListener('click', function(){
+    var msg = document.getElementById('rcMsg'), text = build();
+    var done = function(){ msg.textContent = 'Copied. A blank Google Doc is opening, paste with Cmd/Ctrl+V.'; window.open('https://docs.google.com/document/create','_blank'); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done, function(){ fb(text, msg); });
+    } else { fb(text, msg); }
+  });
+  function fb(text, msg){
+    var t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select();
+    try{ document.execCommand('copy'); msg.textContent='Copied. A blank Google Doc is opening, paste with Cmd/Ctrl+V.'; window.open('https://docs.google.com/document/create','_blank'); }
+    catch(e){ msg.textContent='Copy did not work here, use Download instead.'; }
+    t.remove();
+  }
+})();
+</script>
 </body>
 </html>
