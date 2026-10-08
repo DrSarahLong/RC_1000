@@ -15,7 +15,7 @@
   #ro .badge{display:inline-block; font-size:.66rem; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:1px 9px; margin-bottom:8px}
   #ro .masthead{border-bottom:2px solid var(--ink); padding-bottom:14px; margin-bottom:16px}
   #ro .sub{color:var(--muted); margin:8px 0 0}
-  #ro .honest{background:var(--accent-soft); border:1px solid var(--line); border-radius:10px; padding:11px 14px; font-size:.92rem; margin:14px 0}
+  #ro .complicate{background:var(--accent-soft); border:1px solid var(--line); border-radius:10px; padding:11px 14px; font-size:.92rem; margin:14px 0}
   #ro label.fld{font-weight:600; display:block; margin-bottom:6px}
   #ro textarea{width:100%; background:var(--field); color:var(--ink); border:1.5px solid var(--line); border-radius:10px; padding:11px 13px; font:inherit; line-height:1.6; resize:vertical}
   #ro #draft{min-height:200px}
@@ -76,7 +76,7 @@
   </header>
 
   <div id="start">
-    <div class="honest">This does no judging. It just splits your draft into paragraphs so you can label the <b>job</b> each one does (not what it's about, what job it does: "sets the scene," "explains the backstory," "the real turning point"). Private, saves in your browser only.</div>
+    <div class="complicate">This does no judging. It just splits your draft into paragraphs so you can label the <b>job</b> each one does (not what it's about, what job it does: "sets the scene," "explains the backstory," "the turning point"). Private, saves in your browser only.</div>
     <label class="fld" for="draft">Paste your draft</label>
     <textarea id="draft" placeholder="Paste your whole essay. Leave a blank line between paragraphs so it splits cleanly…"></textarea>
     <div class="row"><button type="button" id="go">X-ray my structure</button></div>
@@ -94,10 +94,10 @@
       <div class="skel" id="skel"></div>
       <h2>Now read it like an x-ray</h2>
       <div class="checks" id="checks">
-        <div class="c"><input type="checkbox" data-c="heat"><span class="q">Does it open on the heat?<span class="h">If paragraph 1's job is "announces the topic" or "gives background," your real opening is probably lower down. Move it up.</span></span></div>
+        <div class="c"><input type="checkbox" data-c="heat"><span class="q">Does it open on the heat?<span class="h">If paragraph 1's job is "announces the topic" or "gives background," your opening is probably lower down. Move it up.</span></span></div>
         <div class="c"><input type="checkbox" data-c="repeat"><span class="q">Do any two paragraphs do the same job?<span class="h">Two lines that say the same thing = repetition. Keep the stronger paragraph, cut or merge the other.</span></span></div>
         <div class="c"><input type="checkbox" data-c="order"><span class="q">Is anything out of order?<span class="h">Does the skeleton read in an order that builds, or does a key moment land too early or too late?</span></span></div>
-        <div class="c"><input type="checkbox" data-c="buried"><span class="q">Is the real story buried?<span class="h">Which paragraph's job is the true heart of the essay? Does it get enough room, or is it one line in the middle?</span></span></div>
+        <div class="c"><input type="checkbox" data-c="buried"><span class="q">Is the strongest story buried?<span class="h">Which paragraph's job is the true heart of the essay? Does it get enough room, or is it one line in the middle?</span></span></div>
       </div>
       <label class="fld" for="notes">What will you change first? (your revision plan)</label>
       <textarea id="notes" style="min-height:90px" placeholder="e.g., Cut ¶1, open on ¶3 (the trophy scene). Merge ¶4 and ¶5, they do the same job…"></textarea>
